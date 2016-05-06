@@ -1,0 +1,84 @@
+import("methods")
+
+importFrom("graphics", "plot", "barplot", "lines", "text") ## we need the generic for plot
+importFrom("proxy", "dist", "as.dist")
+importFrom("stats", "sd", "median", "princomp", "loadings", "runif", "cor")
+importFrom("utils", "head")
+importFrom("bcv", "impute.svd")
+
+## get generics and methods
+importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans", 
+    "summary", "drop0", "rBind")
+## get just methods
+importMethodsFrom("Matrix", "image", "t", "crossprod", "tcrossprod", "which")
+
+## get generics and methods
+importFrom("arules", "predict", "nitems", "sample", "LIST", 
+    "dissimilarity", "apriori", "itemLabels", "encode")
+## get just methods
+importMethodsFrom("arules", "sort", "summary", 
+    "lhs", "rhs", "quality", "quality<-", "is.subset", "interestMeasure")
+
+## registry uses S3
+import("registry")
+export("recommenderRegistry")
+S3method("print", "recommender_method")
+
+## recommenderlab exports
+exportClasses(
+		"ratingMatrix",
+		"realRatingMatrix",
+		"binaryRatingMatrix",
+		"Recommender",
+		"topNList",
+		"evaluationScheme",
+		"confusionMatrix",
+		"evaluationResults",
+		"evaluationResultList"
+		)
+
+export(
+		"dropNA",
+		"dropNA2matrix"
+	    )
+
+exportMethods(
+		"[",
+		"coerce",	## setAs
+		"show",
+		"plot",
+		"image",
+		"sample",
+		"summary",
+
+		"calcPredictionAccuracy",
+		"predict",
+#		"colMeans",
+#		"rowMeans",
+		"colCounts",
+		"rowCounts",
+		"colSds",
+		"rowSds",
+		"binarize",
+		"avg",
+		"evaluate",
+		"bestN",
+		"nratings",
+		"normalize",
+		"denormalize",
+		"getNormalize",
+		"getRatings",
+		"getRuns",
+		"getModel",
+		"getData",
+		"getConfusionMatrix",
+		"getTopNLists",
+		"dissimilarity",
+		"similarity",
+		"evaluationScheme",
+		"removeKnownRatings",
+		"removeKnownItems",
+		"Recommender",
+		"getList",
+		"getData.frame"
+		)
