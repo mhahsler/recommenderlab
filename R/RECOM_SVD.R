@@ -34,7 +34,7 @@ REAL_SVD <- function(data, parameter= NULL) {
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needes to be the training dataset.")
-      newdata <- data[newdata,]
+      newdata <- data[newdata, , drop=FALSE]
     }
 
     n <- as.integer(n)

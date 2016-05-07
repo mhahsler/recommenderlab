@@ -19,6 +19,7 @@ for(m in methods) {
   rec <- Recommender(train, method = m)
   rec
 
+  ### default is top-N list
   pre <- predict(rec, test1, n = 10)
   pre
   l <- as(pre, "list")
