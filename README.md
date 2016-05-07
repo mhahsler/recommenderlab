@@ -18,7 +18,37 @@ Additional packages in the recommenderlab family are: To come...
 ## Example
 ```R
 > library("recommenderlab")
-### more to come...
+> data("MovieLense")
+> ### use only users with more than 100 ratings
+> MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
+> MovieLense100
+358 x 1664 rating matrix of class ‘realRatingMatrix’ with 73610 ratings.
+> train <- MovieLense100[1:50]
+> 
+> ### learn user-based collaborative filtering recommender
+> rec <- Recommender(train, method = "UBCF")
+> rec
+Recommender of type ‘UBCF’ for ‘realRatingMatrix’ 
+learned using 50 users.
+> 
+> ### create top-N recommendations for new users (users 101 and 102)
+> pre <- predict(rec, MovieLense100[101:102], n = 10)
+> pre
+Recommendations as ‘topNList’ with n = 10 for 2 users. 
+> as(pre, "list")
+$`291`
+ [1] "Alien (1979)"              "Titanic (1997)"           
+ [3] "Contact (1997)"            "Aliens (1986)"            
+ [5] "Amadeus (1984)"            "Godfather, The (1972)"    
+ [7] "Henry V (1989)"            "Sting, The (1973)"        
+ [9] "Dead Poets Society (1989)" "Schindler's List (1993)"  
+
+$`292`
+ [1] "Usual Suspects, The (1995)" "Amadeus (1984)"            
+ [3] "Raising Arizona (1987)"     "Citizen Kane (1941)"       
+ [5] "Titanic (1997)"             "Brazil (1985)"             
+ [7] "Stand by Me (1986)"         "M*A*S*H (1970)"            
+ [9] "Babe (1995)"                "GoodFellas (1990)"   
 ```
 
 ## Further Information

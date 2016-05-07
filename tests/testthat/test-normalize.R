@@ -1,3 +1,4 @@
+library("testthat")
 library("recommenderlab")
 
 set.seed(1234)
@@ -11,18 +12,18 @@ db <- matrix(sample(c(NA,0:5),100, replace=TRUE, prob=c(.7,rep(.3/6,6))),
 
 ## do normalization
 r <- as(db, "realRatingMatrix")
-r_u1 <- normalize(r) 
+r_u1 <- normalize(r)
 r_u2 <- normalize(r, method="Z-score")
 
 ## check if denormalization works
-if(!identical(r, denormalize(r_u1))) stop("normalized failed.")
-if(!identical(r, denormalize(r_u2))) stop("normalized failed.")
+expect_identical(r, denormalize(r_u1))
+expect_identical(r, denormalize(r_u2))
 
 ## correct results?
 r_u1_true <- t(apply(db, MARGIN=1, FUN=function(x) x -mean(x,na.rm=TRUE)))
 names(dimnames(r_u1_true))[2] <- "items" ## fix dimnames
 
-if(!identical(as(r_u1, "matrix"), r_u1_true)) stop("normalized failed.")
+expect_identical(as(r_u1, "matrix"), r_u1_true)
 
 ## FIXME: test for Z-score missing
 
@@ -30,5 +31,4 @@ if(!identical(as(r_u1, "matrix"), r_u1_true)) stop("normalized failed.")
 ## items
 
 r_i1 <- normalize(r, row=FALSE)
-if(!identical(r, denormalize(r_i1))) stop("normalized failed.")
-
+expect_identical(r, denormalize(r_i1))

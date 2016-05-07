@@ -1,6 +1,7 @@
 # Changes in version 0.1-8.1 (xx/xx/2015)
 
 * FIX: rownames of newdata are now preserved in prediction output.
+* We use testthat now.
 
 # Changes in version 0.1-8 (12/17/2015)
 
