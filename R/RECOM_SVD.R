@@ -1,7 +1,7 @@
 ### FIXME
 ###  * This stores the complete matrix and then does the calculaiton
 ###    in predict!
-###  * Stochastic Gradient Decent would be nice!
+###  * Folding in and stochastic gradient descent would be nice!
 
 ### used impute.svd from bcv which implements an EM-based imputation
 
