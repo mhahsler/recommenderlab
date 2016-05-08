@@ -1,17 +1,17 @@
-## Each implementing class has to implement coercion to 
+## Each implementing class has to implement coercion to
 ## matrix, dgTMatrix, ngCMatrix, dgCMatrix
 
 ## object in data slot needs to have dim, dimnames and dimnames<- implemented
 
 ## dim
-setMethod("dim", signature(x = "ratingMatrix"), 
+setMethod("dim", signature(x = "ratingMatrix"),
 	function(x) dim(x@data))
 
 ## dimnames
-setMethod("dimnames", signature(x = "ratingMatrix"), 
+setMethod("dimnames", signature(x = "ratingMatrix"),
 	function(x) dimnames(x@data))
 
-setReplaceMethod("dimnames", signature(x = "ratingMatrix",     
+setReplaceMethod("dimnames", signature(x = "ratingMatrix",
 		value = "list"), function(x, value) {
 		dimnames(x@data) <- value
 		x
@@ -20,7 +20,7 @@ setReplaceMethod("dimnames", signature(x = "ratingMatrix",
 ## coercion
 setAs("ratingMatrix", "list", function(from) getList(from))
 
-## this expects all ratingMatrices to be coercable to dgTMatrix 
+## this expects all ratingMatrices to be coercable to dgTMatrix
 setMethod("getData.frame", signature(from = "ratingMatrix"),
 	function(from, decode = TRUE, ratings = TRUE,...) {
 	    dgT <- as(from, "dgTMatrix")
@@ -45,28 +45,28 @@ setAs("ratingMatrix", "data.frame", function(from) getData.frame(from))
 
 ## row/col counts, sums, etc.
 ## Matrix does not handle dimnames well
-setMethod("colCounts", signature(x = "ratingMatrix"), 
+setMethod("colCounts", signature(x = "ratingMatrix"),
 	function(x, ...) {
 		s <- colSums(as(x, "ngCMatrix"))
 		names(s) <- colnames(x)
 		s
 	})
 
-setMethod("rowCounts", signature(x = "ratingMatrix"), 
+setMethod("rowCounts", signature(x = "ratingMatrix"),
 	function(x, ...) {
 		s <- rowSums(as(x, "ngCMatrix"))
 		names(s) <- rownames(x)
 		s
 	})
 
-setMethod("colSums", signature(x = "ratingMatrix"), 
+setMethod("colSums", signature(x = "ratingMatrix"),
 	function(x, na.rm = FALSE, dims = 1, ...) {
 		s <- colSums(as(x, "dgCMatrix"), na.rm, dims, ...)
 		names(s) <- colnames(x)
 		s
 	})
 
-setMethod("rowSums", signature(x = "ratingMatrix"), 
+setMethod("rowSums", signature(x = "ratingMatrix"),
 	function(x, na.rm = FALSE, dims = 1, ...) {
 		s <- rowSums(as(x, "dgCMatrix"), na.rm, dims, ...)
 		names(s) <- rownames(x)
@@ -82,25 +82,25 @@ setMethod("colMeans", signature(x = "ratingMatrix"),
 	})
 
 setMethod("rowMeans", signature(x = "ratingMatrix"),
-	function(x, na.rm = FALSE, dims = 1, ...) { 
+	function(x, na.rm = FALSE, dims = 1, ...) {
 		s <- rowSums(x, dims, na.rm, ...) / rowCounts(x, dims, na.rm, ...)
 		names(s) <- rownames(x)
 		s
 	})
 
 ## total ratings
-setMethod("nratings", signature(x = "ratingMatrix"), 
+setMethod("nratings", signature(x = "ratingMatrix"),
 	    function(x, ...) sum(rowCounts(x)))
 
 
-setMethod("getNormalize", signature(x = "ratingMatrix"), 
+setMethod("getNormalize", signature(x = "ratingMatrix"),
 	    function(x, ...) x@normalize)
 
 
 ## subset
 setMethod("[", signature(x = "ratingMatrix"),
 	function(x, i, j, ..., drop) {
-	    if(!missing(drop)) warning("drop not implemented for ratingMatrix!")	
+	    if(!missing(drop)) warning("drop not implemented for ratingMatrix!")
 
 	    if(missing(i)) i <- 1:nrow(x)
 	    if(missing(j)) j <- 1:ncol(x)
@@ -121,28 +121,27 @@ setMethod("sample", signature(x = "ratingMatrix"),
 
 ## show
 setMethod("show", signature(object = "ratingMatrix"),
-	function(object) {
-	    cat(nrow(object), 'x', ncol(object), "rating matrix of class",
-		    sQuote(class(object)), "with",
-		    nratings(object), "ratings.\n")
-	    if(!is.null(object@normalize)) {
-		cat("Normalized using",object@normalize$method,"on ") 
-		if(object@normalize$row) cat("rows.")
-		else cat("columns.")
-		cat("\n")
-	    }
-	    invisible(NULL)
-	})
+  function(object) {
+    cat(nrow(object), 'x', ncol(object), "rating matrix of class",
+      sQuote(class(object)), "with",
+      nratings(object), "ratings.\n")
+    if(!is.null(object@normalize$row))
+      cat("Normalized using",object@normalize$row$method,"on rows.\n")
+    if(!is.null(object@normalize$col))
+      cat("Normalized using",object@normalize$col$method,"on columns.\n")
+
+    invisible(NULL)
+  })
 
 ## image
 setMethod("image", signature(x = "ratingMatrix"),
-	function(x, xlab = "Items (Columns)", ylab = "Users (Rows)", 
+	function(x, xlab = "Items (Columns)", ylab = "Users (Rows)",
 		colorkey=TRUE, ...) {
-	
+
 	## binaryRatingMatrix does not need a colorkey
 	if(is(x, "binaryRatingMatrix")) colorkey <- FALSE
 
-	Matrix::image(as(x, "dgTMatrix"), ylab = ylab, xlab = xlab, 
+	Matrix::image(as(x, "dgTMatrix"), ylab = ylab, xlab = xlab,
 		colorkey = colorkey, ...)
     })
 

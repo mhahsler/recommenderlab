@@ -31,6 +31,10 @@ BIN_AR <- function(data, parameter = NULL) {
   ## sort rule_base
   rule_base <- sort(rule_base, by = p$measure, decreasing=p$decreasing)
 
+  if(p$verbose) cat("\nRule base size:", length(rule_base), "rules.\n")
+
+  if(length(rule_base)<1) warning("Rule base does not contain any rules. Decrease support and/or confidence!")
+
   model <- c(list(
     description = "AR: rule base",
     rule_base = rule_base

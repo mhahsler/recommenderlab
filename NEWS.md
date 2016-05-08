@@ -2,6 +2,8 @@
 
 * FIX: rownames of newdata are now preserved in prediction output.
 * We use testthat now.
+* normalization now can be done on rows and columns at the same time.
+* SVD now folds in new users.
 
 # Changes in version 0.1-8 (12/17/2015)
 

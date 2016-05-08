@@ -4,19 +4,22 @@ importFrom("graphics", "plot", "barplot", "lines", "text") ## we need the generi
 importFrom("proxy", "dist", "as.dist")
 importFrom("stats", "sd", "median", "princomp", "loadings", "runif", "cor")
 importFrom("utils", "head")
+
+### SVD
 importFrom("bcv", "impute.svd")
+importFrom("irlba", "irlba")
 
 ## get generics and methods
-importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans", 
+importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans",
     "summary", "drop0", "rBind")
 ## get just methods
 importMethodsFrom("Matrix", "image", "t", "crossprod", "tcrossprod", "which")
 
 ## get generics and methods
-importFrom("arules", "predict", "nitems", "sample", "LIST", 
+importFrom("arules", "predict", "nitems", "sample", "LIST",
     "dissimilarity", "apriori", "itemLabels", "encode")
 ## get just methods
-importMethodsFrom("arules", "sort", "summary", 
+importMethodsFrom("arules", "sort", "summary",
     "lhs", "rhs", "quality", "quality<-", "is.subset", "interestMeasure")
 
 ## registry uses S3
