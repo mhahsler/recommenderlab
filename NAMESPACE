@@ -29,6 +29,7 @@ S3method("print", "recommender_method")
 
 ## recommenderlab exports
 exportClasses(
+    "sparseNAMatrix",
 		"ratingMatrix",
 		"realRatingMatrix",
 		"binaryRatingMatrix",

@@ -35,3 +35,4 @@ names(dimnames(r_u1_true))[2] <- "items" ## fix dimnames
 expect_identical(as(r_row, "matrix"), r_u1_true)
 
 ## FIXME: test for Z-score missing
+

@@ -42,6 +42,8 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
       x@data <- data
     }
 
+    x@data <- as(x@data, "sparseNAMatrix")
+
     x@normalize[[rc]] <- list(method=methods[method_id],
       factors=list(means=means, sds=sds))
     x
@@ -94,6 +96,8 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
 
       x@data <- data
     }
+
+    x@data <- as(x@data, "sparseNAMatrix")
 
     x@normalize[[what]] <- NULL
     if(length(x@normalize) == 0) x@normalize <- NULL

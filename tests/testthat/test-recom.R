@@ -53,4 +53,6 @@ for(m in methods) {
   #expect_equal(sum(is.na(as(pre, "matrix"))), 0L)
 }
 
-### FIXME: test all binary recommenders
+### test all binary recommenders
+methods <- unique(sapply(recommenderRegistry$get_entries(
+  dataType="binaryRatingMatrix"), "[[", "method"))

@@ -11,75 +11,78 @@
 )
 
 REAL_PCA <- function(data, parameter= NULL) {
-  
+
   p <- .get_parameters(.REAL_PCA_param, parameter)
-  
-  
+
+
   if(!is.null(p$normalize))
     data <- normalize(data, method=p$normalize)
-  
+
   # Perform PCA
-  data <- data@data
-  pcv<-princomp(data, cor=TRUE)
+  # FIXME: missing values are replaced by 0, use mean, maybe?
+  data <- as(data@data, "matrix")
+  data[is.na(data)] <- 0
+
+  pcv <- princomp(data, cor=TRUE)
   # Get the loadings
-  lpcv<-loadings(pcv)
-  
+  lpcv <- loadings(pcv)
+
   # Total number of categories
   cats <- min(dim(lpcv)[2], p$categories)
-  
+
   #   det(lpcv[,1:99] %*% t(lpcv[,1:99]))
-  
+
   # Convert to right type
-  itemcat <- new("realRatingMatrix", 
+  itemcat <- new("realRatingMatrix",
                  data = as(lpcv[,1:cats], "dgCMatrix"))
-  
+
   model <- c(list(
     description = "PCA: Reduced item-category matrix",
     itemcat = itemcat
   ), p)
-  
+
   predict <- function(model, newdata, n = 10,
                       data=NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
-    
+
     type <- match.arg(type)
-    
+
     ## newdata are userid
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needes to be the training dataset.")
       newdata <- data[newdata,]
     }
-    
+
     n <- as.integer(n)
-    
+
     if(!is.null(model$normalize))
       newdata <- normalize(newdata, method=model$normalize)
-    
+
     ## predict all ratings
     u <- as(newdata, "dgCMatrix")
     itemcat <- as(model$itemcat, "dgCMatrix")
     ratings <- u %*% itemcat  %*% t(itemcat)
-    
+
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
                    normalize = getNormalize(newdata))
     ## prediction done
-    
-    
+
+
     if(!is.null(model$normalize))
       ratings <- denormalize(ratings)
-    
+
     rownames(ratings) <- rownames(newdata)
-    
+
     if(type=="ratingMatrix") return(ratings)
-    
+
     ratings <- removeKnownRatings(ratings, newdata)
-    
+
     if(type=="ratings") return(ratings)
-    
+
     getTopNLists(ratings, n=n, minRating=model$minRating)
-    
+
   }
-  
+
   ## construct recommender object
   new("Recommender", method = "PCA", dataType = class(data),
       ntrain = nrow(data), model = model, predict = predict)
