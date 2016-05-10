@@ -34,7 +34,7 @@ REAL_PCA <- function(data, parameter= NULL) {
 
   # Convert to right type
   itemcat <- new("realRatingMatrix",
-                 data = as(lpcv[,1:cats], "dgCMatrix"))
+    data = as(lpcv[,1:cats], "sparseNAMatrix"))
 
   model <- c(list(
     description = "PCA: Reduced item-category matrix",
@@ -42,7 +42,7 @@ REAL_PCA <- function(data, parameter= NULL) {
   ), p)
 
   predict <- function(model, newdata, n = 10,
-                      data=NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
+    data=NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
 
     type <- match.arg(type)
 
@@ -64,7 +64,7 @@ REAL_PCA <- function(data, parameter= NULL) {
     ratings <- u %*% itemcat  %*% t(itemcat)
 
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
-                   normalize = getNormalize(newdata))
+      normalize = getNormalize(newdata))
     ## prediction done
 
 
@@ -85,7 +85,7 @@ REAL_PCA <- function(data, parameter= NULL) {
 
   ## construct recommender object
   new("Recommender", method = "PCA", dataType = class(data),
-      ntrain = nrow(data), model = model, predict = predict)
+    ntrain = nrow(data), model = model, predict = predict)
 }
 
 recommenderRegistry$set_entry(

@@ -1,11 +1,32 @@
 
-setClass("sparseNAMatrix", contains = "dgCMatrix")
+
 setAs("matrix", "sparseNAMatrix", function(from) dropNA(from))
 setAs("sparseNAMatrix", "matrix", function(from) dropNA2matrix(from))
 
+.sub <- function(x, i, j, ..., drop) {
+
+  if(!missing(drop) && drop) warning("drop not available for sparseNAMatrix!")
+  if(missing(i)) i <- 1:nrow(x)
+  if(missing(j)) j <- 1:ncol(x)
+
+  as(as(x, "dgCMatrix")[i,j, ..., drop=FALSE], "sparseNAMatrix")
+}
+
+
+setMethod("[", signature(x = "sparseNAMatrix", i = "index", j="index",
+  drop="logical"), .sub)
+setMethod("[", signature(x = "sparseNAMatrix", i = "missing", j="index",
+  drop="logical"), .sub)
+setMethod("[", signature(x = "sparseNAMatrix", i = "index", j="missing",
+  drop="logical"), .sub)
+setMethod("[", signature(x = "sparseNAMatrix", i = "index", j="index",
+  drop="missing"), .sub)
+setMethod("[", signature(x = "sparseNAMatrix", i = "missing", j="index",
+  drop="missing"), .sub)
+setMethod("[", signature(x = "sparseNAMatrix", i = "index", j="missing",
+  drop="missing"), .sub)
 
 ## convert to and from dgCMatrix to preserve 0s and do not store NAs
-
 dropNA2matrix <- function(x) {
   if(!is(x, "dsparseMatrix")) stop("x needs to be a subclass of dsparseMatrix!")
 

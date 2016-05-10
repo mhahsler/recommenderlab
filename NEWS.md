@@ -5,6 +5,7 @@
 * normalization now can be done on rows and columns at the same time.
 * SVD now folds in new users.
 * introduced new class sparseNAMatrix (subclass of dgCMatrix in Matrix).
+* PCA-based recommender removed.
 
 # Changes in version 0.1-8 (12/17/2015)
 

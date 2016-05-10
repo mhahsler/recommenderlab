@@ -1,11 +1,14 @@
 ## helper
 setClassUnion("listOrNull", c("list", "NULL"))
 
+## sparse matrix with NAs dropped
+setClass("sparseNAMatrix", contains = "dgCMatrix")
+
 ## Recommender
 setClass("Recommender",
 	representation(
-		method	= "character", 
-		dataType= "character", 
+		method	= "character",
+		dataType= "character",
 		ntrain	= "integer",
 		model	= "list",
 		predict = "function"
@@ -18,6 +21,7 @@ setClass("ratingMatrix",
 		normalize = "listOrNull"
 	))
 
+## uses itemMatrix from arules
 setClass("binaryRatingMatrix",
 	contains="ratingMatrix",
 	representation(
@@ -27,9 +31,8 @@ setClass("binaryRatingMatrix",
 setClass("realRatingMatrix",
 	contains="ratingMatrix",
 	representation(
-		data = "dgCMatrix"
+		data = "sparseNAMatrix"
 	))
-
 
 
 ## Top-N list
@@ -49,7 +52,7 @@ setClass("evaluationScheme",
 		method	= "character",
 		given	= "integer",
 		k	= "integer",
-		train	= "numeric",	
+		train	= "numeric",
 		runsTrain= "list",
 		data	= "ratingMatrix",
 		knownData= "ratingMatrix",
@@ -75,5 +78,3 @@ setClass("evaluationResults",
 setClass("evaluationResultList",
 	contains="list"			## list of evaluationResults
 )
-
-

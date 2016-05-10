@@ -14,7 +14,7 @@ REAL_SVD <- function(data, parameter= NULL) {
   p <- .get_parameters(.REAL_SVD_param, parameter)
 
   ### row normalization?
-  if(!is.null(p$normalize))
+  if(!is.null(p$normalize) && is(data, "realRatingMatrix"))
     data <- normalize(data, method=p$normalize)
 
   ### use SVD imputation (this is slow)
@@ -45,7 +45,7 @@ REAL_SVD <- function(data, parameter= NULL) {
       newdata <- data[newdata, , drop=FALSE]
     }
 
-    if(!is.null(model$normalize))
+    if(!is.null(model$normalize) && is(newdata, "realRatingMatrix"))
       newdata <- normalize(newdata, method=model$normalize)
 
     ### reconstruct full rating matrix R = U Sigma V^T
@@ -82,9 +82,9 @@ recommenderRegistry$set_entry(
   description="Recommender based on EM-based SVD approximation from package bcv (real data).",
   parameters = .REAL_SVD_param)
 
-recommenderRegistry$set_entry(
-  method="SVD", dataType = "binaryRatingMatrix", fun=REAL_SVD,
-  description="Recommender based on EM-based SVD approximation from package bcv (real data).",
-  parameters = .REAL_SVD_param)
+#recommenderRegistry$set_entry(
+#  method="SVD", dataType = "binaryRatingMatrix", fun=REAL_SVD,
+#  description="Recommender based on EM-based SVD approximation from package bcv #(real data).",
+#  parameters = .REAL_SVD_param)
 
 

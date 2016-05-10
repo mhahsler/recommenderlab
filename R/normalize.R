@@ -27,7 +27,7 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
         data@x <- data@x/rep(sds, rowCounts(x))
 
       }
-      x@data <- t(data)
+      data <- t(data)
 
     }else{ ### col
       data <- x@data
@@ -39,10 +39,9 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
         sds[is.na(sds) | sds==0] <- 1
         data@x <- data@x/rep(sds, colCounts(x))
       }
-      x@data <- data
     }
 
-    x@data <- as(x@data, "sparseNAMatrix")
+    x@data <- as(data, "sparseNAMatrix")
 
     x@normalize[[rc]] <- list(method=methods[method_id],
       factors=list(means=means, sds=sds))
@@ -83,7 +82,7 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
 
       data@x <- data@x+rep(means, rowCounts(x))
 
-      x@data <- t(data)
+      data <- t(data)
 
     }else{ ### col
       data <- x@data
@@ -93,11 +92,9 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
       }
 
       data@x <- as.numeric(data@x+rep(means, colCounts(x)))
-
-      x@data <- data
     }
 
-    x@data <- as(x@data, "sparseNAMatrix")
+    x@data <- as(data, "sparseNAMatrix")
 
     x@normalize[[what]] <- NULL
     if(length(x@normalize) == 0) x@normalize <- NULL

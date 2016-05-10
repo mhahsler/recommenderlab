@@ -42,7 +42,10 @@ BIN_AR <- function(data, parameter = NULL) {
   )
 
 
-  predict <- function(model, newdata, n=10, data=NULL, ...) {
+  predict <- function(model, newdata, n=10, data=NULL,
+    type = c("topNList"), ...) {
+
+    type <- match.arg(type)
 
     ## newdata are userid
     if(is.numeric(newdata)) {
