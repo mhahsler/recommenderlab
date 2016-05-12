@@ -6,7 +6,29 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/recommenderlab?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/recommenderlab)
 
 This R package provides a research infrastructure to test and develop
-    recommender algorithms.
+    recommender algorithms. The package supports rating and 0-1 data sets and
+    recommender. Supported algoritms are:
+    
+* User-based collborative filtering (UBCF)
+* Item-based collborative filtering (IBCF)
+* SVD with column-mean imputation (SVD)
+* Funk SVD (SVDF)
+* Association rule-based recommender (AR)
+* Popular items (POPULAR)
+* Random items for comparison (RANDOM)
+
+For evaluation the framework supports given-n and all-but-x protocols with
+
+* Train/test split
+* Cross-validation
+* Repreated bootstrap sampling
+
+Evaluation measures are:
+
+* Rating errors: MSE, RMSE, MAE
+* TPR/FPS (ROC)
+* precision and recall
+
 
 Additional packages in the recommenderlab family are: To come...
 

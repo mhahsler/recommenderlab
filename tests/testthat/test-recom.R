@@ -2,7 +2,6 @@ library("testthat")
 library("recommenderlab")
 
 
-
 data("MovieLense")
 
 ### test all real rating recommenders

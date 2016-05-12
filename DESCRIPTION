@@ -5,11 +5,13 @@ Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
                 email = "mhahsler@lyle.smu.edu"))
 Description: Provides a research infrastructure to test and develop
-    recommender algorithms.
+    recommender algorithms including UBCF, IBCF, FunkSVD and association
+    rule-based algorithms.
 Classification/ACM: G.4, H.2.8
 Depends: R (>= 2.10.0), Matrix, registry, arules (>= 1.0-1), proxy
-Imports: methods, utils, stats, bcv, irlba
+Imports: methods, utils, stats, irlba
 Suggests: ROCR, testthat
-URL: http://R-Forge.R-project.org/projects/recommenderlab/, http://lyle.smu.edu/IDA/recommenderlab/
+BugReports: https://github.com/mhahsler/recommenderlab/issues
+URL: http://lyle.smu.edu/IDA/recommenderlab/
 License: GPL-2
 Copyright: (C) Michael Hahsler (PCA and SVD implementation (C) Saurabh Bathnagar)

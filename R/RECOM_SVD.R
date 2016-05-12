@@ -1,9 +1,8 @@
 
-### uses impute.svd from bcv which implements an EM-based imputation
-### uses irlba for fast truncated SVD
+### SVD with column mean imputation
 
 .REAL_SVD_param <- list(
-  approxRank = 10,            ## rank of approximation
+  k = 10,            ## rank of approximation
   maxiter    = 100,           ## max. number of SVD iterations
   normalize  = "center",
   minRating  = NA
@@ -17,19 +16,23 @@ REAL_SVD <- function(data, parameter= NULL) {
   if(!is.null(p$normalize) && is(data, "realRatingMatrix"))
     data <- normalize(data, method=p$normalize)
 
-  ### use SVD imputation (this is slow)
-  if(!is.na(p$approxRank)) {
-    s <- bcv::impute.svd(data@data, k=p$approxRank, maxiter = p$maxiter)$x
-  } else {
-    s <- bcv::impute.svd(data@data, maxiter = p$maxiter)$x
-  }
+  m <- as(data, "matrix")
+
+  ### do column mean imputation
+  means <- colMeans(m, na.rm = TRUE)
+  ### remaining NAs have no ratings! We give it the smallest possible rating.
+  means[is.na(means)] <- min(m, na.rm = TRUE)
+
+  nas <- is.na(m)
+  m[nas] <- rep(means, colSums(nas))
 
   ### get final truncated SVD decomposition
-  s <- irlba::irlba(s, nv = p$approxRank, maxit = p$maxiter)
+  svd <- irlba::irlba(m, nv = p$k, maxit = p$maxiter)
 
   model <- c(list(
     description = "Truncated SVD",
-    svd = s
+    svd = svd,
+    columnMeans = means
   ), p)
 
   predict <- function(model, newdata, n = 10,
@@ -48,18 +51,23 @@ REAL_SVD <- function(data, parameter= NULL) {
     if(!is.null(model$normalize) && is(newdata, "realRatingMatrix"))
       newdata <- normalize(newdata, method=model$normalize)
 
+
     ### reconstruct full rating matrix R = U Sigma V^T
     #r <- svd$u %*% tcrossprod(diag(svd$d), svd$v)
 
     ### folding in new user u_a = Sigma^-1 V^T r_a
-    r_a <- newdata@data
+    r_a <- as(newdata@data, "matrix")
+
+    ### impute missing ratings
+    nas <- is.na(r_a)
+    r_a[nas] <- rep(model$columnMeans, colSums(nas))
+
     u_a <- r_a %*% model$svd$v %*% diag(1/model$svd$d)
 
     ### prediction p_a,i = u_a Sigma V^T
     ratings <- as(u_a %*% tcrossprod(diag(model$svd$d), model$svd$v), "matrix")
 
-    rownames(ratings) <- rownames(newdata)
-    colnames(ratings) <- colnames(newdata)
+    dimnames(ratings) <- dimnames(newdata)
     ratings <- new("realRatingMatrix", data=dropNA(ratings))
 
     if(!is.null(model$normalize))
@@ -79,7 +87,7 @@ REAL_SVD <- function(data, parameter= NULL) {
 
 recommenderRegistry$set_entry(
   method="SVD", dataType = "realRatingMatrix", fun=REAL_SVD,
-  description="Recommender based on EM-based SVD approximation from package bcv (real data).",
+  description="Recommender based on SVD approximation with column-mean imputation (real data).",
   parameters = .REAL_SVD_param)
 
 #recommenderRegistry$set_entry(

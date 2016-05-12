@@ -3,9 +3,11 @@
 * FIX: rownames of newdata are now preserved in prediction output.
 * We use testthat now.
 * normalization now can be done on rows and columns at the same time.
-* SVD now folds in new users.
 * introduced new class sparseNAMatrix (subclass of dgCMatrix in Matrix).
-* PCA-based recommender removed.
+* SVD with column-mean imputation now folds in new users.
+* added Funk SVD (funkSVD and recommender SVDF).
+* removed obsolete PCA-based recommender.
+* added function error measures: MAE, MSE, RMSE, frobenius (norm). 
 
 # Changes in version 0.1-8 (12/17/2015)
 
