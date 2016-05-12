@@ -7,7 +7,8 @@
 * SVD with column-mean imputation now folds in new users.
 * added Funk SVD (funkSVD and recommender SVDF).
 * removed obsolete PCA-based recommender.
-* added function error measures: MAE, MSE, RMSE, frobenius (norm). 
+* added function error measures: MAE, MSE, RMSE, frobenius (norm).
+* Jester5k contains now the jokes.
 
 # Changes in version 0.1-8 (12/17/2015)
 

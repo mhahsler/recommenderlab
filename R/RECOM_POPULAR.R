@@ -104,7 +104,13 @@ REAL_POPULAR <- function(data, parameter = NULL) {
     triplets@Dimnames[[1]] <- rownames(newdata)
     ratings@data <- as(as(triplets, "dgCMatrix"), "sparseNAMatrix")
 
-    if(type=="ratingMatrix") return(ratings)
+    if(type=="ratingMatrix") {
+      nm <- as(newdata, "matrix")
+      rm <- as(ratings, "matrix")
+      rm[!is.na(nm)] <- nm[!is.na(nm)]
+      ratings <- as(rm, "realRatingMatrix")
+      return(ratings)
+    }
 
     ratings <- removeKnownRatings(ratings, newdata)
 

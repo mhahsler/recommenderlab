@@ -21,12 +21,12 @@ For evaluation the framework supports given-n and all-but-x protocols with
 
 * Train/test split
 * Cross-validation
-* Repreated bootstrap sampling
+* Repeated bootstrap sampling
 
 Evaluation measures are:
 
 * Rating errors: MSE, RMSE, MAE
-* TPR/FPS (ROC)
+* TPR/FPR (ROC)
 * precision and recall
 
 

@@ -46,12 +46,6 @@ Y. Koren, R. Bell, and C. Volinsky. Matrix Factorization Techniques for Recommen
 The code is based on the implmentation in package \pkg{rrecsys} by
 Ludovik Coba and Markus Zanker.
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 ### this takes a while to run
 \dontrun{

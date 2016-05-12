@@ -4,6 +4,15 @@
 \alias{dropNA2matrix}
 \alias{sparseNAMatrix-class}
 \alias{sparseNAMatrix}
+\alias{[,sparseNAMatrix,index,index,missing-method}
+\alias{[,sparseNAMatrix,index,missing,missing-method}
+\alias{[,sparseNAMatrix,missing,index,missing-method}
+\alias{[,sparseNAMatrix,index,index,logical-method}
+\alias{[,sparseNAMatrix,index,missing,logical-method}
+\alias{[,sparseNAMatrix,missing,index,logical-method}
+\alias{[,sparseNAMatrix,missing,index,logical-method}
+\alias{coerce,matrix,sparseNAMatrix-method}
+\alias{coerce,sparseNAMatrix,matrix-method}
 \title{
   Class ``sparseNAMatrix'' --- Sparse Matrix Representation With NAs Not Explicitly Stored
 }
@@ -40,6 +49,7 @@ Returns a sparseNAMatrix (subclass of dgCMatrix) or a matrix.
   \describe{
     \item{coerce}{\code{signature(from = "matrix", to = "sparseNAMatrix")}}
     \item{coerce}{\code{signature(from = "sparseNAMatrix", to = "matrix")}}
+    \item{[}{\code{signature(x = "sparseNAMatrix")}}
 }}
 
 \seealso{

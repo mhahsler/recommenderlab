@@ -36,7 +36,7 @@
 
 %% \VignetteIndexEntry{An introduction to the R package recommenderlab}
 
-\author{Michael Hahsler\\Southern Methodist University}
+\author{Michael Hahsler\\SMU}
 
 \title{\pkg{recommenderlab}: A Framework for Developing and Testing Recommendation Algorithms}
 
@@ -1091,8 +1091,7 @@ identical(as(r, "matrix"),m)
 
 It can also be coerced into a list
 of users with their ratings for closer inspection
-or
-into a data.frame with user/item/rating tuples.
+or into a data.frame with user/item/rating tuples.
 <<>>=
 as(r, "list")
 head(as(r, "data.frame"))
@@ -1100,11 +1099,13 @@ head(as(r, "data.frame"))
 
 The data.frame version is especially suited for writing rating data to a
 file (e.g., by \func{write.csv}).
-Coercion from data.frame and list into a rating matrix is also provided.
+Coercion from data.frame (user/item/rating tuples)
+and list into a sparse rating matrix is also provided.
+This way, external rating data can easily be imported into \pkg{recommenderlab}.
 
 \subsection{Normalization}
 An important operation for rating matrices is to normalize the entries
-to, e.g., remove rating bias by subtracting the row mean from
+to, e.g., centering to remove rating bias by subtracting the row mean from
 all ratings in the row. This is can be easily done using
 \code{normalize()}.
 
@@ -1113,7 +1114,12 @@ r_m <- normalize(r)
 r_m
 @
 
-Small portions of rating matrices can bi visually inspected using
+Normalization can be reversed using \code{denormalize()}.
+<<>>=
+denormalize(r_m)
+@
+
+Small portions of rating matrices can be visually inspected using
 \code{image()}.
 
 <<eval=FALSE>>=
@@ -1153,6 +1159,7 @@ items with a rating of 4 or higher will become a positive
 rating in the new binary rating matrix.
 <<>>=
 r_b <- binarize(r, minRating=4)
+r_b
 as(r_b, "matrix")
 @
 
@@ -1162,7 +1169,7 @@ We will use the data set Jester5k for the rest of this section.  This data set
 comes with \pkg{recommenderlab} and contains a sample of 5000 users from the
 anonymous ratings data from the Jester Online Joke Recommender System collected
 between April 1999 and May 2003~\citep{recommender:Goldberg:2001}. The
-data set contains ratings for 100 jokes on a scale from -10 to 10. All
+data set contains ratings for 100 jokes on a scale from $-10$ to $+10$. All
 users in the data set have rated 36 or more jokes.
 
 <<>>=
@@ -1237,7 +1244,9 @@ Z-score normalization (right).}
 
 Figure~\ref{fig:hist2} shows that the distribution of ratings
 ins closer to a normal distribution after row centering and
-Z-score normalization additionally reduces the variance further.
+Z-score normalization additionally reduces the variance to a
+range of roughly $-3$ to $+3$ standard deviations. It is interesting to see
+that there is a pronounced peak of ratings between zero and two.
 
 Finally, we look at how many jokes each user has rated and what the
 mean rating for each Joke is.
@@ -1344,6 +1353,15 @@ The prediction contains \code{NA} for the items rated by the active users.
 In the example we show the predicted ratings for the first 10 items for
 the two active users.
 
+Alternatively, we can also request the complete rating matrix which includes
+the original ratings by the user.
+
+<<>>=
+recom <- predict(r, Jester5k[1001:1002], type="ratingMatrix")
+recom
+as(recom, "matrix")[,1:10]
+@
+
 \subsection{Evaluation of predicted ratings}
 Next, we will look at the evaluation of recommender algorithms.
 \pkg{recommenderlab} implements several
@@ -1389,10 +1407,9 @@ unknown part of the test data.
 
 <<>>=
 error <- rbind(
-  calcPredictionAccuracy(p1, getData(e, "unknown")),
-  calcPredictionAccuracy(p2, getData(e, "unknown"))
+  UBCF = calcPredictionAccuracy(p1, getData(e, "unknown")),
+  IBCF = calcPredictionAccuracy(p2, getData(e, "unknown"))
 )
-rownames(error) <- c("UBCF","IBCF")
 error
 @
 
@@ -1488,7 +1505,8 @@ user-based CF, item-based CF, and SVD approximation.
 Note that when running the following code, the CF based algorithms
 are very slow.
 
-For the evaluation we use a ``all-but-5'' scheme.
+For the evaluation we use a ``all-but-5'' scheme. This is indicated by
+a negative number for \code{given}.
 
 <<>>=
 set.seed(2016)
@@ -1575,7 +1593,6 @@ results
 @
 
 
-
 <<real, fig=TRUE, include=FALSE>>=
 plot(results, ylim = c(0,100))
 @
@@ -1611,7 +1628,7 @@ results_binary <- evaluate(scheme_binary, algorithms,
 Note that SVD does not implement a method for binary data and is thus skipped.
 
 <<roc3, fig=TRUE, include=FALSE>>=
-plot(results_binary, annotate=c(1,3), legend="bottomright")
+plot(results_binary, annotate=c(1,3), legend="topright")
 @
 \begin{figure}
 \centerline{\includegraphics[scale=1]{recommenderlab-roc3}}
@@ -1724,46 +1741,45 @@ lines 12--14 need to be replaced by the recommendation code.
 \begin{Verbatim}[gobble=0, numbers=left]
 ## always recommends the top-N popular items (without known items)
 REAL_POPULAR <- function(data, parameter = NULL) {
-
-    p <- .get_parameters(list(
-		normalize="center",
-		aggregation=colSums ## could also be colMeans
+  p <- .get_parameters(list(
+      normalize="center",
+      aggregation=colSums ## could also be colMeans
 		), parameter)
 
-    ## normalize data
-    if(!is.null(p$normalize)) data <- normalize(data, method=p$normalize)
+  ## normalize data
+  if(!is.null(p$normalize)) data <- normalize(data, method=p$normalize)
 
-    topN <- new("topNList",
+  topN <- new("topNList",
 	    items = list(order(p$aggregation(data), decreasing=TRUE)),
 	    itemLabels = colnames(data),
 	    n= ncol(data))
 
-    ratings <- new("realRatingMatrix", data = dropNA(t(colMeans(data))))
+  ratings <- new("realRatingMatrix", data = dropNA(t(colMeans(data))))
 
-    model <- c(list(topN = topN, ratings = ratings), p)
+  model <- c(list(topN = topN, ratings = ratings), p)
 
-    predict <- function(model, newdata, n=10,
-	type=c("topNList", "ratings"), ...) {
+  predict <- function(model, newdata, n=10,
+	  type=c("topNList", "ratings"), ...) {
 
-	type <- match.arg(type)
+	  type <- match.arg(type)
 
-	if(type=="topNList") {
+	  if(type=="topNList") {
 	    topN <- removeKnownItems(model$topN, newdata, replicate=TRUE)
 	    topN <- bestN(topN, n)
 	    return(topN)
-	}
+	  }
 
-	## type=="ratings"
-	if(!is.null(model$normalize))
+	  ## type=="ratings"
+	  if(!is.null(model$normalize))
 	    newdata <- normalize(newdata, method=model$normalize)
 
-	ratings <- removeKnownRatings(model$ratings, newdata, replicate=TRUE)
-	ratings <- denormalize(ratings, factors=getNormalize(newdata))
-	return(ratings)
-    }
+	  ratings <- removeKnownRatings(model$ratings, newdata, replicate=TRUE)
+	  ratings <- denormalize(ratings, factors=getNormalize(newdata))
+	  return(ratings)
+  }
 
-    ## construct and return the recommender object
-    new("Recommender", method = "POPULAR", dataType = class(data),
+  ## construct and return the recommender object
+  new("Recommender", method = "POPULAR", dataType = class(data),
 	    ntrain = nrow(data), model = model, predict = predict)
 }
 
