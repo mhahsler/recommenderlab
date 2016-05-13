@@ -22,14 +22,7 @@ RANDOM <- function(data=NULL, parameter=NULL) {
       nrow=nrow(newdata), ncol=ncol(newdata),
       dimnames=list(NULL, model$labels))
 
-    ratings <- as(ratings, "realRatingMatrix")
-
-    if(type=="ratingMatrix") return(ratings)
-
-    ratings <- removeKnownRatings(ratings, newdata)
-    if(type=="ratings") return(ratings)
-
-    return(getTopNLists(ratings, n))
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## this recommender has no model

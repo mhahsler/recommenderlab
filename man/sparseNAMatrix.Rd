@@ -13,6 +13,7 @@
 \alias{[,sparseNAMatrix,missing,index,logical-method}
 \alias{coerce,matrix,sparseNAMatrix-method}
 \alias{coerce,sparseNAMatrix,matrix-method}
+% Note: coercions from and to dgCMatrix is implicit
 \title{
   Class ``sparseNAMatrix'' --- Sparse Matrix Representation With NAs Not Explicitly Stored
 }
@@ -30,7 +31,7 @@ dropNA(x)
 dropNA2matrix(x)
 }
 \arguments{
-  \item{x}{ a matrix (for \code{dropNA()}) or a dgCMatrix
+  \item{x}{ a matrix (for \code{dropNA()}). A sparseNAMatrix
     (for \code{dropNA2matrix()})}
 }
 \section{Extends}{
@@ -38,9 +39,13 @@ dropNA2matrix(x)
 }
 \details{
 The representation is based on
-dgCMatrix in \pkg{Matrix} but instead of zeros, \code{NA}s are dropped.
-Be careful when working with the dgCMatrix directly since all
-dropped values are NA and not 0!
+the sparse dgCMatrix in \pkg{Matrix} but instead of zeros, \code{NA}s are dropped.
+
+\bold{Note:} Be careful when working with matrix operations
+(multiplication, addition, etc.) since these will use the dgCMatrix superclass
+which assumes that all dropped values are zero and not NA!
+This means that the operations might remove zeros or add to NAs incorrectly. The
+result will always be a dgCMatrix and not a sparseNAMatrix.
 }
 \value{
 Returns a sparseNAMatrix (subclass of dgCMatrix) or a matrix.
@@ -49,6 +54,8 @@ Returns a sparseNAMatrix (subclass of dgCMatrix) or a matrix.
   \describe{
     \item{coerce}{\code{signature(from = "matrix", to = "sparseNAMatrix")}}
     \item{coerce}{\code{signature(from = "sparseNAMatrix", to = "matrix")}}
+    \item{coerce}{\code{signature(from = "dgCMatrix", to = "sparseNAMatrix")}}
+    \item{coerce}{\code{signature(from = "sparseNAMatrix", to = "dgCMatrix")}}
     \item{[}{\code{signature(x = "sparseNAMatrix")}}
 }}
 
@@ -68,8 +75,8 @@ sparse
 ## convert back to matrix
 as(sparse, "matrix") ## or dropNA2matrix(sparse)
 
-## Using regular coercion to dgCMatrix. Note that regular coercion
-## to dgCMatrix drops 0s and not NAs!
+## Do not do this: Using regular coercion to dgCMatrix.
+## Note that regular coercion to dgCMatrix drops 0s and not NAs!
 as(m, "dgCMatrix")
 }
 %\keyword{ ~kwd1 }

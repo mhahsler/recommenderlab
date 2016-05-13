@@ -9,10 +9,9 @@ BIN_POPULAR <- function(data, parameter = NULL) {
   model <- list( topN = topN )
 
   predict <- function(model, newdata, n=10,
-    data=NULL,  type=c("topNList", "ratings"),...) {
+    data=NULL,  type=c("topNList"),...) {
 
     type <- match.arg(type)
-    if(type != "topNList") stop("POPULAR for binary data only supports topNList.")
 
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
@@ -47,18 +46,19 @@ REAL_POPULAR <- function(data, parameter = NULL) {
 
   p <- .get_parameters(list(
     normalize="center",
-    aggregation=colSums ## could also be colMeans
+    aggregationRatings=colMeans,
+    aggregationPopularity=colSums
   ), parameter)
 
   ## normalize data
   if(!is.null(p$normalize)) data <- normalize(data, method=p$normalize)
 
   topN <- new("topNList",
-    items = list(order(p$aggregation(data), decreasing=TRUE)),
+    items = list(order(p$aggregationPopularity(data), decreasing=TRUE)),
     itemLabels = colnames(data),
     n= ncol(data))
 
-  ratings <- new("realRatingMatrix", data = dropNA(t(colMeans(data))),
+  ratings <- new("realRatingMatrix", data = dropNA(t(p$aggregationRatings(data))),
     normalize = data@normalize)
 
   model <- c(list(
@@ -87,34 +87,10 @@ REAL_POPULAR <- function(data, parameter = NULL) {
       return(topN)
     }
 
-    ### FIXME:
-    ## ratings always use colMeans!
-    #if(!is.null(model$normalize))
-    #    newdata <- normalize(newdata, method=model$normalize)
-    # ratings <- denormalize(ratings, factors=getNormalize(newdata))
+    ratings <- denormalize(model$ratings)
+    ratings <- ratings[rep(1L, nrow(newdata)),]
 
-    ratings <- denormalize(ratings)
-
-    ## make one row for each new user
-    triplets <- as(ratings@data, "dgTMatrix")
-    triplets@i <- rep(0:(nrow(newdata)-1), each = length(triplets@i))
-    triplets@j <- rep(triplets@j, times = nrow(newdata))
-    triplets@x <- rep(triplets@x, times = nrow(newdata))
-    triplets@Dim[1] <- nrow(newdata)
-    triplets@Dimnames[[1]] <- rownames(newdata)
-    ratings@data <- as(as(triplets, "dgCMatrix"), "sparseNAMatrix")
-
-    if(type=="ratingMatrix") {
-      nm <- as(newdata, "matrix")
-      rm <- as(ratings, "matrix")
-      rm[!is.na(nm)] <- nm[!is.na(nm)]
-      ratings <- as(rm, "realRatingMatrix")
-      return(ratings)
-    }
-
-    ratings <- removeKnownRatings(ratings, newdata)
-
-    return(ratings)
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object

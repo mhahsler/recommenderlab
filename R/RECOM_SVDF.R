@@ -48,17 +48,12 @@ REAL_SVDF <- function(data, parameter= NULL) {
       newdata <- normalize(newdata, method=model$normalize)
 
     ratings <- predict.funkSVD(model$svd, as(newdata, "matrix"))
-    ratings <- new("realRatingMatrix", data=dropNA(ratings))
+    ratings <- new("realRatingMatrix", data=dropNA(ratings),
+      normalize = getNormalize(newdata))
 
-    if(!is.null(model$normalize))
-      ratings <- denormalize(ratings)
+    ratings <- denormalize(ratings)
 
-    if(type=="ratingMatrix") return(ratings)
-    ratings <- removeKnownRatings(ratings, newdata)
-    if(type=="ratings") return(ratings)
-
-    getTopNLists(ratings, n=n, minRating=model$minRating)
-
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object
@@ -70,9 +65,4 @@ recommenderRegistry$set_entry(
   method="SVDF", dataType = "realRatingMatrix", fun=REAL_SVDF,
   description="Recommender based on Funk SVD with gradient descend (real data).",
   parameters = .REAL_SVDF_param)
-
-#recommenderRegistry$set_entry(
-#  method="SVD", dataType = "binaryRatingMatrix", fun=REAL_SVD,
-#  description="Recommender based on EM-based SVD approximation from package bcv #(real data).",
-#  parameters = .REAL_SVD_param)
 

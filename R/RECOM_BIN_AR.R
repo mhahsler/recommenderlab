@@ -14,6 +14,7 @@ BIN_AR <- function(data, parameter = NULL) {
   ## parameters
   p <- .get_parameters(.BIN_AR_param, parameter)
 
+  ## binaryRatingMatrix stores arules transactions!
   data <- data@data
 
   rule_base <- apriori(data,
@@ -68,7 +69,6 @@ BIN_AR <- function(data, parameter = NULL) {
     }
 
     names(reclist) <- rownames(newdata)
-
     new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
   }
 

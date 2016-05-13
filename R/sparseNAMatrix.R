@@ -1,5 +1,6 @@
+### Sparse matrix that drops NAs
 
-
+# coercion from and to dgCMatrix is implicit
 setAs("matrix", "sparseNAMatrix", function(from) dropNA(from))
 setAs("sparseNAMatrix", "matrix", function(from) dropNA2matrix(from))
 

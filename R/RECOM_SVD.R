@@ -2,9 +2,9 @@
 ### SVD with column mean imputation
 
 .REAL_SVD_param <- list(
-  k = 10,            ## rank of approximation
+  k = 10,                     ## rank of approximation
   maxiter    = 100,           ## max. number of SVD iterations
-  normalize  = "center",
+  normalize  = "center",      ## rows
   minRating  = NA
 )
 
@@ -32,7 +32,7 @@ REAL_SVD <- function(data, parameter= NULL) {
   model <- c(list(
     description = "Truncated SVD",
     svd = svd,
-    columnMeans = means
+    columnMeans = means ### needed for imputation
   ), p)
 
   predict <- function(model, newdata, n = 10,
@@ -68,16 +68,12 @@ REAL_SVD <- function(data, parameter= NULL) {
     ratings <- as(u_a %*% tcrossprod(diag(model$svd$d), model$svd$v), "matrix")
 
     dimnames(ratings) <- dimnames(newdata)
-    ratings <- new("realRatingMatrix", data=dropNA(ratings))
+    ratings <- new("realRatingMatrix", data=dropNA(ratings),
+      normalize = getNormalize(newdata))
 
-    if(!is.null(model$normalize))
-      ratings <- denormalize(ratings)
+    ratings <- denormalize(ratings)
 
-    if(type=="ratingMatrix") return(ratings)
-    ratings <- removeKnownRatings(ratings, newdata)
-    if(type=="ratings") return(ratings)
-    getTopNLists(ratings, n=n, minRating=model$minRating)
-
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object
@@ -89,10 +85,5 @@ recommenderRegistry$set_entry(
   method="SVD", dataType = "realRatingMatrix", fun=REAL_SVD,
   description="Recommender based on SVD approximation with column-mean imputation (real data).",
   parameters = .REAL_SVD_param)
-
-#recommenderRegistry$set_entry(
-#  method="SVD", dataType = "binaryRatingMatrix", fun=REAL_SVD,
-#  description="Recommender based on EM-based SVD approximation from package bcv #(real data).",
-#  parameters = .REAL_SVD_param)
 
 

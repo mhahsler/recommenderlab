@@ -47,31 +47,23 @@ BIN_IBCF <- function(data, parameter= NULL) {
       newdata <- data[newdata,]
     }
 
-
     n <- as.integer(n)
     sim <- model$sim
     u <- as(newdata, "dgCMatrix")
 
     ## predict all ratings (average similarity)
     #ratings <- tcrossprod(sim,u)
-    ratings <- tcrossprod(sim,u) / tcrossprod(sim!=0, u!=0)
-    colnames(ratings) <- rownames(newdata)
+    ratings <- t(as(tcrossprod(sim,u) / tcrossprod(sim!=0, u!=0), "matrix"))
+    dimnames(ratings) <- dimnames(newdata)
 
-    if(type=="ratingMatrix") return(as(as.matrix(t(ratings)), "realRatingMatrix"))
+    if(type=="ratingMatrix") return(as(ratings, "realRatingMatrix"))
 
     ## remove known ratings
-    ratings[as(t(u!=0), "matrix")] <- NA
+    ratings[as(u!=0, "matrix")] <- NA
 
-    if(type=="ratings") return(as(as.matrix(t(ratings)), "realRatingMatrix"))
+    if(type=="ratings") return(as(ratings, "realRatingMatrix"))
 
-    reclist <- apply(ratings, MARGIN=2, FUN=function(x)
-      head(order(x, decreasing=TRUE, na.last=NA), n))
-
-    if(!is(reclist, "list")) reclist <- lapply(1:ncol(reclist),
-      FUN=function(i) reclist[,i])
-
-    new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
-
+    getTopNLists(as(ratings, "realRatingMatrix"))
   }
 
   ## construct recommender object
@@ -85,6 +77,8 @@ recommenderRegistry$set_entry(
   method="IBCF", dataType = "binaryRatingMatrix", fun=BIN_IBCF,
   description="Recommender based on item-based collaborative filtering (binary rating data).",
   parameters=.BIN_IBCF_params)
+
+
 
 
 .REAL_IBCF_params <- list(
@@ -101,7 +95,6 @@ recommenderRegistry$set_entry(
 REAL_IBCF <- function(data, parameter= NULL) {
 
   p <- .get_parameters(.REAL_IBCF_params, parameter)
-
 
   if(!is.null(p$normalize))
     data <- normalize(data, method=p$normalize)
@@ -161,30 +154,13 @@ REAL_IBCF <- function(data, parameter= NULL) {
     if(!is.null(model$normalize))
       ratings <- denormalize(ratings)
 
-    rownames(ratings) <- rownames(newdata)
-
-    if(type=="ratingMatrix") return(ratings)
-
-    ratings <- removeKnownRatings(ratings, newdata)
-
-    if(type=="ratings") return(ratings)
-
-    getTopNLists(ratings, n=n, minRating=model$minRating)
-
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object
   new("Recommender", method = "IBCF", dataType = class(data),
     ntrain = nrow(data), model = model, predict = predict)
 }
-
-
-## for testing
-#recommenderRegistry$delete_entry( method="IBCF2", dataType = "realRatingMatrix")
-#recommenderRegistry$set_entry(
-#	method="IBCF2", dataType = "realRatingMatrix", fun=REAL_IBCF,
-#	description="Recommender based on item-based collaborative filtering (real data).")
-
 
 ## register recommender
 recommenderRegistry$set_entry(

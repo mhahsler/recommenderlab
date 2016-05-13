@@ -6,9 +6,12 @@
 \alias{coerce,matrix,realRatingMatrix-method}
 \alias{coerce,realRatingMatrix,matrix-method}
 \alias{coerce,realRatingMatrix,dgTMatrix-method}
+\alias{coerce,dgTMatrix,realRatingMatrix-method}
 \alias{coerce,realRatingMatrix,ngCMatrix-method}
 \alias{coerce,realRatingMatrix,dgCMatrix-method}
+\alias{coerce,dgCMatrix,realRatingMatrix-method}
 \alias{coerce,data.frame,realRatingMatrix-method}
+\alias{coerce,realRatingMatrix,data.frame-method}
 \alias{rowSds}
 \alias{rowSds,realRatingMatrix-method}
 \alias{colSds}
@@ -47,9 +50,12 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 	coercion from a data.frame with three columns.
 	Col 1 contains user ids, col 2 contains	item ids and
 	col 3 contains ratings.}
+    \item{coerce}{\code{signature(from = "realRatingMatrix", to = "data.frame")}: produces user/item/rating triplets.}
     \item{coerce}{\code{signature(from = "realRatingMatrix", to = "dgTMatrix")}}
-    \item{coerce}{\code{signature(from = "realRatingMatrix", to = "ngCMatrix")}}
+    \item{coerce}{\code{signature(from = "dgTMatrix", to = "realRatingMatrix")}}
     \item{coerce}{\code{signature(from = "realRatingMatrix", to = "dgCMatrix")}}
+    \item{coerce}{\code{signature(from = "dgCMatrix", to = "realRatingMatrix")}}
+    \item{coerce}{\code{signature(from = "realRatingMatrix", to = "ngCMatrix")}}
 
     \item{binarize}{\code{signature(x = "realRatingMatrix")}: create a
         \code{"binaryRatingMatrix"} by setting all ratings larger or equal to
@@ -105,7 +111,7 @@ image(r[1:5,1:5])
 ## coerce it back to see if it worked
 as(r, "matrix")
 
-## coerce to data.frame
+## coerce to data.frame (user/item/rating triplets)
 as(r, "data.frame")
 
 ## binarize into a binaryRatingMatrix with all 4+ rating a 1

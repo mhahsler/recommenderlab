@@ -1739,43 +1739,32 @@ lines 12--14 need to be replaced by the recommendation code.
 \label{table:newalg}
 %\begin{verbatim}
 \begin{Verbatim}[gobble=0, numbers=left]
-## always recommends the top-N popular items (without known items)
+## always recommends the top-N on average most popular items
 REAL_POPULAR <- function(data, parameter = NULL) {
   p <- .get_parameters(list(
-      normalize="center",
-      aggregation=colSums ## could also be colMeans
+      normalize = "center",
+      aggregation = colMeans
 		), parameter)
 
-  ## normalize data
-  if(!is.null(p$normalize)) data <- normalize(data, method=p$normalize)
+  ## normalize data?
+  if(!is.null(p$normalize)) data <- normalize(data, method = p$normalize)
 
-  topN <- new("topNList",
-	    items = list(order(p$aggregation(data), decreasing=TRUE)),
-	    itemLabels = colnames(data),
-	    n= ncol(data))
+  model <- c(list(
+    ratings = new("realRatingMatrix", data = dropNA(t(p$aggregation(data))),
+      normalize = data@normalize)), p)
 
-  ratings <- new("realRatingMatrix", data = dropNA(t(colMeans(data))))
-
-  model <- c(list(topN = topN, ratings = ratings), p)
-
-  predict <- function(model, newdata, n=10,
-	  type=c("topNList", "ratings"), ...) {
-
+  ## prediction function
+  predict <- function(model, newdata, n = 10,
+	  type = c("topNList", "ratings", "ratingMatrix"), ...) {
 	  type <- match.arg(type)
 
-	  if(type=="topNList") {
-	    topN <- removeKnownItems(model$topN, newdata, replicate=TRUE)
-	    topN <- bestN(topN, n)
-	    return(topN)
-	  }
+    ## denormalize ratings and produce a rating row for each user in newdata
+    ratings <- denormalize(model$ratings)
+    ratings <- ratings[rep(1L, nrow(newdata)),]
 
-	  ## type=="ratings"
-	  if(!is.null(model$normalize))
-	    newdata <- normalize(newdata, method=model$normalize)
-
-	  ratings <- removeKnownRatings(model$ratings, newdata, replicate=TRUE)
-	  ratings <- denormalize(ratings, factors=getNormalize(newdata))
-	  return(ratings)
+    ## helper function to remove known items and
+    ## produce ratings matrices and topN-lists
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct and return the recommender object

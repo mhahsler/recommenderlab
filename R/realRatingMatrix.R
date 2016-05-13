@@ -1,6 +1,6 @@
 ## realRatingMatrix
 
-## coercion
+## coercions
 setAs("matrix", "realRatingMatrix",
   function(from) new("realRatingMatrix",
     data = dropNA(from)))
@@ -8,6 +8,21 @@ setAs("matrix", "realRatingMatrix",
 setAs("realRatingMatrix", "matrix",
   function(from) dropNA2matrix(from@data))
 
+setAs("realRatingMatrix", "dgCMatrix",
+  function(from) as(from@data, "dgCMatrix"))
+
+setAs("dgCMatrix", "realRatingMatrix",
+  function(from) new("realRatingMatrix", data = as(from, "sparseNAMatrix")))
+
+setAs("realRatingMatrix", "dgTMatrix",
+  function(from) as(from@data, "dgTMatrix"))
+
+setAs("dgTMatrix", "realRatingMatrix",
+  function(from) new("realRatingMatrix",
+    data = as(as(from, "dgCMatrix"), "sparseNAMatrix")))
+
+setAs("realRatingMatrix", "ngCMatrix",
+  function(from) as(from@data, "ngCMatrix"))
 
 ## from a data.frame with columns user, item, rating
 ## this perserves 0s
@@ -25,21 +40,20 @@ setAs("data.frame", "realRatingMatrix", function(from) {
     Dim = c(length(levels(i)), length(levels(j))),
     Dimnames = list(levels(i),levels(j)))
 
-  new("realRatingMatrix", data = as(as(dgT, "dgCMatrix"), "sparseNAMatrix"))
+  as(dgT, "realRatingMatrix")
 })
 
-setAs("realRatingMatrix", "dgCMatrix",
-  function(from) as(from@data, "dgCMatrix"))
-
-setAs("realRatingMatrix", "dgTMatrix",
-  function(from) as(from@data, "dgTMatrix"))
-
-setAs("realRatingMatrix", "ngCMatrix",
-  function(from) as(from@data, "ngCMatrix"))
+setAs("realRatingMatrix", "data.frame", function(from) {
+    trip <- as(from, "dgTMatrix")
+    data.frame(user = rownames(from)[trip@i+1L],
+      item = colnames(from)[trip@j+1L],
+      rating = trip@x)[order(trip@i),]
+})
 
 setMethod("getList", signature(from = "realRatingMatrix"),
   function(from, decode = TRUE, ratings = TRUE,...) {
-    trip <- as(from@data, "dgTMatrix")
+    trip <- as(from, "dgTMatrix")
+
     lst <- split(trip@j+1L, factor(trip@i,
       levels=0:(nrow(trip)-1L)), drop=FALSE)
     rts <- split(trip@x, factor(trip@i,
