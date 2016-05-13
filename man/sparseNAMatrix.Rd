@@ -11,6 +11,10 @@
 \alias{[,sparseNAMatrix,index,missing,logical-method}
 \alias{[,sparseNAMatrix,missing,index,logical-method}
 \alias{[,sparseNAMatrix,missing,index,logical-method}
+\alias{[<-,sparseNAMatrix,index,index,numeric-method}
+\alias{[<-,sparseNAMatrix,index,missing,numeric-method}
+\alias{[<-,sparseNAMatrix,missing,index,numeric-method}
+\alias{[<-,sparseNAMatrix,missing,missing,numeric-method}
 \alias{coerce,matrix,sparseNAMatrix-method}
 \alias{coerce,sparseNAMatrix,matrix-method}
 % Note: coercions from and to dgCMatrix is implicit

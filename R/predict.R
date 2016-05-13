@@ -1,6 +1,9 @@
 setMethod("predict", signature(object = "Recommender"),
-	function(object, newdata, n = 10, data=NULL, type="topNList", ...)
-	object@predict(object@model, newdata, n = n, data=data, type= type, ...)
+  function(object, newdata, n = 10, data=NULL, type="topNList", ...) {
+    if(!is(newdata, "ratingMatrix") && !is(newdata, "numeric"))
+      stop("newdata needs to be a subclass of class ratingMatrix or a numeric vector with user IDs!")
+    object@predict(object@model, newdata, n = n, data=data, type= type, ...)
+  }
 )
 
 ### helper to return ratings

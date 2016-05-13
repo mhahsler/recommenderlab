@@ -23,7 +23,7 @@ BIN_UBCF <- function(data, parameter = NULL){
   ), p )
 
   predict <- function(model, newdata, n=10, data=NULL,
-                      type=c("topNList"), ...) {
+    type=c("topNList"), ...) {
 
     ## newdata are userid
     if(is.numeric(newdata)) {
@@ -37,7 +37,7 @@ BIN_UBCF <- function(data, parameter = NULL){
     ## FIXME: add Weiss dissimilarity
 
     sim <- similarity(newdata, model$data,
-                      method = model$method)
+      method = model$method)
 
     neighbors <- .knn(sim, model$nn)
 
@@ -73,7 +73,7 @@ BIN_UBCF <- function(data, parameter = NULL){
 
   ## construct recommender object
   new("Recommender", method = "UBCF", dataType = class(data),
-      ntrain = nrow(data), model = model, predict = predict)
+    ntrain = nrow(data), model = model, predict = predict)
 }
 
 .REAL_UBCF_param <- list(
@@ -101,7 +101,7 @@ REAL_UBCF <- function(data, parameter = NULL){
   ), p)
 
   predict <- function(model, newdata, n=10,
-                      data=NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
+    data=NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
 
     type <- match.arg(type)
 
@@ -117,7 +117,7 @@ REAL_UBCF <- function(data, parameter = NULL){
 
     ## predict ratings
     sim <- similarity(newdata, model$data,
-                      method = model$method)
+      method = model$method)
 
     neighbors <- .knn(sim, model$nn)
 
@@ -140,7 +140,7 @@ REAL_UBCF <- function(data, parameter = NULL){
 
     rownames(ratings) <- rownames(newdata)
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
-                   normalize = getNormalize(newdata))
+      normalize = getNormalize(newdata))
 
     ratings <- denormalize(ratings)
 
@@ -149,7 +149,7 @@ REAL_UBCF <- function(data, parameter = NULL){
 
   ## construct recommender object
   new("Recommender", method = "UBCF", dataType = class(data),
-      ntrain = nrow(data), model = model, predict = predict)
+    ntrain = nrow(data), model = model, predict = predict)
 }
 
 

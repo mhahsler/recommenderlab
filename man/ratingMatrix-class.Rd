@@ -22,6 +22,8 @@
 \alias{image,ratingMatrix-method}
 \alias{getNormalize}
 \alias{getNormalize,ratingMatrix-method}
+\alias{getRatings}
+\alias{getRatings,realRatingMatrix-method}
 
 \title{Class "ratingMatrix": Virtual Class for Rating Data}
 \description{Defines a common class for rating data.}
@@ -39,6 +41,9 @@
 		\item{dimnames<-}{\code{signature(x = "ratingMatrix", value = "list")}: replace dimnames. }
 		\item{dimnames}{\code{signature(x = "ratingMatrix")}: retrieve dimnames. }
 		\item{getNormalize}{\code{signature(x = "ratingMatrix")}: returns a list with normalization information for the matrix (NULL if data is not normalized). }
+    \item{getRatings}{\code{signature(x = "ratingMatrix")}: returns all
+	ratings in \code{x} as a numeric vector. }
+    \item{getRatingMatrix}{\code{signature(x = "ratingMatrix")}: returns the ratings as a sparse matrix. The format is different for binary and real rating matices.}
 		\item{image}{\code{signature(x = "ratingMatrix")}: plot the matrix. }
 		\item{nratings}{\code{signature(x = "ratingMatrix")}: number of ratings in the matrix. }
 		\item{sample}{\code{signature(x = "ratingMatrix")}: sample from users (rows). }
@@ -51,7 +56,7 @@
 	\code{\linkS4class{realRatingMatrix}}
 	and
 	\code{\linkS4class{binaryRatingMatrix}}.
-	See \code{\link{getList}}, 
+	See \code{\link{getList}},
 	\code{\link{getData.frame}},
 	\code{\link{similarity}},
 	\code{\link{dissimilarity}} and

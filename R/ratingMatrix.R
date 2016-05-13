@@ -88,14 +88,17 @@ setMethod("rowMeans", signature(x = "ratingMatrix"),
 		s
 	})
 
-## total ratings
 setMethod("nratings", signature(x = "ratingMatrix"),
 	    function(x, ...) sum(rowCounts(x)))
-
 
 setMethod("getNormalize", signature(x = "ratingMatrix"),
 	    function(x, ...) x@normalize)
 
+setMethod("getRatingMatrix", signature(x = "ratingMatrix"),
+	    function(x, ...) x@data)
+
+setMethod("getRatings", signature(x = "ratingMatrix"),
+	    function(x, ...) as(x, "dgCMatrix")@x)
 
 ## subset
 setMethod("[", signature(x = "ratingMatrix"),
@@ -144,5 +147,3 @@ setMethod("image", signature(x = "ratingMatrix"),
 	Matrix::image(as(x, "dgTMatrix"), ylab = ylab, xlab = xlab,
 		colorkey = colorkey, ...)
     })
-
-

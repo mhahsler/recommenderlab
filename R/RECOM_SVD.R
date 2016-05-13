@@ -67,7 +67,9 @@ REAL_SVD <- function(data, parameter= NULL) {
     ### prediction p_a,i = u_a Sigma V^T
     ratings <- as(u_a %*% tcrossprod(diag(model$svd$d), model$svd$v), "matrix")
 
-    dimnames(ratings) <- dimnames(newdata)
+    #rownames(ratings) <- rownames(newdata)
+    colnames(ratings) <- names(model$columnMeans)
+
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
       normalize = getNormalize(newdata))
 

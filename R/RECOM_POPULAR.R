@@ -1,4 +1,5 @@
 ## always recommends the top-N popular items (without known items)
+
 BIN_POPULAR <- function(data, parameter = NULL) {
 
   topN <- new("topNList",

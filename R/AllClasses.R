@@ -28,10 +28,14 @@ setClass("binaryRatingMatrix",
 		data = "itemMatrix"
 	))
 
+### Legacy data:
+setClassUnion("sparseNAMatrix_legacy", c("sparseNAMatrix", "dgCMatrix"))
+
 setClass("realRatingMatrix",
 	contains="ratingMatrix",
 	representation(
-		data = "sparseNAMatrix"
+		#data = "sparseNAMatrix"
+		data = "sparseNAMatrix_legacy"
 	))
 
 

@@ -19,8 +19,6 @@
 %\alias{LIST,realRatingMatrix-method}
 \alias{binarize}
 \alias{binarize,realRatingMatrix-method}
-\alias{getRatings}
-\alias{getRatings,realRatingMatrix-method}
 \alias{removeKnownRatings}
 \alias{removeKnownRatings,realRatingMatrix-method}
 
@@ -60,8 +58,6 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
     \item{binarize}{\code{signature(x = "realRatingMatrix")}: create a
         \code{"binaryRatingMatrix"} by setting all ratings larger or equal to
         the argument \code{minRating} as 1 and all others to 0.}
-    \item{getRatings}{\code{signature(x = "realRatingMatrix")}: returns all
-	ratings in \code{x} as a numeric vector. }
     \item{removeKnownRatings}{\code{signature(x = "realRatingMatrix")}: removes
 	all ratings in \code{x} for which ratings are available in
 	the realRatingMatrix (of same dimensions as \code{x})

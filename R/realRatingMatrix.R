@@ -87,12 +87,6 @@ setMethod("binarize", signature(x = "realRatingMatrix"),
     new("binaryRatingMatrix", data = as(x, "itemMatrix"))
   })
 
-
-## ratings
-setMethod("getRatings", signature(x = "realRatingMatrix"),
-  function(x) x@data@x )
-
-
 setMethod("removeKnownRatings", signature(x = "realRatingMatrix"),
   function(x, known) {
     if(!is(known, "ratingMatrix")) stop("known needs to be a ratingMatrix!")

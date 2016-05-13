@@ -12,6 +12,9 @@ setGeneric("getRatings",
 setGeneric("getNormalize",
 	function(x, ...) standardGeneric("getNormalize"))
 
+setGeneric("getRatingMatrix",
+	function(x, ...) standardGeneric("getRatingMatrix"))
+
 setGeneric("normalize",
 	function(x, ...) standardGeneric("normalize"))
 
@@ -57,7 +60,7 @@ setGeneric("colSds",
 setGeneric("bestN",
 	function(x, ...) standardGeneric("bestN"))
 
-setGeneric("calcPredictionAccuracy", 
+setGeneric("calcPredictionAccuracy",
 	function(x, data, ...) standardGeneric("calcPredictionAccuracy"))
 
 setGeneric("evaluationScheme",
@@ -73,7 +76,7 @@ setGeneric("Recommender",
 	function(data, ...) standardGeneric("Recommender"))
 
 setGeneric("similarity",
-	function(x, y = NULL, method = NULL, args = NULL, ...) 
+	function(x, y = NULL, method = NULL, args = NULL, ...)
 	standardGeneric("similarity"))
 
 setGeneric("getData.frame",

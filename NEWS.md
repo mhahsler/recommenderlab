@@ -1,9 +1,9 @@
 # Changes in version 0.1-8.1 (xx/xx/2015)
 
 * FIX: rownames of newdata are now preserved in prediction output.
+* introduced new class sparseNAMatrix (subclass of dgCMatrix in Matrix).
 * We use testthat now.
 * normalization now can be done on rows and columns at the same time.
-* introduced new class sparseNAMatrix (subclass of dgCMatrix in Matrix).
 * SVD with column-mean imputation now folds in new users.
 * added Funk SVD (funkSVD and recommender SVDF).
 * removed obsolete PCA-based recommender.
