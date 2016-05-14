@@ -149,10 +149,7 @@ REAL_IBCF <- function(data, parameter= NULL) {
 
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
       normalize = getNormalize(newdata))
-    ## prediction done
-
-    if(!is.null(model$normalize))
-      ratings <- denormalize(ratings)
+    ratings <- denormalize(ratings)
 
     returnRatings(ratings, newdata, type, n)
   }

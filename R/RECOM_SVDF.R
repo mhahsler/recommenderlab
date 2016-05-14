@@ -48,9 +48,9 @@ REAL_SVDF <- function(data, parameter= NULL) {
       newdata <- normalize(newdata, method=model$normalize)
 
     ratings <- predict.funkSVD(model$svd, as(newdata, "matrix"))
+
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
       normalize = getNormalize(newdata))
-
     ratings <- denormalize(ratings)
 
     returnRatings(ratings, newdata, type, n)

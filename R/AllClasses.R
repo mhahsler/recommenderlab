@@ -44,6 +44,7 @@ setClass("realRatingMatrix",
 setClass("topNList",
 	representation(
 		items   = "list",
+	  ratings = "listOrNull",
 		itemLabels= "character",
 		n       = "integer"
 	)

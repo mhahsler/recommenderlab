@@ -51,15 +51,15 @@ REAL_POPULAR <- function(data, parameter = NULL) {
     aggregationPopularity=colSums
   ), parameter)
 
-  ## normalize data
-  if(!is.null(p$normalize)) data <- normalize(data, method=p$normalize)
+  data <- normalize(data, method=p$normalize)
 
   topN <- new("topNList",
     items = list(order(p$aggregationPopularity(data), decreasing=TRUE)),
     itemLabels = colnames(data),
     n= ncol(data))
 
-  ratings <- new("realRatingMatrix", data = dropNA(t(p$aggregationRatings(data))),
+  ratings <- new("realRatingMatrix",
+    data = dropNA(t(p$aggregationRatings(data))),
     normalize = data@normalize)
 
   model <- c(list(
@@ -78,18 +78,28 @@ REAL_POPULAR <- function(data, parameter = NULL) {
       newdata <- data[newdata,]
     }
 
+    ### create denormalized data for each new user
+    newdata <- normalize(newdata, method = model$normalize)
+    ratings <- model$ratings[rep(1L, nrow(newdata)),]
+    ratings@normalize <- getNormalize(newdata)
+    ratings <- denormalize(ratings, getNormalize(newdata))
+
+    ### this is because we use populary and not average rating here!
     if(type=="topNList") {
       topN <- model$topN
-      topN@items <- replicate(nrow(newdata), topN@items, simplify = TRUE)
-      names(topN@items) <- rownames(newdata)
+      topN@items <- structure(
+        replicate(nrow(newdata), topN@items, simplify = TRUE),
+        names = rownames(newdata))
+
+      topN@ratings <- structure(lapply(1:length(topN@items),
+        function(i) as(as(ratings[i, topN@items[[i]]], "matrix"), "vector")),
+        names = rownames(newdata))
 
       topN <- removeKnownItems(topN, newdata)
       topN <- bestN(topN, n)
       return(topN)
     }
 
-    ratings <- denormalize(model$ratings)
-    ratings <- ratings[rep(1L, nrow(newdata)),]
 
     returnRatings(ratings, newdata, type, n)
   }

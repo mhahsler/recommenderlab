@@ -1,6 +1,8 @@
 setMethod("normalize", signature(x = "realRatingMatrix"),
   function(x, method="center", row=TRUE){
 
+    if(is.null(method) || is.na(method)) return(x)
+
     rc <- if(row) "row" else "col"
 
     if(!is.null(x@normalize[[rc]])) {

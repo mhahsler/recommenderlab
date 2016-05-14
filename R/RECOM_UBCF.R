@@ -141,7 +141,6 @@ REAL_UBCF <- function(data, parameter = NULL){
     rownames(ratings) <- rownames(newdata)
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
       normalize = getNormalize(newdata))
-
     ratings <- denormalize(ratings)
 
     returnRatings(ratings, newdata, type, n)
