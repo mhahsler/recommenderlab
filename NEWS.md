@@ -8,6 +8,7 @@
 * added Funk SVD (funkSVD and recommender SVDF).
 * added function error measures: MAE, MSE, RMSE, frobenius (norm).
 * Jester5k contains now the jokes.
+* MovieLense contains now movie meta information.
 * topNLists now also containg ratings.
 * removed obsolete PCA-based recommender.
 
