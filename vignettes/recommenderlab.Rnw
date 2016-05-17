@@ -1074,12 +1074,13 @@ m
 
 With coercion, the matrix can be easily converted into
 a realRatingMatrix object which stores the data in sparse
-format (only non-NA values are stored explicitly).
+format (only non-NA values are stored explicitly; NA values are
+represented by a dot).
 
 <<>>=
 r <- as(m, "realRatingMatrix")
 r
-#as(r,"dgCMatrix")
+getRatingMatrix(r)
 @
 
 The realRatingMatrix can be coerced back into a matrix which is
@@ -1112,6 +1113,7 @@ all ratings in the row. This is can be easily done using
 <<>>=
 r_m <- normalize(r)
 r_m
+getRatingMatrix(r_m)
 @
 
 Normalization can be reversed using \code{denormalize()}.

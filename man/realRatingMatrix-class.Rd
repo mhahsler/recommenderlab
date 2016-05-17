@@ -26,7 +26,8 @@
 \description{A matrix containing ratings (typically 1-5 stars, etc.).}
 \section{Objects from the Class}{
 Objects can be created by calls of the form \code{new("realRatingMatrix", data = m)}, where \code{m} is sparse matrix of class \code{sparseNAMatrix}
-(subclass of \code{dgCMatrix} in package \pkg{Matrix}), or by coercion from a regular matrix.
+(subclass of \code{dgCMatrix} in package \pkg{Matrix}), or by coercion from a regular matrix, a data.frame containing user/item/rating triplets as rows, or
+  a sparse matrix in triplet form (\code{dgTMatrix} in package \pkg{Matrix}).
 }
 \section{Slots}{
     \describe{
@@ -70,12 +71,13 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 }
 \seealso{
 	See \code{\linkS4class{ratingMatrix}} inherited methods,
+	\code{\linkS4class{sparseNAMatrix}},
 	\code{\linkS4class{binaryRatingMatrix}},
 	\code{\linkS4class{topNList}},
 	\code{\link{getList}} and \code{\link{getData.frame}}.
 	Also see \code{\link[Matrix:dgCMatrix-class]{dgCMatrix}},
-	\code{\link[Matrix:dgCMatrix-class]{dgTMatrix}} and
-	\code{\link[Matrix:dgCMatrix-class]{ngCMatrix}}
+	\code{\link[Matrix:dgTMatrix-class]{dgTMatrix}} and
+	\code{\link[Matrix:ngCMatrix-class]{ngCMatrix}}
 	in \pkg{Matrix}.
 }
 \examples{
