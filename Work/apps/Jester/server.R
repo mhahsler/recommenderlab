@@ -15,23 +15,21 @@
 library(shiny)
 library(recommenderlab)
 
-### global variable
-num_to_rate <- 3
+## load data
+data("Jester5k")
 
 shinyServer(
   function(input, output) {
 
-    ## load data
-    data("Jester5k")
-
     ## pick random jokes and display
-    rand_jokes <- reactive({
+    jokes_to_rate <- reactive({
       ignore <- input$new_jokes  ### listen to button
 
-      rand_jokes <- sample(length(JesterJokes), num_to_rate)
-      for(i in 1:num_to_rate) {
-        output[[paste0("joke", i)]] <- renderText(JesterJokes[rand_jokes[i]])
-      }
+      rand_jokes <- sample(length(JesterJokes), 3)
+
+      output[[paste0("joke", 1)]] <- renderText(JesterJokes[rand_jokes[1]])
+      output[[paste0("joke", 2)]] <- renderText(JesterJokes[rand_jokes[2]])
+      output[[paste0("joke", 3)]] <- renderText(JesterJokes[rand_jokes[3]])
 
       rand_jokes
     })
@@ -46,8 +44,8 @@ shinyServer(
 
       ### read ratings
       ratings <- matrix(NA, nrow = 1, ncol = ncol(Jester5k))
-      for(i in 1:num_to_rate)
-        ratings[1, rand_jokes()[i]] <- input[[paste0("slider", i)]]
+      for(i in 1:3)
+        ratings[1, jokes_to_rate()[i]] <- input[[paste0("slider", i)]]
 
       ### create recommendations
       pred <- predict(recom(), as(ratings, "realRatingMatrix"),

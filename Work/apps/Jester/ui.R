@@ -6,9 +6,6 @@
 
 library(shiny)
 
-### global variable
-num_to_rate <- 3
-
 shinyUI(
   fluidPage(
 
@@ -19,7 +16,7 @@ shinyUI(
         h3("Rate the following jokes:"),
 
         ### create the sliders
-        lapply(1:num_to_rate, function(i) sliderInput(paste0("slider", i),
+        lapply(1:3, function(i) sliderInput(paste0("slider", i),
           label = textOutput(paste0("joke", i)),
           min = -10, max = 10, value = 0)),
 
@@ -39,8 +36,9 @@ shinyUI(
           a("recommenderlab",
             href="https://cran.r-project.org/package=recommenderlab"),
           "example by",
-          a("Michael Hahsler", href="http://michael.hahsler.net")
-        )
+          a("Michael Hahsler.", href="http://michael.hahsler.net"),
+          "See the", a("source code.", href="https://github.com/mhahsler/recommenderlab/tree/master/Work/apps")
+          )
       )
     )
   )
