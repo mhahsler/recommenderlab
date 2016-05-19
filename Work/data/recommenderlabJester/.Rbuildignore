@@ -1,0 +1,5 @@
+.svn
+TODO
+Work
+^.*\.Rproj$
+^\.Rproj\.user$

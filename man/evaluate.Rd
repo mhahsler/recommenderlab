@@ -12,19 +12,19 @@ Evaluates a single or a list of recommender model given an evaluation scheme.
 \usage{
 evaluate(x, method, ...)
 
-\S4method{evaluate}{evaluationScheme,character}(x, method, type="topNList", 
+\S4method{evaluate}{evaluationScheme,character}(x, method, type="topNList",
   n=1:10, parameter=NULL, progress = TRUE, keepModel=FALSE)
-\S4method{evaluate}{evaluationScheme,list}(x, method, type="topNList", 
+\S4method{evaluate}{evaluationScheme,list}(x, method, type="topNList",
   n=1:10, parameter=NULL, progress = TRUE, keepModel=FALSE)
 }
 \arguments{
   \item{x}{an evaluation scheme (class \code{"evaluationScheme"}).}
   \item{method}{a character string or a list. If
-  a single character string is given it defines the recommender method 
+  a single character string is given it defines the recommender method
   used for evaluation. If several recommender methods need to be compared,
   \code{method} contains a nested list. Each element describes a recommender
   method and consists of a list with two elements: a character string
-  named \code{"method"} containing the method and a list names 
+  named \code{"method"} containing the method and a list names
   \code{"parameters"} containing the parameters used for this recommender method.
   See \code{Recommender} for available methods.}
   \item{type}{evaluate "topNList" or "ratings"?}
@@ -45,7 +45,7 @@ or if \code{method} is a list an object of class \code{"evaluationResultList"}.
 \code{\linkS4class{evaluationResultList}}.
 }
 \examples{
-### evaluate top-N list recommendations on a 0-1 data set  
+### evaluate top-N list recommendations on a 0-1 data set
 data("MSWeb")
 MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) >10,], 20)
 
@@ -73,16 +73,16 @@ plot(evlist, legend="topright")
 ## select the first results
 evlist[[1]]
 
-### Evaluate using a data set with real-valued ratings 
+### Evaluate using a data set with real-valued ratings
 data("Jester5k")
 es <- evaluationScheme(Jester5k[1:25], method="cross-validation",
   k=4, given=10, goodRating=5)
-## Note: goodRating is used to determine positive ratings  
+## Note: goodRating is used to determine positive ratings
 
 ## predict top-N recommendation lists
 ev <- evaluate(es, "RANDOM", type="topNList", n=10)
 avg(ev)
-  
+
 ## predict missing ratings
 ev <- evaluate(es, "RANDOM", type="ratings")
 avg(ev)

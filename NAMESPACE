@@ -8,7 +8,9 @@ importFrom("utils", "head")
 ### SVD
 importFrom("irlba", "irlba")
 
-## get generics and methods
+
+## get generics, cladses and methods
+importClassesFrom("Matrix", "Matrix", "dsparseMatrix", "dgCMatrix", "ngCMatrix", "dgTMatrix")
 importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans",
   "summary", "drop0", "rBind")
 ## get just methods
@@ -28,7 +30,7 @@ S3method("print", "recommender_method")
 
 ## recommenderlab exports
 exportClasses(
-  "sparseNAMatrix",
+#  "sparseNAMatrix",
   "ratingMatrix",
   "realRatingMatrix",
   "binaryRatingMatrix",

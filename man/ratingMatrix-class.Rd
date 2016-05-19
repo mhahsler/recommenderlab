@@ -23,7 +23,9 @@
 \alias{getNormalize}
 \alias{getNormalize,ratingMatrix-method}
 \alias{getRatings}
-\alias{getRatings,realRatingMatrix-method}
+\alias{getRatings,ratingMatrix-method}
+\alias{getRatingMatrix}
+\alias{getRatingMatrix,ratingMatrix-method}
 
 \title{Class "ratingMatrix": Virtual Class for Rating Data}
 \description{Defines a common class for rating data.}

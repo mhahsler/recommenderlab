@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head><title>Book-Crossing Dataset</title>
+    
+
+    <style type="text/css">
+
+      .normal {
+
+        font-family:helvetica,arial,sans-serif;
+        font-color:#000000;
+        font-size:12px;
+      }
+
+      .normal-red {
+
+        font-family:helvetica,arial,sans-serif;
+        color:#990000;
+        font-size:12px;
+      }
+
+      .large {
+
+        font-family:helvetica,arial,sans-serif;
+        color:#000000;
+        font-size:15px;
+      }
+
+      .large-red {
+
+        font-family:helvetica,arial,sans-serif;
+        color:#990000;
+        font-size:15px;
+      }
+
+      .small {
+
+        font-family:helvetica,arial,sans-serif;
+        color:#000000;
+        font-size:11px;
+      }
+
+      .pic {
+
+        border:1px solid #000;
+        color:#000000;
+      }
+      
+      a {
+
+        font-family:helvetica,arial,sans-serif;
+        color:#990000;
+        font-size:12px;
+      }
+
+    </style></head>
+
+  <body class="normal" bgcolor="#ffffff">
+
+    <img src="../images/iif_logo.png">
+      <a href="http://www.informatik.uni-freiburg.de/">Institut
+      für Informatik</a>, <a href="http://www.uni-freiburg.de/">Universität Freiburg</a>
+
+    <hr>
+
+    <h1> Book-Crossing Dataset <span class = "small" style = "font-weight:normal"> ... mined by <a href = "http://www.informatik.uni-freiburg.de/~cziegler">Cai-Nicolas Ziegler</a>, <a href = "http://www.informatik.uni-freiburg.de/~dbis">DBIS Freiburg</a></span></h1>
+    <hr><br>
+
+
+
+
+    <table border="0" width="690">
+
+      <tbody><tr>
+        <td></td>
+        <td>
+          <div class="normal" align="justify">
+            Collected by Cai-Nicolas Ziegler in a 4-week crawl (August / September 2004) from the <a href = "http://www.bookcrossing.com">Book-Crossing</a> 
+            community with kind permission from Ron Hornbaker, CTO of <a href = "http://www.humankindsystems.com">Humankind Systems</a>. 
+            Contains 278,858 users (anonymized but with demographic information) providing 1,149,780 ratings (explicit / implicit) about 271,379 books.
+          </div>
+          <br>
+          <table width="100%">
+            <tbody><tr>
+              <td width="20"> </td>
+              <td>
+                <div class = "normal" align = "justify"><span class="large-red"><b>[ ! ]</b></span>
+                  Freely available for research use when acknowledged with the following reference (further details on the dataset are given
+                  in this publication):     
+
+                 <ul><li>
+                   <a href = "../../~dbis/Publications/05/WWW05.html">Improving Recommendation Lists Through Topic Diversification</a>,<br />
+                   <div class = "normal" align = "justify">Cai-Nicolas Ziegler, Sean M. McNee, Joseph A. Konstan, Georg Lausen;
+                   <em>Proceedings of the 14th International World Wide Web Conference (WWW '05),</em>
+                       May 10-14, 2005, Chiba, Japan. <em>To appear.</em><br/><br />
+                       Download:<b> [ </b><a href = "WWW-2005-Preprint.pdf">PDF Pre-Print</a><b> ]</b>
+                   </li></div></div><br />
+
+                   </div>
+                 </li></ul>
+            
+                 As a courtesy, if you use the data, I would appreciate knowing your name, what research group you are in, and the publications that may result.
+                </div>
+              </td>
+              <td width="20"> </td>
+            </tr>
+          </tbody></table>
+          <br><br>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <h2>Format</h2>
+          <span class = "normal">The Book-Crossing dataset comprises 3 tables.</span>
+          <ul>
+            <li><div align = "left" class = "normal-red">BX-Users</div>
+            <div class="normal" align="justify">
+            Contains the users. Note that user IDs (<i>`User-ID`</i>) have been anonymized and map to integers. Demographic data is
+            provided (<i>`Location`</i>, <i>`Age`</i>) if available. Otherwise, these fields contain <i>NULL</i>-values.</div></div></li><br>           
+ 
+            <li><div align = "left" class = "normal-red">BX-Books</div>
+            <div class="normal" align="justify">
+            Books are identified by their respective ISBN. Invalid ISBNs have already been removed from the dataset. Moreover, some content-based information
+            is given (<i>`Book-Title`</i>, <i>`Book-Author`</i>, <i>`Year-Of-Publication`</i>, <i>`Publisher`</i>), obtained from Amazon Web Services. Note that in case
+            of several authors, only the first is provided. URLs linking to cover images are also given, appearing in three different flavours 
+            (<i>`Image-URL-S`</i>, <i>`Image-URL-M`</i>, <i>`Image-URL-L`</i>), i.e., small, medium, large. These URLs point to the Amazon web site.
+            </div></div></li><br>
+
+            <li><div align = "left" class = "normal-red">BX-Book-Ratings</div>
+            <div class="normal" align="justify">
+            Contains the book rating information. Ratings (<i>`Book-Rating`</i>) are either explicit, expressed on a scale from 1-10 (higher
+            values denoting higher appreciation), or implicit, expressed by 0.</div></div></li><br>           
+           </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <h2>Download</h2>
+          <span class = "normal">Various data format flavours are available. Note that all downloads are in .ZIP format</span>
+          <ul>
+            <li><div align = "left" class = "normal-red"><a href = "BX-SQL-Dump.zip">SQL Dump [26.391 KB]</a></div>
+            <div class="normal" align="justify">
+            Contains both schema information and data insertion statements. More convenient to use. Run as an
+            SQL-script.</div></div></li><br>
+ 
+            <li><div align = "left" class = "normal-red"><a href = "BX-CSV-Dump.zip">CSV Dump [25.475 KB]</a></div>
+            <div class="normal" align="justify">
+            Data as comma-separated values (CSV). The first line contains column names. Field separators are given by
+            semicola, all entries are in quotes.</div></div></li><br>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="0"></td>
+        <td>
+          <h2>Other Datasets</h2>
+          <ul>
+            <li><div align = "left" class = "normal-red"><a href = "http://www.cs.umn.edu/GroupLens">MovieLens</a></div>
+            <div class="normal" align="justify">
+            Offers collaborative filtering (CF) datasets for movies. MovieLens datasets come in different sizes. 
+            Also links to the older EachMovie dataset that can be obtained upon request from Compaq.</div></div></li><br>
+ 
+            <li><div align = "left" class = "normal-red"><a href = "http://www.ieor.berkeley.edu/~goldberg/jester-data/">Jester</a></div>
+            <div class="normal" align="justify">
+            Dense dataset for joke recommending. Large numbers of users, but small number of items (around 100 jokes) only.</div></div></li><br>
+          </ul>
+       </td>
+      </tr>
+    </table>
+<hr>
+
+[<a href="http://www.informatik.uni-freiburg.de/"> IIF </a>]  
+[<a href="http://www.informatik.uni-freiburg.de/%7Edbis/"> DBIS </a>]  
+[<a href="http://www.informatik.uni-freiburg.de/%7Ecziegler/"> Cai-Nicolas Ziegler </a>]
+ 
+  </body></html>

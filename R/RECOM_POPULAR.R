@@ -48,23 +48,30 @@ REAL_POPULAR <- function(data, parameter = NULL) {
   p <- .get_parameters(list(
     normalize="center",
     aggregationRatings=colMeans,
-    aggregationPopularity=colSums
+    aggregationPopularity=colSums,
+    minRating = NA
   ), parameter)
 
   data <- normalize(data, method=p$normalize)
+
+  ratings <- new("realRatingMatrix",
+    data = dropNA(t(p$aggregationRatings(data))),
+    normalize = data@normalize)
 
   topN <- new("topNList",
     items = list(order(p$aggregationPopularity(data), decreasing=TRUE)),
     itemLabels = colnames(data),
     n= ncol(data))
 
-  ratings <- new("realRatingMatrix",
-    data = dropNA(t(p$aggregationRatings(data))),
-    normalize = data@normalize)
+  if(!is.na(p$minRating)) {
+    warning("minRating not implemented!")
+    ### FIXME: remove bad ratings...
+  }
 
   model <- c(list(
     topN = topN,
-    ratings = ratings
+    ratings = ratings,
+    minRating = p$minRating
   ), p)
 
   predict <- function(model, newdata, n=10,

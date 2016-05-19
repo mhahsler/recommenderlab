@@ -1,15 +1,14 @@
-# Changes in version 0.1-8.1 (xx/xx/2015)
+# Changes in version 0.1-9 (05/18/2016)
 
 * FIX: rownames of newdata are now preserved in prediction output.
-* introduced new class sparseNAMatrix (subclass of dgCMatrix in Matrix).
-* We use testthat now.
+* we use testthat now.
 * normalization now can be done on rows and columns at the same time.
 * SVD with column-mean imputation now folds in new users.
 * added Funk SVD (funkSVD and recommender SVDF).
 * added function error measures: MAE, MSE, RMSE, frobenius (norm).
 * Jester5k contains now the jokes.
 * MovieLense contains now movie meta information.
-* topNLists now also containg ratings.
+* topNLists now also contains ratings.
 * removed obsolete PCA-based recommender.
 
 # Changes in version 0.1-8 (12/17/2015)

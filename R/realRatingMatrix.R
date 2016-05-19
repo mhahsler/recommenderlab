@@ -12,14 +12,14 @@ setAs("realRatingMatrix", "dgCMatrix",
   function(from) as(from@data, "dgCMatrix"))
 
 setAs("dgCMatrix", "realRatingMatrix",
-  function(from) new("realRatingMatrix", data = as(from, "sparseNAMatrix")))
+  function(from) new("realRatingMatrix", data = dropNA(from)))
 
 setAs("realRatingMatrix", "dgTMatrix",
   function(from) as(from@data, "dgTMatrix"))
 
 setAs("dgTMatrix", "realRatingMatrix",
   function(from) new("realRatingMatrix",
-    data = as(as(from, "dgCMatrix"), "sparseNAMatrix")))
+    data = dropNA(as(from, "dgCMatrix"))))
 
 setAs("realRatingMatrix", "ngCMatrix",
   function(from) as(from@data, "ngCMatrix"))
@@ -164,14 +164,12 @@ setMethod(".splitKnownUnknown", signature(data="realRatingMatrix"),
     tripKnown@j <- tripKnown@j[take]
 
     known <- new("realRatingMatrix",
-      data = as(as(tripKnown, "dgCMatrix"), "sparseNAMatrix"))
+      data = dropNA(as(tripKnown, "dgCMatrix")))
     unknown <- new("realRatingMatrix",
-      data = as(as(tripUnknown, "dgCMatrix"), "sparseNAMatrix"))
+      data = dropNA(as(tripUnknown, "dgCMatrix")))
 
     list(
       known = known,
       unknown = unknown
     )
   })
-
-

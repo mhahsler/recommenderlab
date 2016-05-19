@@ -1,0 +1,144 @@
+<body bgcolor=#333333 text=#ffffff vlink=#ffffff link=#ffffff alink=#ffffff  >
+<font face="Verdana, Arial, Helvetica, sans-serif">
+<TITLE>Jester Data download page</TITLE>
+
+<h2>
+Anonymous Ratings Data from <br>
+the <a href="http://shadow.ieor.berkeley.edu/humor/">
+Jester</a> Online Joke Recommender System
+</h2>
+
+Collaborative Filtering Data:
+<p>
+
+4.1 Million continuous ratings (-10.00 to +10.00) of 100 jokes from 73,421 users:
+collected between April 1999 - May 2003.  <p>
+
+Freely available for research use when acknowledged with the following reference: <p>
+
+<a href="http://www.ieor.berkeley.edu/~goldberg/pubs/eigentaste.pdf">
+Eigentaste: A Constant Time Collaborative Filtering Algorithm. </a>
+Ken Goldberg, Theresa Roeder, Dhruv Gupta, and  Chris Perkins.
+Information Retrieval, 4(2), 133-151. July 2001. 
+
+<p>
+
+(Aside: many papers, including ours, report Normalized Mean Absolute
+Error (NMAE) rates of approx 20%. How good is this compared with
+random guessing?  In the Appendix to our paper, we show that if user
+ratings are uniformly distributed, random guessing yields NMAE =
+33%.)
+
+<p>
+As a courtesy, if you use the data, 
+I would appreciate knowing your name, what research group
+you are in, and the publications that may result.
+
+
+<p>
+The Jester Dataset  (save to disk, then unzip to obtain Excel files):
+
+<ul>
+<li><a href="jester-data-1.zip"> jester-data-1.zip </a>: (3.9MB) Data from
+24,983 users who have rated 36 or more jokes, a matrix with dimensions
+24983 X 101.
+
+<li><a href="jester-data-2.zip"> jester-data-2.zip </a>: (3.6MB) Data
+from 23,500 users who have rated 36 or more jokes, a matrix with
+dimensions 23500 X 101.
+
+<li><a href="jester-data-3.zip"> jester-data-3.zip </a>: (2.1MB) Data
+from 24,938 users who have rated between 15 and 35 jokes, a matrix
+with dimensions 24,938 X 101.
+
+</ul>
+
+
+<p>
+Format:
+<ol>
+<li>3 Data files contain anonymous ratings data from 73,421 users. 
+
+<li>Data files are in .zip format, when unzipped, they are in Excel (.xls) format 
+
+<li>Ratings are real values ranging from -10.00 to +10.00
+(the value "99" corresponds to "null" = "not rated").
+
+<li>One row per user
+
+<li>The first column gives the number of jokes rated by that user.
+   The next 100 columns give the ratings for jokes 01 - 100.
+
+<li>The sub-matrix including only columns 
+{5, 7, 8, 13, 15, 16, 17, 18, 19, 20} is dense.
+Almost all users have rated those jokes (see discussion
+of "universal queries" in the above paper).
+
+</ol>
+
+<p>
+
+Other Collaborative Filtering Datasets:
+<ul>
+<li><a href="http://www.cs.umn.edu/Research/GroupLens/">
+The MovieLens
+Dataset </a>: 1,000,000 integer ratings (from 1-5)
+of 3500 films from 6,040 users.
+
+<li><a href="http://research.compaq.com/SRC/eachmovie/"> 
+The EachMovie
+Dataset </a>: 2,811,983 integer ratings (from 1-5)
+of 1628 films from 72,916 users.
+
+<li><a href="http://www.informatik.uni-freiburg.de/~cziegler/BX/">
+The BookCrossing
+Dataset </a>: 1,149,780 integer ratings (from 0-10) 
+of 271,379 books from 278,858 users.
+
+
+</ul>
+
+<p>
+Papers using the Jester Dataset (or a subset from 18,000 users):
+<ul>
+
+<li><a href="http://www.ai.mit.edu/people/nati/LowRank/">
+Weighted Low-Rank Approximations, </a>
+Nathan Srebro and Tommi Jaakkola (MIT),
+to appear in ICML 2003.
+
+<li><a href="http://www.cs.berkeley.edu/~jfc/papers/02/SIGIR02.pdf">
+Collaborative Filtering with Privacy via Factor Analysis, </a>
+John Canny (UC Berkeley), ACM SIGIR, Tampere Finland, August 2002. 
+
+</ul>
+
+<p>
+For further information please contact: <p>
+
+<A HREF="../index.html">Ken Goldberg </a>			<br>
+goldberg<nospace> @ <nospace> berkeley.edu <br>
+Prof of IEOR and EECS		<br>
+4135 Etcheverry	Hall		<br>
+University of California	<br>
+Berkeley, CA 94720-1777		<br>
+(510) 643-9565 (phone)		<br>
+(510) 642-1403 (fax)		<br>
+
+<p>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1376623-1";
+urchinTracker();
+</script>
+
+</body>
+
+
+
+
+
+
+

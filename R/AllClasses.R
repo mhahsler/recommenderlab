@@ -1,8 +1,9 @@
 ## helper
 setClassUnion("listOrNull", c("list", "NULL"))
 
+## FIXME: we cannot do this because Matrix does not export xMatrix!
 ## sparse matrix with NAs dropped
-setClass("sparseNAMatrix", contains = "dgCMatrix")
+#setClass("sparseNAMatrix", contains = "dgCMatrix")
 
 ## Recommender
 setClass("Recommender",
@@ -29,14 +30,20 @@ setClass("binaryRatingMatrix",
 	))
 
 ### Legacy data:
-setClassUnion("sparseNAMatrix_legacy", c("sparseNAMatrix", "dgCMatrix"))
+#setClassUnion("sparseNAMatrix_legacy", c("sparseNAMatrix", "dgCMatrix"))
 
 setClass("realRatingMatrix",
-	contains="ratingMatrix",
-	representation(
-		#data = "sparseNAMatrix"
-		data = "sparseNAMatrix_legacy"
-	))
+  contains="ratingMatrix",
+  representation(
+    #data = "sparseNAMatrix"
+    #data = "sparseNAMatrix_legacy"
+    data = "dgCMatrix"
+  ) #,
+  #validity = function(object) {
+  #  if(!is(object@data, "sparseNAMatrix")) warning("dgCMatrix in realRatingMatrix is deprecated (should be sparseNAMatrix). Use object@data <- as(object@data, \"sparseNAMatrix\") to fix this issue.")
+  #  TRUE
+  #}
+)
 
 
 ## Top-N list
