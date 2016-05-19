@@ -38,6 +38,9 @@ Additional packages in the recommenderlab family are: To come...
 * __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/recommenderlab/build/artifacts) or install via `intall_git("mhahsler/recommenderlab")` (needs devtools) 
 
 ## Example
+
+A Shiny App running recommenderlab can be [here](https://mhahsler-apps.shinyapps.io/Jester/). 
+
 ```R
 > library("recommenderlab")
 > data("MovieLense")
