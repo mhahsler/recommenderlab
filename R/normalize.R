@@ -10,7 +10,6 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
       return(x)
     }
 
-
     methods <- c("center", "Z-score")
     method_id <- pmatch(method, methods)
     if(length(method_id)!=1 || is.na(method_id)) stop("Unknown normalization method: ", method)
@@ -43,7 +42,8 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
       }
     }
 
-    x@data <- dropNA(data)
+    #x@data <- dropNA(data)
+    x@data <- data
 
     x@normalize[[rc]] <- list(method=methods[method_id],
       factors=list(means=means, sds=sds))
@@ -96,7 +96,8 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
       data@x <- as.numeric(data@x+rep(means, colCounts(x)))
     }
 
-    x@data <- dropNA(data)
+    #x@data <- dropNA(data)
+    x@data <- data
 
     x@normalize[[what]] <- NULL
     if(length(x@normalize) == 0) x@normalize <- NULL

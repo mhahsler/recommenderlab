@@ -51,8 +51,9 @@ shinyServer(
       pred <- predict(recom(), as(ratings, "realRatingMatrix"),
         n = input$num_recoms)
 
-      cbind('Recommended Joke' = JesterJokes[as(pred, "list")[[1]]],
+      cbind('Recommended Joke' = JesterJokes[getList(pred)[[1]]],
         'Predicted Rating' = sprintf("%1.1f", pred@ratings[[1]]))
+        #'Predicted Rating' = sprintf("%1.1f", getRatings(pred)[[1]]))
     })
   }
 )

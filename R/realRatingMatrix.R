@@ -12,14 +12,16 @@ setAs("realRatingMatrix", "dgCMatrix",
   function(from) as(from@data, "dgCMatrix"))
 
 setAs("dgCMatrix", "realRatingMatrix",
-  function(from) new("realRatingMatrix", data = dropNA(from)))
+  function(from) new("realRatingMatrix", data = from))
+  #function(from) new("realRatingMatrix", data = dropNA(from)))
 
 setAs("realRatingMatrix", "dgTMatrix",
   function(from) as(from@data, "dgTMatrix"))
 
 setAs("dgTMatrix", "realRatingMatrix",
   function(from) new("realRatingMatrix",
-    data = dropNA(as(from, "dgCMatrix"))))
+    data = as(from, "dgCMatrix")))
+    #data = dropNA(as(from, "dgCMatrix"))))
 
 setAs("realRatingMatrix", "ngCMatrix",
   function(from) as(from@data, "ngCMatrix"))
@@ -164,12 +166,30 @@ setMethod(".splitKnownUnknown", signature(data="realRatingMatrix"),
     tripKnown@j <- tripKnown@j[take]
 
     known <- new("realRatingMatrix",
-      data = dropNA(as(tripKnown, "dgCMatrix")))
+      data = as(tripKnown, "dgCMatrix"))
+      #data = dropNA(as(tripKnown, "dgCMatrix")))
     unknown <- new("realRatingMatrix",
-      data = dropNA(as(tripUnknown, "dgCMatrix")))
+      data = as(tripUnknown, "dgCMatrix"))
+      #data = dropNA(as(tripUnknown, "dgCMatrix")))
 
     list(
       known = known,
       unknown = unknown
     )
   })
+
+### subset is in ratingMatrix
+setReplaceMethod("[", signature(x = "realRatingMatrix"),
+  function(x, i, j, value) {
+
+  if(missing(i)) i <- 1:nrow(x)
+  if(missing(j)) j <- 1:ncol(x)
+
+  ### protect zeros
+  x@data@x[x@data@x==0] <- NA
+  x@data[i,j] <- value
+  x@data@x[is.na(x@data@x)] <- 0
+
+  x
+  }
+)

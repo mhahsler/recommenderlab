@@ -1,3 +1,8 @@
+# Changes in version 0.1-9.1 (xx/xx/2016)
+
+  * Added getRatings method for topNList.
+  * realRatingMatrix supports now subset assignment with [.
+
 # Changes in version 0.1-9 (05/18/2016)
 
 * FIX: rownames of newdata are now preserved in prediction output.

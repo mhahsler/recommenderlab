@@ -21,6 +21,7 @@
 \alias{binarize,realRatingMatrix-method}
 \alias{removeKnownRatings}
 \alias{removeKnownRatings,realRatingMatrix-method}
+\alias{[<-,realRatingMatrix-method}
 
 \title{Class "realRatingMatrix": Real-valued Rating Matrix}
 \description{A matrix containing ratings (typically 1-5 stars, etc.).}

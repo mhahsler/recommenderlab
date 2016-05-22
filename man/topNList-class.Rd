@@ -16,9 +16,9 @@
 \alias{length,topNList-method}
 \alias{removeKnownItems}
 \alias{removeKnownItems,topNList-method}
-
 \alias{getTopNLists}
 \alias{getTopNLists,realRatingMatrix-method}
+\alias{getRatings,topNList-method}
 
 
 \title{Class "topNList": Top-N List}
@@ -58,6 +58,8 @@ Objects can be created by
 	        top-N lists from the ratings in x. Arguments are \code{n}
 		and \code{minRating}. Items with a rating below
 		\code{minRating} will not be part of the top-N list.}
+	\item{getRatings}{\code{signature(x = "topNList")}: get the ratings
+	  associated with the items recommended in the top-N list.}
 	\item{length}{\code{signature(x = "topNList")}: for how many users
 	    does this object contain a top-N list? }
 	\item{removeKnownItems}{\code{signature(x = "topNList")}:
@@ -71,7 +73,9 @@ Objects can be created by
 	}
 }
 \seealso{
-\code{\link{evaluate}}, \code{\linkS4class{realRatingMatrix}}
+\code{\link{evaluate}},
+\code{\link{getList}},
+\code{\linkS4class{realRatingMatrix}}
 }
 %\examples{
 %}

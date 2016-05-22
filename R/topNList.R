@@ -28,6 +28,9 @@ setMethod("getList", signature(from = "topNList"),
     if(decode) lapply(from@items, function(y) from@itemLabels[y])
   else from@items)
 
+setMethod("getRatings", signature(x = "topNList"),
+  function(x, ...) x@ratings)
+
 setAs("topNList", "list", function(from) getList(from, decode = TRUE))
 
 ## creation from realRatingMatrix
