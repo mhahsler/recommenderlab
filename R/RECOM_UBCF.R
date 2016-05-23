@@ -23,7 +23,10 @@ BIN_UBCF <- function(data, parameter = NULL){
   ), p )
 
   predict <- function(model, newdata, n=10, data=NULL,
-    type=c("topNList"), ...) {
+    type=c("topNList", "ratings", "ratingMatrix"), ...) {
+
+    type <- match.arg(type)
+
 
     ## newdata are userid
     if(is.numeric(newdata)) {
@@ -31,7 +34,6 @@ BIN_UBCF <- function(data, parameter = NULL){
         stop("If newdata is a user id then data needes to be the training dataset.")
       newdata <- data[newdata,]
     }
-
 
     ## prediction
     ## FIXME: add Weiss dissimilarity
@@ -67,8 +69,7 @@ BIN_UBCF <- function(data, parameter = NULL){
     ratings <- new("realRatingMatrix", data=dropNA(ratings))
     ## prediction done
 
-    ratings <- removeKnownRatings(ratings, newdata)
-    getTopNLists(ratings, n=n)
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object
