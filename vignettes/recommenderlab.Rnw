@@ -938,7 +938,7 @@ the \proglang{S4} class system.
 Figure~\ref{fig:class_diagram} shows the main classes and their relationships.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.8\textwidth]{recommenderlab_classes}}
+    \centerline{\includegraphics[width=1\textwidth, trim={0 23cm 0 0}, clip]{recommenderlab_classes}}
 \caption{UML class diagram for
 package~\pkg{recommenderlab}~\citep{misc:Fowler:2004}.}
 \label{fig:class_diagram}
