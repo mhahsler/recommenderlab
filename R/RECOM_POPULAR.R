@@ -93,6 +93,8 @@ REAL_POPULAR <- function(data, parameter = NULL) {
     ratings@normalize <- getNormalize(newdata)
     ratings <- denormalize(ratings, getNormalize(newdata))
 
+    rownames(ratings) <- rownames(newdata)
+
     ### this is because we use populary and not average rating here!
     if(type=="topNList") {
       topN <- model$topN
