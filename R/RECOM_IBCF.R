@@ -47,6 +47,8 @@ BIN_IBCF <- function(data, parameter= NULL) {
       newdata <- data[newdata,]
     }
 
+    if(ncol(newdata) != nrow(model$sim)) stop("number of items in newdata does not match model.")
+
     n <- as.integer(n)
     sim <- model$sim
     u <- as(newdata, "dgCMatrix")
@@ -135,6 +137,8 @@ REAL_IBCF <- function(data, parameter= NULL) {
         stop("If newdata is a user id then data needes to be the training dataset.")
       newdata <- data[newdata,]
     }
+
+    if(ncol(newdata) != nrow(model$sim)) stop("number of items in newdata does not match model.")
 
     n <- as.integer(n)
 

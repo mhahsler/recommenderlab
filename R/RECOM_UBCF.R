@@ -35,6 +35,8 @@ BIN_UBCF <- function(data, parameter = NULL){
       newdata <- data[newdata,]
     }
 
+    if(ncol(newdata) != ncol(model$data)) stop("number of items in newdata does not match model.")
+
     ## prediction
     ## FIXME: add Weiss dissimilarity
 

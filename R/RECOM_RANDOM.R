@@ -16,6 +16,8 @@ RANDOM <- function(data=NULL, parameter=NULL) {
       newdata <- data[newdata, , drop = FALSE]
     }
 
+    if(ncol(newdata) != length(model$labels)) stop("number of items in newdata does not match model.")
+
     ## create random ratings
     ratings <- matrix(runif(nrow(newdata)*ncol(newdata),
       model$range[1], model$range[2]),

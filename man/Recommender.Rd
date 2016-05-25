@@ -3,6 +3,7 @@
 \alias{Recommender}
 \alias{recommenderRegistry}
 \alias{Recommender,ratingMatrix-method}
+\alias{getModel,Recommender-method}
 \title{
 Create a Recommender Model
 }
@@ -23,15 +24,15 @@ Recommender(data, ...)
 }
 \details{
 Recommender uses the registry mechanism from package \pkg{registry}
-to manage methods. This let's the user easily specify and add new methods. 
+to manage methods. This let's the user easily specify and add new methods.
 The registry is called \code{recommenderRegistry}. See examples section.
 }
 \value{
 An object of class 'Recommender'.
 }
 \seealso{
-\code{\linkS4class{Recommender}}, 
-\code{\linkS4class{ratingMatrix}}. 
+\code{\linkS4class{Recommender}},
+\code{\linkS4class{ratingMatrix}}.
 }
 \examples{
 data("MSWeb")
@@ -40,7 +41,7 @@ MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) >10,], 100)
 rec <- Recommender(MSWeb10, method = "POPULAR")
 rec
 
-str(getModel(rec))
+getModel(rec)
 
 ## look at registry and a few methods
 recommenderRegistry$get_entry_names()

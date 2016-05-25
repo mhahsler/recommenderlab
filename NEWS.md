@@ -1,8 +1,9 @@
 # Changes in version 0.1-9.1 (xx/xx/2016)
 
-  * Added getRatings method for topNList.
-  * realRatingMatrix supports now subset assignment with [.
-  * RECOM_POPULAR now shows the parameters in the registry. 
+* Added getRatings method for topNList.
+* realRatingMatrix supports now subset assignment with [.
+* RECOM_POPULAR now shows the parameters in the registry. 
+* predict now checks if newdata (number of items) is compatible with the model.  
 
 # Changes in version 0.1-9 (05/18/2016)
 

@@ -51,6 +51,7 @@ REAL_SVD <- function(data, parameter= NULL) {
     if(!is.null(model$normalize) && is(newdata, "realRatingMatrix"))
       newdata <- normalize(newdata, method=model$normalize)
 
+    if(ncol(newdata) != nrow(model$svd$v)) stop("number of items in newdata does not match model.")
 
     ### reconstruct full rating matrix R = U Sigma V^T
     #r <- svd$u %*% tcrossprod(diag(svd$d), svd$v)

@@ -44,6 +44,8 @@ REAL_SVDF <- function(data, parameter= NULL) {
       newdata <- data[newdata, , drop=FALSE]
     }
 
+    if(ncol(newdata) != nrow(model$svd$V)) stop("number of items in newdata does not match model.")
+
     if(!is.null(model$normalize) && is(newdata, "realRatingMatrix"))
       newdata <- normalize(newdata, method=model$normalize)
 

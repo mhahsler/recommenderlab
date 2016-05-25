@@ -709,7 +709,7 @@ it incorporates higher order effects between more than two items.
 %association rules to derive top-N recommendations, Demiriz [Demiriz 2001]
 %studied the problem of how to weight the different rules that are supported
 %by the active user. He presented a method that computes the similarity
-%between a rule and the active user¿s basket as the product of the confi-
+%between a rule and the active user's basket as the product of the confi-
 %dence of the rule and the Euclidean distance between items in the
 %antecedent of the association rule and the items in the user¿s basket. He
 %compared this approach both with the item-based scheme described in Section

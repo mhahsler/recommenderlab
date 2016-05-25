@@ -85,6 +85,8 @@ REAL_POPULAR <- function(data, parameter = NULL) {
       newdata <- data[newdata,]
     }
 
+    if(ncol(newdata) != ncol(model$ratings)) stop("number of items in newdata does not match model.")
+
     ### create denormalized data for each new user
     newdata <- normalize(newdata, method = model$normalize)
     ratings <- model$ratings[rep(1L, nrow(newdata)),]
