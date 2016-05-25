@@ -39,18 +39,18 @@ recommenderRegistry$set_entry(
   description="Recommender based on item popularity (binary data)."
 )
 
-
+.REAL_POPULAR_params <- list(
+    normalize="center",
+    aggregationRatings=colMeans,
+    aggregationPopularity=colSums,
+    minRating = NA
+)
 
 
 ## always recommends the top-N popular items (without known items)
 REAL_POPULAR <- function(data, parameter = NULL) {
 
-  p <- .get_parameters(list(
-    normalize="center",
-    aggregationRatings=colMeans,
-    aggregationPopularity=colSums,
-    minRating = NA
-  ), parameter)
+  p <- .get_parameters(.REAL_POPULAR_params, parameter)
 
   data <- normalize(data, method=p$normalize)
 
@@ -119,4 +119,5 @@ REAL_POPULAR <- function(data, parameter = NULL) {
 ## register recommender
 recommenderRegistry$set_entry(
   method="POPULAR", dataType = "realRatingMatrix", fun=REAL_POPULAR,
-  description="Recommender based on item popularity (real data).")
+  description="Recommender based on item popularity (real data).",
+  parameters=.REAL_POPULAR_params)
