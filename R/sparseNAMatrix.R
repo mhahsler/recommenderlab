@@ -64,11 +64,15 @@ dropNA2matrix <- function(x) {
 
   x <- as(x, "dgCMatrix")
 
+  ## remember true NAs
+  nas <- Matrix::which(is.na(x), arr.ind=TRUE)
+
   x@x[x@x==0] <- NA
   zeros <- Matrix::which(is.na(x), arr.ind=TRUE)
   x <- as(x, "matrix")
   x[x==0] <- NA
   x[zeros] <- 0
+  x[nas] <- NA
   x
 }
 
