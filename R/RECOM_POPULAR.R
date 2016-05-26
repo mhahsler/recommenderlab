@@ -42,8 +42,7 @@ recommenderRegistry$set_entry(
 .REAL_POPULAR_params <- list(
     normalize="center",
     aggregationRatings=colMeans,
-    aggregationPopularity=colSums,
-    minRating = NA
+    aggregationPopularity=colSums
 )
 
 
@@ -63,15 +62,9 @@ REAL_POPULAR <- function(data, parameter = NULL) {
     itemLabels = colnames(data),
     n= ncol(data))
 
-  if(!is.na(p$minRating)) {
-    warning("minRating not implemented!")
-    ### FIXME: remove bad ratings...
-  }
-
   model <- c(list(
     topN = topN,
-    ratings = ratings,
-    minRating = p$minRating
+    ratings = ratings
   ), p)
 
   predict <- function(model, newdata, n=10,

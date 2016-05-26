@@ -40,17 +40,23 @@ for(m in methods) {
   expect_gt(sum(is.na(as(pre, "matrix"))), 0L)
 
   ### full rating matrix
-  pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
-  pre
-  ### there can be NAs
-  #expect_equal(sum(is.na(as(pre, "matrix"))), 0L)
+  ### RERECOMMEND cannot do it
+  if(m != "RERECOMMEND") {
+    pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
+    pre
+    ### there can be NAs
+    #expect_equal(sum(is.na(as(pre, "matrix"))), 0L)
+  }
 
   pre <- predict(rec, test3, n = 10, type = "ratings")
   pre
   expect_gt(sum(is.na(as(pre, "matrix"))), 0L)
 
-  pre <- predict(rec, test3, n = 10, type = "ratingMatrix")
-  pre
+  ### RERECOMMEND cannot do it
+  if(m != "RERECOMMEND") {
+    pre <- predict(rec, test3, n = 10, type = "ratingMatrix")
+    pre
+  }
   ### there can be NAs
   #expect_equal(sum(is.na(as(pre, "matrix"))), 0L)
 }
@@ -83,8 +89,10 @@ for(m in methods) {
   expect_identical(length(l), 3L)
   expect_equal(as.integer(sapply(l, length)), c(10L, 10L, 10L))
 
-  ### AR cannot do it
-  #pre <- predict(rec, test1, n = 10, type = "ratings"))
-  #pre <- predict(rec, test1, n = 10, type = "ratingMatrix"))
+  ### AR and RERECOMMEND cannot do it
+  #if(m != "AR" && m != "RERECOMMEND") {
+  #  pre <- predict(rec, test1, n = 10, type = "ratings")
+  #  pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
+  #}
 }
 

@@ -9,7 +9,6 @@
   max_epochs = 200,
   min_improvement = 1e-6,
   normalize  = "center",
-  minRating  = NA,
   verbose = FALSE
 )
 

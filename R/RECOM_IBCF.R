@@ -89,8 +89,7 @@ recommenderRegistry$set_entry(
   normalize = "center",
   normalize_sim_matrix = FALSE,
   alpha = 0.5,
-  na_as_zero = FALSE,
-  minRating = NA
+  na_as_zero = FALSE
 )
 
 

@@ -84,8 +84,7 @@ BIN_UBCF <- function(data, parameter = NULL){
   nn = 25,
   sample = FALSE,
   ## FIXME: implement weighted = TRUE,
-  normalize="center",
-  minRating = NA
+  normalize="center"
 )
 
 

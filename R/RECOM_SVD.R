@@ -4,8 +4,7 @@
 .REAL_SVD_param <- list(
   k = 10,                     ## rank of approximation
   maxiter    = 100,           ## max. number of SVD iterations
-  normalize  = "center",      ## rows
-  minRating  = NA
+  normalize  = "center"      ## rows
 )
 
 REAL_SVD <- function(data, parameter= NULL) {
