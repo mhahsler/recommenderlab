@@ -9,6 +9,8 @@
   the available recommendations (from a normal distribution with the user's
   means and standard deviation).
 * predict now checks if newdata (number of items) is compatible with the model.  
+* getTopNLists and bestN gained a randomized argument to increase prediction
+  diversity.
 
 # Changes in version 0.1-9 (05/18/2016)
 

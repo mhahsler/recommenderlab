@@ -40,6 +40,7 @@ Objects can be created by calls of the form \code{new("realRatingMatrix", data =
 	    defined in package \pkg{Matrix}. Note that this matrix drops NAs instead
 	    of zeroes. Operations on \code{"dgCMatrix"} potentially will delete
 	    zeroes.}
+	\item{\code{normalize}:}{\code{NULL} or a list with normalizaton factors. }
     }
 }
 \section{Extends}{

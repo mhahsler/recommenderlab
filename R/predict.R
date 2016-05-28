@@ -10,7 +10,8 @@ setMethod("predict", signature(object = "Recommender"),
 
 ### helper to return ratings
 returnRatings <- function(ratings, newdata,
-  type=c("topNList", "ratings", "ratingMatrix"), n, minRating = NA) {
+  type=c("topNList", "ratings", "ratingMatrix"), n,
+  randomize = NULL, minRating = NA) {
 
   type <- match.arg(type)
 
@@ -29,5 +30,5 @@ returnRatings <- function(ratings, newdata,
   ratings <- removeKnownRatings(ratings, newdata)
   if(type=="ratings") return(ratings)
 
-  getTopNLists(ratings, n, minRating = minRating)
+  getTopNLists(ratings, n, randomize = randomize,minRating = minRating)
 }

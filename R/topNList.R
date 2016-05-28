@@ -35,33 +35,59 @@ setAs("topNList", "list", function(from) getList(from, decode = TRUE))
 
 ## creation from realRatingMatrix
 setMethod("getTopNLists", signature(x = "realRatingMatrix"),
-  function(x, n= 10, minRating = NA){
+  function(x, n=10, randomize=NULL, minRating=NA){
     n <- as.integer(n)
 
     # just in case
     x <- denormalize(x)
 
-    x.m <- as(x, "matrix")
-    dimnames(x.m) <- NULL
+    x.l <- getList(x, decode = FALSE)
 
-    if(!is.null(minRating) && !is.na(minRating)) x.m[x.m<minRating] <- NA
+    if(is.null(randomize) || is.na(randomize)) {
+      reclist <- lapply(x.l, FUN = function(l)
+        head(sort(l, decreasing = TRUE), n=n))
 
-    reclist <- structure(lapply(1:nrow(x), FUN =
-        function(i) head(order(as(x.m[i,], "matrix"),
-          decreasing=TRUE, na.last=NA), n)), names = rownames(x))
+      ret <- new("topNList",
+        items = lapply(reclist, FUN = function(l) as.integer(names(l))),
+        ratings = lapply(reclist, as.vector),
+        itemLabels = colnames(x), n = n)
 
-    ratings <- structure(lapply(1:nrow(x), FUN =
-        function(i) x.m[i, reclist[[i]]]), names = rownames(x))
+      if(!is.null(minRating) && !is.na(minRating))
+        ret <- bestN(ret, n = n, minRating = minRating)
 
-    new("topNList", items = reclist, ratings = ratings,
-      itemLabels = colnames(x), n = n)
+    }else{
+    ## randomize recommendations
+      reclist <- lapply(x.l, FUN = function(l) {
+        if(!is.null(minRating) && !is.na(minRating)) l <- l[l>=minRating]
+        if(length(l)>0) sample(l, size = min(n, length(l)),
+          prob = (l-min(l)+1)^randomize)
+        else integer(0)
+      })
+
+      ret <- new("topNList",
+        items = lapply(reclist, FUN = function(l) as.integer(names(l))),
+        ratings = lapply(reclist, as.vector),
+        itemLabels = colnames(x), n = n)
+    }
+  ret
   })
 
 ## only keep best n items.
 setMethod("bestN", signature(x = "topNList"),
-  function(x, n = 10) new("topNList", items = lapply(x@items, head, n),
-    ratings = if(!is.null(x@ratings)) lapply(x@ratings, head, n) else NULL,
-    itemLabels = x@itemLabels, n = as.integer(n)))
+  function(x, n = 10, minRating = NA) {
+
+    if(!is.null(minRating) && !is.na(minRating)) {
+      if(is.null(x@ratings)) stop("topNList does not contain ratings, setting minRatings not possible!")
+
+      take <- lapply(x@ratings, ">=", minRating)
+      x@items <- lapply(1:length(take), FUN=function(l) x@items[[l]][take[[l]]])
+      x@ratings <- lapply(1:length(take), FUN=function(l) x@ratings[[l]][take[[l]]])
+    }
+
+    new("topNList", items = lapply(x@items, head, n),
+      ratings = if(!is.null(x@ratings)) lapply(x@ratings, head, n) else NULL,
+      itemLabels = x@itemLabels, n = as.integer(n))
+    })
 
 
 setMethod("removeKnownItems", signature(x = "topNList"),

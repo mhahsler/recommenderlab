@@ -25,7 +25,9 @@
 \description{Recommendations a Top-N list. }
 \section{Objects from the Class}{
 Objects can be created by
-\code{predict} with a recommender model and new data.
+\code{predict} with a recommender model and new data. Alternatively,
+objects can be created from a realRatingMatrix using
+\code{getTopNLists} (see below).
 }
 \section{Slots}{
     \describe{
@@ -53,11 +55,22 @@ Objects can be created by
 	\item{coerce}{\code{signature(from = "topNList", to = "list")}}
 
 	\item{bestN}{\code{signature(x = "topNList")}: returns only the best
-		n recommendations (second argument is n which defaults to 10). }
+		n recommendations (second argument is \code{n} which defaults to 10).
+		The additional argument \code{minRating} can be used to remove all
+		entries with a rating below this value. }
 	\item{getTopNLists}{\code{signature(x = "realRatingMatrix")}: create
-	        top-N lists from the ratings in x. Arguments are \code{n}
-		and \code{minRating}. Items with a rating below
-		\code{minRating} will not be part of the top-N list.}
+	     top-N lists from the ratings in x. Arguments are
+	     \code{n} (defaults to 10),
+	     \code{randomize} (default is \code{NULL}) and
+		   \code{minRating} (default is \code{NA}).
+		   Items with a rating below \code{minRating} will not be part of the
+		   top-N list. \code{randomize} can be used to get diversity in the
+		   predictions by randomly selecting items with a bias to higher rated
+		   items. The bias is introduced by choosing the items with a probability
+		   proportional to the rating \eqn{(r-min(r)+1)^{randomize}}.
+		   The larger the value
+		   the more likely it is to get very highly rated items and a negative
+		   value for \code{randomize} will select low-rated items. }
 	\item{getRatings}{\code{signature(x = "topNList")}: get the ratings
 	  associated with the items recommended in the top-N list.}
 	\item{length}{\code{signature(x = "topNList")}: for how many users

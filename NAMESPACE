@@ -2,7 +2,8 @@ import("methods")
 
 importFrom("graphics", "plot", "barplot", "lines", "text") ## we need the generic for plot
 importFrom("proxy", "dist", "as.dist")
-importFrom("stats", "sd", "median", "princomp", "loadings", "runif", "cor")
+importFrom("stats", "sd", "median", "princomp", "loadings", "runif",
+  "rnorm", "cor")
 importFrom("utils", "head")
 
 ### SVD
@@ -49,7 +50,8 @@ export(
   "RMSE",
   "MSE",
   "MAE",
-  "frobenius"
+  "frobenius",
+  "HybridRecommender"
 )
 
 S3method("predict", "funkSVD")

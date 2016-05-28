@@ -1,7 +1,7 @@
 ## rerecommends highly rated items
 
 .RERECOMMEND_params <- list(
-  randomize = 0,
+  randomize = 1,
   minRating = NA
 )
 
@@ -31,28 +31,19 @@ RERECOMMEND <- function(data=NULL, parameter=NULL) {
     ## just reuse user ratings
     ratings <- newdata
 
-    ## remove low ratings
-    if(!is.na(model$minRating)) {
-      ratings@data@x[ratings@data@x < model$minRating] <- NA
-    }
-
     if(type == "ratings") return(ratings)
 
-    ## randomize ratings
-    if(model$randomize > 0) {
-      ratings@data@x <- ratings@data@x + rnorm(length(ratings@data@x), 0,
-        model$randomize)
-    }
-
-    ## FIXME: add some noise here!!!
-    getTopNLists(ratings, n)
+    getTopNLists(ratings, n,
+      minRating = model$minRating,
+      randomize = model$randomize)
   }
 
   ## this recommender has no model
   new("Recommender", method = "RERECOMMEND",
     dataType = "ratingMatrix",
     ntrain = nrow(data),
-    model = model, predict = predict)
+    model = model,
+    predict = predict)
 }
 
 ## register recommender
@@ -62,8 +53,10 @@ recommenderRegistry$set_entry(method="RERECOMMEND",
   description="Re-recommends highly rated items (real ratings).",
   parameters = .RERECOMMEND_params)
 
-recommenderRegistry$set_entry(method="RERECOMMEND", dataType="binaryRatingMatrix",
-  fun=RANDOM,
-  description="Re-recommends items (binary ratings).",
-  parameters = .RERECOMMEND_params)
+### FIXME: need to implement
+
+#recommenderRegistry$set_entry(method="RERECOMMEND", dataType="binaryRatingMatrix",
+#  fun=RANDOM,
+#  description="Re-recommends items (binary ratings).",
+#  parameters = .RERECOMMEND_params)
 
