@@ -10,7 +10,8 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
       return(x)
     }
 
-    methods <- c("center", "Z-score")
+    method <- tolower(method)
+    methods <- c("center", "z-score")
     method_id <- pmatch(method, methods)
     if(length(method_id)!=1 || is.na(method_id)) stop("Unknown normalization method: ", method)
 
@@ -67,7 +68,8 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
     if(is.null(method)) method <- x@normalize[[what]]$method
     if(is.null(factors)) factors <- x@normalize[[what]]$factors
 
-    methods <- c("center", "Z-score")
+    method <- tolower(method)
+    methods <- c("center", "z-score")
     method_id <- pmatch(method, methods)
     if(length(method_id)!=1 || is.na(method_id))
       stop("Unknown normalization method: ", method)

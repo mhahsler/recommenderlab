@@ -15,6 +15,7 @@ returnRatings <- function(ratings, newdata,
   type <- match.arg(type)
 
   ratings <- as(ratings, "realRatingMatrix")
+  ratings <- denormalize(ratings)
 
   if(type=="ratingMatrix") {
     ### replace with known ratings

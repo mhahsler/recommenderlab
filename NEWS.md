@@ -5,6 +5,9 @@
 * Added getRatings method for topNList.
 * realRatingMatrix supports now subset assignment with [.
 * RECOM_POPULAR now shows the parameters in the registry. 
+* RECOM_RANDOM produced now random ratings from the estimated distribution of
+  the available recommendations (from a normal distribution with the user's
+  means and standard deviation).
 * predict now checks if newdata (number of items) is compatible with the model.  
 
 # Changes in version 0.1-9 (05/18/2016)

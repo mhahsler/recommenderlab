@@ -2,7 +2,10 @@
 
 RANDOM <- function(data=NULL, parameter=NULL) {
 
-  model <- list(range = range(as(data, "dgCMatrix")), labels = colnames(data))
+  model <- list(
+    range = range(getRatings(data)),
+    labels = colnames(data)
+  )
 
   predict <- function(model=NULL, newdata, n=10,
     data= NULL, type=c("topNList", "ratings", "ratingMatrix"), ...) {
@@ -18,11 +21,20 @@ RANDOM <- function(data=NULL, parameter=NULL) {
 
     if(ncol(newdata) != length(model$labels)) stop("number of items in newdata does not match model.")
 
-    ## create random ratings
-    ratings <- matrix(runif(nrow(newdata)*ncol(newdata),
-      model$range[1], model$range[2]),
+  newdata <- normalize(newdata, method = "Z-score")
+
+    ## create random ratings (Z-scores)
+    ratings <- matrix(rnorm(nrow(newdata)*ncol(newdata)),
       nrow=nrow(newdata), ncol=ncol(newdata),
       dimnames=list(NULL, model$labels))
+
+    ratings <- new("realRatingMatrix", data=dropNA(ratings),
+      normalize = getNormalize(newdata))
+    ratings <- denormalize(ratings)
+
+    ### check that min/max is not violated
+    ratings@data@x[ratings@data@x<model$range[1]] <- model$range[1]
+    ratings@data@x[ratings@data@x>model$range[2]] <- model$range[2]
 
     returnRatings(ratings, newdata, type, n)
   }
