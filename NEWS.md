@@ -2,6 +2,7 @@
 
 * Added recommender RERECOMMEND to recommend highly rated item again (e.g.,
     movies to watch).
+* Added a hybrid recommender (HybridRecommender).
 * Added getRatings method for topNList.
 * realRatingMatrix supports now subset assignment with [.
 * RECOM_POPULAR now shows the parameters in the registry. 
