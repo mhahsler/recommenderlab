@@ -49,7 +49,7 @@ recommenderRegistry$set_entry(
 ## always recommends the top-N popular items (without known items)
 REAL_POPULAR <- function(data, parameter = NULL) {
 
-  p <- .get_parameters(.REAL_POPULAR_params, parameter)
+  p <- getParameters(.REAL_POPULAR_params, parameter)
 
   data <- normalize(data, method=p$normalize)
 

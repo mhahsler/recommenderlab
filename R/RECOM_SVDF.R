@@ -14,7 +14,7 @@
 
 REAL_SVDF <- function(data, parameter= NULL) {
 
-  p <- .get_parameters(.REAL_SVDF_param, parameter)
+  p <- getParameters(.REAL_SVDF_param, parameter)
 
   ### row normalization?
   if(!is.null(p$normalize) && is(data, "realRatingMatrix"))

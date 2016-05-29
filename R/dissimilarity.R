@@ -2,14 +2,14 @@
 ## dissimilarity for binaryRatingMatrix
 setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
 	function(x, y = NULL, method = NULL, args = NULL, which = "users") {
-	    
-	    args <- .get_parameters(list(alpha=.5), args)
+
+	    args <- getParameters(list(alpha=.5), args)
 
 	    which <- tolower(which)
 	    if(!is.null(method)) method <- tolower(method)
 	    else method <- "jaccard"
-	    
-	    
+
+
 	    ## handle karypis and conditional dissimilarities
 	    if(method == "karypis") {
 		if(!is.null(y) || which != "items") stop("Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!")
@@ -23,13 +23,13 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
 		return(.conditional(as(x, "dgCMatrix"), dist=TRUE, args))
 	    }
 
-	
+
 	    ## dissimilarity is defined in arules for itemMatrix
 	    if(which == "users") which <- "transactions" ## "items" is ok
 	    x <- x@data
 	    if(!is.null(y)) y <- y@data
 
-	    ## dissimilarity in arules sets the method attribute 
+	    ## dissimilarity in arules sets the method attribute
 	    arules::dissimilarity(x, y, method, args, which)
 	}
 	)
@@ -41,11 +41,11 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
 ## Idea by Christopher Koeb
 
 setMethod("dissimilarity", signature(x = "realRatingMatrix"),
-	function(x, y = NULL, method = NULL, args = NULL, 
+	function(x, y = NULL, method = NULL, args = NULL,
 		which = "users") {
 
-	    args <- .get_parameters(list(na_as_zero = FALSE, alpha=.5), args)
-	    
+	    args <- getParameters(list(na_as_zero = FALSE, alpha=.5), args)
+
 	    which <- tolower(which)
 	    if(!is.null(method)) method <- tolower(method)
 	    else method <- "cosine"
@@ -57,7 +57,7 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
 	    #	x <- as(x, "dgCMatrix")
 	    #	return(as.dist(1- crossprod(x / sqrt(rowSums(x ^ 2)))))
 	    #}
-	    
+
 	    ## handle karypis and conditional dissimilarities
 	    if(method == "karypis") {
 		if(!is.null(y) || which != "items") stop("Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!")
@@ -76,20 +76,20 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
 	    ## FIXME: we can do some distances faster
 
 	    x <- as(x, "matrix")
-	    if(which == "items") x <- t(x) 
+	    if(which == "items") x <- t(x)
 	    if(args$na_as_zero) x[is.na(x)] <- 0
 
 
-	    if(!is.null(y)) { 
+	    if(!is.null(y)) {
 		y <- as(y, "matrix")
-		if(which == "items") y <- t(y) 
+		if(which == "items") y <- t(y)
 		if(args$na_as_zero) y[is.na(y)] <- 0
 	    }
 
       ### of person we only use 1-pos. corr
 	    if(method == "pearson") {
 		if(!is.null(y)) y <- t(y)
-		pc <- suppressWarnings(cor(t(x), y, method="pearson", 
+		pc <- suppressWarnings(cor(t(x), y, method="pearson",
 					use="pairwise.complete.obs"))
 		pc[pc<0] <- 0
     #pc[is.na(pc)] <- 0
@@ -102,7 +102,7 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
 	})
 
 setMethod("similarity", signature(x = "ratingMatrix"),
-	function(x, y = NULL, method = NULL, args = NULL, 
+	function(x, y = NULL, method = NULL, args = NULL,
 		which = "users") {
 
 	    which <- tolower(which)
@@ -121,12 +121,12 @@ setMethod("similarity", signature(x = "ratingMatrix"),
 
 		return(.conditional(as(x, "dgCMatrix"), dist=FALSE, args))
 	    }
-		
+
 	    ## use dissimilarity and convert into a similarity
 	    d <- dissimilarity(x, y, method, args, which)
 
 	    ## FIXME: other measures in [0,1]
-	    if(!is.null(attr(d, "method")) && tolower(attr(d, "method")) 
+	    if(!is.null(attr(d, "method")) && tolower(attr(d, "method"))
 		    %in% c("jaccard", "cosine")) {
 		sim <- 1-d
 	    }else{
@@ -152,16 +152,16 @@ setMethod("similarity", signature(x = "ratingMatrix"),
 
     if(dist) sim <- as.dist(1/(1+sim))
     else attr(sim, "type") <- "simil"
-    attr(sim, "method") <- "conditional"		
+    attr(sim, "method") <- "conditional"
     sim
 }
-	    
+
 ## Karypis similarity
 .karypis <- function(x, dist, args=NULL) {
-    
+
     ## get alpha
-    args <- .get_parameters(list(alpha = .5), args)
-    
+    args <- getParameters(list(alpha = .5), args)
+
     n <- ncol(x)
 
     ## normalize rows to unit length
@@ -170,20 +170,20 @@ setMethod("similarity", signature(x = "ratingMatrix"),
     ## for users without items
     x[is.na(x)] <- 0
 
-    ## sim(v,u) = 
+    ## sim(v,u) =
     ##      sum_{for all i: r_i,v >0} r_i,u / freq(v) / freq(u)^alpha
     uv <-  crossprod(x, x>0)
     v <- matrix(colSums(x), nrow = n, ncol = n, byrow = FALSE)
-    u <- t(v) 
+    u <- t(v)
 
-    sim <- uv/v/u^args$alpha 
+    sim <- uv/v/u^args$alpha
 
     ##  fix if freq = 0
     sim[is.na(sim)] <- 0
-    
+
     if(dist) sim <- as.dist(1/(1+sim))
     else attr(sim, "type") <- "simil"
-    attr(sim, "method") <- "karypis"		
+    attr(sim, "method") <- "karypis"
     sim
 
 }

@@ -13,7 +13,7 @@
 
 BIN_UBCF <- function(data, parameter = NULL){
 
-  p <- .get_parameters(.BIN_UBCF_param, parameter)
+  p <- getParameters(.BIN_UBCF_param, parameter)
 
   if(p$sample) data <- sample(data, p$sample)
 
@@ -90,7 +90,7 @@ BIN_UBCF <- function(data, parameter = NULL){
 
 REAL_UBCF <- function(data, parameter = NULL){
 
-  p <- .get_parameters(.REAL_UBCF_param, parameter)
+  p <- getParameters(.REAL_UBCF_param, parameter)
 
   if(p$sample) data <- sample(data, p$sample)
 

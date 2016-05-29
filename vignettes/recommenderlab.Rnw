@@ -984,7 +984,7 @@ returns a \class{Recommender} object. Once we have a recommender object,
 we can predict top-$N$ recommendations for active users using
 
 \begin{center}
-\code{predict(object, newdata, n=10, type=c("topNList", "ratings"), ...)}.
+\code{predict(object, newdata, n=10, type=c("topNList", "ratings", "ratingMatrix"), ...)}.
 
 \end{center}
 
@@ -994,11 +994,13 @@ object, \code{newdata} is the data for the active users.
 For top-$N$ lists \code{n} is
 the maximal number of recommended items in each list and \func{predict} will
 return an objects of class \class{topNList} which contains
-one top-$N$ list for each active user. For ratings \code{n} is ignored
+one top-$N$ list for each active user. For \code{"ratings"}
+and \code{"ratingMatrix"}, \code{n} is ignored
 and an object of \class{realRatingMatrix} is returned. Each row
-contains the predicted ratings for one active user. Items for which a
+contains the predicted ratings for one active user. The difference is,
+that for \code{"ratings"}, the items for which a
 rating exists in \code{newdata} have a \code{NA} instead of a
-predicted rating.
+predicted/actual ratings.
 
 
 The actual implementations for the recommendation algorithms are
@@ -1711,77 +1713,8 @@ model to create recommendations for new data.
 The model and the predict function are both encapsulated in an
 object of class~\class{Recommender}.
 
-For example the creator function
-in Table~\ref{table:newalg} is called \func{BIN\_POPULAR}. It uses
-the (training) data to create a model which is a simple list (lines 4--7 in
-Table~\ref{table:newalg}).
-In this case the model is just a list of all items sorted in
-decreasing order of
-popularity.
-The second part (lines 9--22) is the predict function which
-takes the model, new data and
-the number of items of the desired top-$N$ list as its arguments.
-Predict used the model to compute recommendations for
-each user in the new data and
-encodes them as an object of class~\class{topNList} (line 16).
-Finally, the trained model and the predict function are returned as
-an object of class~\class{Recommender} (lines 20--21).
-Now all that needs to be done is to register the creator function. In this case
-it is called POPULAR and applies to binary rating data (lines 25--28).
-
-To create a new recommender algorithm the code in Table~\ref{table:newalg}
-can be copied. Then lines 5, 6, 20, 26 and 27 need
-to be edited to reflect the new method name and description.
-Line 6 needs to be replaced by the new model. More complicated
-models might use several entries in the list. Finally,
-lines 12--14 need to be replaced by the recommendation code.
-
-\begin{table}
-\caption{Defining and registering a new recommender algorithm.}
-\label{table:newalg}
-%\begin{verbatim}
-\begin{Verbatim}[gobble=0, numbers=left]
-## always recommends the top-N on average most popular items
-REAL_POPULAR <- function(data, parameter = NULL) {
-  p <- .get_parameters(list(
-      normalize = "center",
-      aggregation = colMeans
-		), parameter)
-
-  ## normalize data?
-  if(!is.null(p$normalize)) data <- normalize(data, method = p$normalize)
-
-  model <- c(list(
-    ratings = new("realRatingMatrix", data = dropNA(t(p$aggregation(data))),
-      normalize = data@normalize)), p)
-
-  ## prediction function
-  predict <- function(model, newdata, n = 10,
-	  type = c("topNList", "ratings", "ratingMatrix"), ...) {
-	  type <- match.arg(type)
-
-    ## denormalize ratings and produce a rating row for each user in newdata
-    ratings <- denormalize(model$ratings)
-    ratings <- ratings[rep(1L, nrow(newdata)),]
-
-    ## helper function to remove known items and
-    ## produce ratings matrices and topN-lists
-    returnRatings(ratings, newdata, type, n)
-  }
-
-  ## construct and return the recommender object
-  new("Recommender", method = "POPULAR", dataType = class(data),
-	    ntrain = nrow(data), model = model, predict = predict)
-}
-
-## register recommender
-recommenderRegistry$set_entry(
-	method="POPULAR", dataType = "realRatingMatrix", fun=REAL_POPULAR,
-	description="Recommender based on item popularity (real data).")
-\end{Verbatim}
-%\end{verbatim}
-\end{table}
-
+For examples look at the files starting with \code{RECOM} in the
+packages \code{R} directory. A good examples is in \code{RECOM_POPULAR.R}.
 
 \section{Conclusion}
 \label{sec:conclusion}

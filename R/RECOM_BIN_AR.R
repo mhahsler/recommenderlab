@@ -12,7 +12,7 @@
 BIN_AR <- function(data, parameter = NULL) {
 
   ## parameters
-  p <- .get_parameters(.BIN_AR_param, parameter)
+  p <- getParameters(.BIN_AR_param, parameter)
 
   ## binaryRatingMatrix stores arules transactions!
   data <- data@data

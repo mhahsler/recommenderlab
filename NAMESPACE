@@ -6,9 +6,8 @@ importFrom("stats", "sd", "median", "princomp", "loadings", "runif",
   "rnorm", "cor")
 importFrom("utils", "head")
 
-### SVD
+### truncated SVD
 importFrom("irlba", "irlba")
-
 
 ## get generics, cladses and methods
 importClassesFrom("Matrix", "Matrix", "dsparseMatrix", "dgCMatrix", "ngCMatrix", "dgTMatrix")
@@ -24,10 +23,25 @@ importFrom("arules", "predict", "nitems", "sample", "LIST",
 importMethodsFrom("arules", "sort", "summary",
   "lhs", "rhs", "quality", "quality<-", "is.subset", "interestMeasure")
 
+## export functions
+export(
+  "dropNA",
+  "dropNA2matrix",
+  "funkSVD",
+  "RMSE",
+  "MSE",
+  "MAE",
+  "frobenius",
+  "HybridRecommender",
+  "returnRatings",
+  "getParameters"
+)
+
 ## registry uses S3
 import("registry")
 export("recommenderRegistry")
 S3method("print", "recommender_method")
+
 
 ## recommenderlab exports
 exportClasses(
@@ -41,17 +55,6 @@ exportClasses(
   "confusionMatrix",
   "evaluationResults",
   "evaluationResultList"
-)
-
-export(
-  "dropNA",
-  "dropNA2matrix",
-  "funkSVD",
-  "RMSE",
-  "MSE",
-  "MAE",
-  "frobenius",
-  "HybridRecommender"
 )
 
 S3method("predict", "funkSVD")

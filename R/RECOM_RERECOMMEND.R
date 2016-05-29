@@ -7,7 +7,7 @@
 
 RERECOMMEND <- function(data=NULL, parameter=NULL) {
 
-  p <- .get_parameters(.RERECOMMEND_params, parameter)
+  p <- getParameters(.RERECOMMEND_params, parameter)
 
   model <- c(list(labels = colnames(data)), p)
 
