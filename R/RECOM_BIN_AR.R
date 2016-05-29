@@ -42,7 +42,6 @@ BIN_AR <- function(data, parameter = NULL) {
   ), p
   )
 
-
   predict <- function(model, newdata, n=10, data=NULL,
     type = c("topNList"), ...) {
 
@@ -65,7 +64,7 @@ BIN_AR <- function(data, parameter = NULL) {
         LIST(rhs(sort(model$rule_base[m[,i]], by=measure)),
           decode=FALSE))), n)
 
-      reclist[[i]] <- if(!is.null(recom)) recom else numeric(0)
+      reclist[[i]] <- if(!is.null(recom)) recom else integer(0)
     }
 
     names(reclist) <- rownames(newdata)

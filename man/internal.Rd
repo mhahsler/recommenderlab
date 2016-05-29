@@ -2,9 +2,7 @@
 \alias{returnRatings}
 \alias{getParameters}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Internal Utility Functions
-}
+\title{Internal Utility Functions}
 \description{
 Utility functions used internally by recommender algorithms. See files starting
 with \code{RECOM} in the package's \code{R} directory for examples of usage.

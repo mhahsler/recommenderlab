@@ -54,7 +54,16 @@ setClass("topNList",
 	  ratings = "listOrNull",
 		itemLabels= "character",
 		n       = "integer"
-	)
+	),
+  validity = function(object) {
+    if(!all(sapply(object@items, is.integer)))
+      stop("items slot needs to contain a list of item ids (interger).")
+    if(!is.null(object@ratings) &&
+        any(sapply(object@items, length) != sapply(object@ratings, length)))
+      stop("ratings and items do not aggree with each other")
+
+    TRUE
+  }
 )
 
 
