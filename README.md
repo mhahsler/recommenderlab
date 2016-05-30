@@ -15,7 +15,9 @@ This R package provides a research infrastructure to test and develop
 * Funk SVD (SVDF)
 * Association rule-based recommender (AR)
 * Popular items (POPULAR)
-* Random items for comparison (RANDOM)
+* Randomly chosen items for comparison (RANDOM)
+* Re-recommend liked items (RERECOMMEND)
+* Hybrid recommendations (HybridRecommender)
 
 For evaluation the framework supports given-n and all-but-x protocols with
 

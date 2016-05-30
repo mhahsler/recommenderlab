@@ -1,9 +1,8 @@
 # Changes in version 0.1-9.1 (xx/xx/2016)
 
-* Added recommender RERECOMMEND to recommend highly rated item again (e.g.,
-    movies to watch).
+* Added recommender RERECOMMEND to recommend highly rated items again (e.g.,
+    movies to watch again).
 * Added a hybrid recommender (HybridRecommender).
-* Added getRatings method for topNList.
 * realRatingMatrix supports now subset assignment with [.
 * RECOM_POPULAR now shows the parameters in the registry. 
 * RECOM_RANDOM produced now random ratings from the estimated distribution of
@@ -12,6 +11,7 @@
 * predict now checks if newdata (number of items) is compatible with the model.  
 * getTopNLists and bestN gained a randomized argument to increase prediction
   diversity.
+* Added getRatings method for topNList.
 
 # Changes in version 0.1-9 (05/18/2016)
 
