@@ -5,9 +5,9 @@
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/recommenderlab.svg?branch=master)](https://travis-ci.org/mhahsler/recommenderlab)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/recommenderlab?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/recommenderlab)
 
-This R package provides a research infrastructure to test and develop
-    recommender algorithms. The package supports rating and 0-1 data sets and
-    recommender. Supported algoritms are:
+This R package provides an infrastructure to test and develop
+    recommender algorithms. The package supports rating (e.g., 1-5 stars) and 
+    unary (0-1) data sets. Supported algoritms are:
     
 * User-based collborative filtering (UBCF)
 * Item-based collborative filtering (IBCF)
@@ -19,7 +19,7 @@ This R package provides a research infrastructure to test and develop
 * Re-recommend liked items (RERECOMMEND)
 * Hybrid recommendations (HybridRecommender)
 
-For evaluation the framework supports given-n and all-but-x protocols with
+For evaluation, the framework supports given-n and all-but-x protocols with
 
 * Train/test split
 * Cross-validation
@@ -28,11 +28,7 @@ For evaluation the framework supports given-n and all-but-x protocols with
 Evaluation measures are:
 
 * Rating errors: MSE, RMSE, MAE
-* TPR/FPR (ROC)
-* precision and recall
-
-
-Additional packages in the recommenderlab family are: To come...
+* Top-N recommendations: TPR/FPR (ROC), precision and recall
 
 ## Installation
 
@@ -41,7 +37,7 @@ Additional packages in the recommenderlab family are: To come...
 
 ## Example
 
-A Shiny App running recommenderlab can be [here](https://mhahsler-apps.shinyapps.io/Jester/). 
+A Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
 
 ```R
 > library("recommenderlab")
@@ -82,3 +78,4 @@ $`292`
 
 * [recommenderlab package vignette](http://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf) with complete examples.
 * [Reference manual](http://cran.r-project.org/web/packages/recommenderlab/recommenderlab.pdf)
+* An example Shiny App is available at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 

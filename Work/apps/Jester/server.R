@@ -52,8 +52,7 @@ shinyServer(
         n = input$num_recoms)
 
       cbind('Recommended Joke' = JesterJokes[getList(pred)[[1]]],
-        'Predicted Rating' = sprintf("%1.1f", pred@ratings[[1]]))
-        #'Predicted Rating' = sprintf("%1.1f", getRatings(pred)[[1]]))
+        'Predicted Rating' = sprintf("%1.1f", getRatings(pred)[[1]]))
     })
   }
 )
