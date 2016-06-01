@@ -1,4 +1,4 @@
-# Changes in version 0.1-9.1 (xx/xx/2016)
+# Changes in version 0.2-0 (05/31/2016)
 
 * Added recommender RERECOMMEND to recommend highly rated items again (e.g.,
     movies to watch again).
