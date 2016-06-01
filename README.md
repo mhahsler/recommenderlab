@@ -76,6 +76,9 @@ $`292`
 
 ## Further Information
 
+* Development version of [recommenderlab on github](https://github.com/mhahsler/recommenderlab).
 * [recommenderlab package vignette](http://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf) with complete examples.
-* [Reference manual](http://cran.r-project.org/web/packages/recommenderlab/recommenderlab.pdf)
+* recommenderlab [reference manual](http://cran.r-project.org/web/packages/recommenderlab/recommenderlab.pdf)
 * An example Shiny App is available at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
+
+_Maintainer:_ [Michael Hahsler](http://michael.hahsler.net)
