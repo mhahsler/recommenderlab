@@ -3,7 +3,7 @@
 .BIN_AR_param <- list(
   support = 0.1,
   confidence = 0.3,
-  maxlen = 2,
+  maxlen = 5,
   measure = "confidence",
   verbose = FALSE,
   decreasing = TRUE
