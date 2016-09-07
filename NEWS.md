@@ -1,6 +1,6 @@
 # Changes in version 0.2-0.1 (xx/xx/2016)
 
-* Default for maxlen in recommendation maethod AR is now 5 to find more 
+* Default for maxlen in recommendation method AR is now 5 to find more 
     specific rules. 
 
 # Changes in version 0.2-0 (05/31/2016)
