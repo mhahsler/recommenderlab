@@ -1,7 +1,10 @@
 # Changes in version 0.2-0.1 (xx/xx/2016)
 
-* Default for maxlen in recommendation method AR is now 5 to find more 
-    specific rules. 
+* Changes in recommendation method AR: Default for maxlen is now 3 to 
+    find more specific rules. Parameters measure and decreasing for 
+    sorting the rule baseare now called sort_measure and sort_decreasing.
+    New parameter apriori_control can be used to pass a control list to
+    apriori in arules.
 
 # Changes in version 0.2-0 (05/31/2016)
 
