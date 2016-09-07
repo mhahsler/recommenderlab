@@ -92,7 +92,7 @@ esSplit
 
 ## 4-fold cross-validation with all-but-1 items for learning.
 esCross <- evaluationScheme(MSWeb10, method="cross-validation",
-        k=4, given=1)
+        k=4, given=-1)
 esCross
 }
 %\keyword{ ~kwd1 }
