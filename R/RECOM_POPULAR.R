@@ -36,7 +36,7 @@ BIN_POPULAR <- function(data, parameter = NULL) {
 ## register recommender
 recommenderRegistry$set_entry(
   method="POPULAR", dataType = "binaryRatingMatrix", fun=BIN_POPULAR,
-  description="Recommender based on item popularity (binary data)."
+  description="Recommender based on item popularity."
 )
 
 .REAL_POPULAR_params <- list(
@@ -116,5 +116,5 @@ REAL_POPULAR <- function(data, parameter = NULL) {
 ## register recommender
 recommenderRegistry$set_entry(
   method="POPULAR", dataType = "realRatingMatrix", fun=REAL_POPULAR,
-  description="Recommender based on item popularity (real data).",
+  description="Recommender based on item popularity.",
   parameters=.REAL_POPULAR_params)

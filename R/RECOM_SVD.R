@@ -84,7 +84,7 @@ REAL_SVD <- function(data, parameter= NULL) {
 
 recommenderRegistry$set_entry(
   method="SVD", dataType = "realRatingMatrix", fun=REAL_SVD,
-  description="Recommender based on SVD approximation with column-mean imputation (real data).",
+  description="Recommender based on SVD approximation with column-mean imputation.",
   parameters = .REAL_SVD_param)
 
 

@@ -157,13 +157,13 @@ REAL_UBCF <- function(data, parameter = NULL){
 ## register recommender
 recommenderRegistry$set_entry(
   method="UBCF", dataType = "binaryRatingMatrix", fun=BIN_UBCF,
-  description="Recommender based on user-based collaborative filtering (binary data).",
+  description="Recommender based on user-based collaborative filtering.",
   parameters=.BIN_UBCF_param)
 
 
 recommenderRegistry$set_entry(
   method="UBCF", dataType = "realRatingMatrix", fun=REAL_UBCF,
-  description="Recommender based on user-based collaborative filtering (real data).",
+  description="Recommender based on user-based collaborative filtering.",
   parameters=.REAL_UBCF_param)
 
 

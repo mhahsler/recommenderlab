@@ -165,6 +165,6 @@ REAL_IBCF <- function(data, parameter= NULL) {
 ## register recommender
 recommenderRegistry$set_entry(
   method="IBCF", dataType = "realRatingMatrix", fun=REAL_IBCF,
-  description="Recommender based on item-based collaborative filtering (real data).",
+  description="Recommender based on item-based collaborative filtering.",
   parameters=.REAL_IBCF_params)
 

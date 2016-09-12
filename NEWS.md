@@ -5,6 +5,9 @@
     sorting the rule baseare now called sort_measure and sort_decreasing.
     New parameter apriori_control can be used to pass a control list to
     apriori in arules.
+* The registry now has a reference field.
+* Added recommender method ALS and ALS_implicit nased on latent factors 
+    and alternating least squares (contributed by Bregt Verreet).
 
 # Changes in version 0.2-0 (05/31/2016)
 

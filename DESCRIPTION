@@ -3,7 +3,8 @@ Version: 0.2-0.1
 Date: 2016-xx-x
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
-                email = "mhahsler@lyle.smu.edu"))
+                email = "mhahsler@lyle.smu.edu"),
+             person("Bregt", "Vereet", role = c("ctb", "cph")))
 Description: Provides a research infrastructure to test and develop
     recommender algorithms including UBCF, IBCF, FunkSVD and association
     rule-based algorithms.

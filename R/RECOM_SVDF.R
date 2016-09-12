@@ -64,6 +64,6 @@ REAL_SVDF <- function(data, parameter= NULL) {
 
 recommenderRegistry$set_entry(
   method="SVDF", dataType = "realRatingMatrix", fun=REAL_SVDF,
-  description="Recommender based on Funk SVD with gradient descend (real data).",
+  description="Recommender based on Funk SVD with gradient descend.",
   parameters = .REAL_SVDF_param)
 
