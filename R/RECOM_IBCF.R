@@ -65,7 +65,7 @@ BIN_IBCF <- function(data, parameter= NULL) {
 
     if(type=="ratings") return(as(ratings, "realRatingMatrix"))
 
-    getTopNLists(as(ratings, "realRatingMatrix"))
+    getTopNLists(as(ratings, "realRatingMatrix"), n)
   }
 
   ## construct recommender object
