@@ -1,4 +1,4 @@
-# Changes in version 0.2-0.1 (xx/xx/2016)
+# Changes in version 0.2-1 (09/15/2016)
 
 * Changes in recommendation method AR: Default for maxlen is now 3 to 
     find more specific rules. Parameters measure and decreasing for 
