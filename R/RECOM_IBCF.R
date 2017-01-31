@@ -58,14 +58,7 @@ BIN_IBCF <- function(data, parameter= NULL) {
     ratings <- t(as(tcrossprod(sim,u) / tcrossprod(sim!=0, u!=0), "matrix"))
     dimnames(ratings) <- dimnames(newdata)
 
-    if(type=="ratingMatrix") return(as(ratings, "realRatingMatrix"))
-
-    ## remove known ratings
-    ratings[as(u!=0, "matrix")] <- NA
-
-    if(type=="ratings") return(as(ratings, "realRatingMatrix"))
-
-    getTopNLists(as(ratings, "realRatingMatrix"), n)
+    returnRatings(ratings, newdata, type, n)
   }
 
   ## construct recommender object
