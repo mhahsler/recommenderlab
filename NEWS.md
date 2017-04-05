@@ -1,16 +1,21 @@
 # Changes in version 0.2-1.1 (xx/xx/2016)
 
+## Bugfixes
+* predict for IBCF now returns top-N lists correctly.
 
 # Changes in version 0.2-1 (09/15/2016)
 
+## New Features
+* Added recommender method ALS and ALS_implicit based on latent factors 
+    and alternating least squares (contributed by Bregt Verreet).
 * Changes in recommendation method AR: Default for maxlen is now 3 to 
     find more specific rules. Parameters measure and decreasing for 
     sorting the rule base are now called sort_measure and sort_decreasing.
     New parameter apriori_control can be used to pass a control list to
     apriori in arules.
 * The registry now has a reference field.
-* Added recommender method ALS and ALS_implicit based on latent factors 
-    and alternating least squares (contributed by Bregt Verreet).
+
+## Bugfixes
 * Fixed bug in method IBCF with n being ignored in 
     predict (reported by Giorgio Alfredo Spedicato).
 
