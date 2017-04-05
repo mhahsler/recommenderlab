@@ -1,6 +1,6 @@
 Package: recommenderlab
-Version: 0.2-2
-Date: 2017-04-05
+Version: 0.2-2.1
+Date: 2017-xx-xx
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
                 email = "mhahsler@lyle.smu.edu"),
