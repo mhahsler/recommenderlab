@@ -235,6 +235,10 @@ in section~\ref{sec:infrastructure}. In section~\ref{sec:examples} we
 illustrate the capabilities on the package to create and evaluate
 recommender algorithms. We conclude with section~\ref{sec:conclusion}.
 
+<<echo=FALSE>>=
+citation("recommenderlab")
+@
+
 \section{Collaborative Filtering}
 \label{sec:CF}
 
