@@ -36,34 +36,6 @@ cost_function <- function (R, U, M, W, lambda, n_u_i, n_m_j) {
       2) %*% n_m_j))
 }
 
-# This function is used to combine train data and known data, as both kinds of data are used to train ALS
-combine_data <- function(matrix1, matrix2) {
-  train_users <- rownames(matrix1)
-  new_users <- rownames(matrix2)
-  common_users <- intersect(train_users, new_users)
-  only_train_users <- setdiff(train_users, common_users)
-  only_new_users <- setdiff(new_users, common_users)
-
-  only_train_data <- matrix1[only_train_users, , drop = FALSE]
-  only_new_data <- matrix2[only_new_users, , drop = FALSE]
-
-  if (length(common_users) > 0) {
-    # Some users are both in matrix1 and matrix2
-    common_train_data <- matrix1[common_users, , drop = FALSE]
-    common_new_data <- matrix2[common_users, , drop = FALSE]
-    if (all(common_train_data == common_new_data)) {
-      data <- rbind(only_train_data, common_new_data, only_new_data)
-    } else {
-      stop("Certain users are both in the training data and newdata, but with other items")
-    }
-
-  } else {
-    data <- rbind(only_train_data, only_new_data)
-  }
-
-  return(as(data, "realRatingMatrix"))
-}
-
 
 REAL_ALS <- function(data, parameter = NULL) {
   p <- getParameters(.REAL_ALS_params, parameter)
@@ -99,7 +71,9 @@ REAL_ALS <- function(data, parameter = NULL) {
 
     # Use both data and newdata to train your model
     # Therefore, the data must first be combined
-    data <- combine_data(model$data@data, newdata@data)
+    #data <- combine_data(model$data@data, newdata@data)
+    data <- new("realRatingMatrix",
+      data = rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix")))
 
     # Normalize the data
     if (!is.null(p$normalize) && is(data, "realRatingMatrix")) {
@@ -158,6 +132,7 @@ REAL_ALS <- function(data, parameter = NULL) {
 
 
     # Print the cost function
+
     if (p$verbose == TRUE) {
       cost <- cost_function(R, U, M, W, lambda = p$lambda, n_u_i, n_m_j)
       print(paste0("0th iteration: cost function = ", cost))
@@ -223,8 +198,7 @@ REAL_ALS <- function(data, parameter = NULL) {
 
     # During the model construction above, a rating was calculated for each user-item combination
     # Here, it is just a matter of returning the ratings associated with the users in newdata
-    # Beware: this implicates you should always use rownames!
-    ratingMatrix <- ratings[rownames(newdata), ]
+    ratingMatrix <- ratings[-(1:nrow(model$data)), ]
 
     # Now return the ratings, as a "topNList", "ratings" or "ratingMatrix"
     returnRatings(ratingMatrix, newdata, type, n)
@@ -326,15 +300,18 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
 
     # Use both data and newdata to train your model
     # Therefore, the data must first be combined
-    data <- combine_data(model$data@data, newdata@data)
+    #data <- combine_data(model$data@data, newdata@data)
+    data <- rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix"))
 
+    ### MFH: There is no NA in implicit data!
     # The rating matrix R assigns 0 (NA) to missing data, and 1 to measured data
-    R <- data@data
+    R <- data
     R@x[!is.na(R@x)] <- 1
+
     # The numbers in data are used to assign weights to these ratings (confidence)
     # Here, the weights w_ui = 1 + a r_ui are used.
     # However, we just save it as a r_ui, to keep it sparse. We add the 1 back to it whenever needed
-    W <- p$alpha * data@data
+    W <- p$alpha * data
 
 
     # The matrix dimensions
@@ -445,8 +422,7 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
 
     # During the model construction above, a rating was calculated for each user-item combination
     # Here, it is just a matter of returning the ratings associated with the users in newdata
-    # Beware: this implicates you should always use rownames!
-    ratingMatrix <- ratings[rownames(newdata), ]
+    ratingMatrix <- ratings[-(1:nrow(model$data)), ]
 
     # Now return the ratings, as a "topNList", "ratings" or "ratingMatrix"
     returnRatings(ratingMatrix, newdata, type, n)

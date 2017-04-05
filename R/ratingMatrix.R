@@ -107,6 +107,10 @@ setMethod("[", signature(x = "ratingMatrix"),
 
 	    if(missing(i)) i <- 1:nrow(x)
 	    if(missing(j)) j <- 1:ncol(x)
+	    if(is.null(i)) i <- integer(0)
+	    if(is.null(j)) j <- integer(0)
+
+
 
 	    x@data <- x@data[i,j, ..., drop=FALSE]
 	    x

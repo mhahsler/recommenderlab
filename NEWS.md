@@ -1,3 +1,8 @@
+# Changes in version 0.2-2.1 (xx/xx/2017)
+
+## Bugfixes
+* Fixed bug in ALS_implicit (reported by equalise)
+
 # Changes in version 0.2-2 (04/05/2017)
 
 ## Bugfixes
