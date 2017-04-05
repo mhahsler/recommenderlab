@@ -104,6 +104,6 @@ $`292`
 ## References
 
 * Michael Hahsler (2016). [recommenderlab: A Framework for Developing and
-Testing Recommendation Algorithms](https://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
-* recommenderlab [reference manual](https://cran.r-project.org/web/packages/recommenderlab/recommenderlab.pdf)
+Testing Recommendation Algorithms](https://CRAN.R-project.org/package=recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
+* recommenderlab [reference manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
 * An example Shiny App is available at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
