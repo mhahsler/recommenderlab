@@ -32,33 +32,60 @@ Evaluation measures are:
 
 ## Installation
 
-* __Stable CRAN version:__ install from within R.
-* __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/recommenderlab/build/artifacts) or install via `intall_git("mhahsler/recommenderlab")` (needs devtools) 
+__Stable CRAN version:__ install from within R with
+```R
+install.packages("recommenderlab")
+```
+__Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/recommenderlab/build/artifacts) or install from GitHub (needs devtools).
+```R 
+install_git("mhahsler/recommenderlab")
+```
 
-## Example
+## Usage
 
 A Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
 
+Load the package and prepare a dataset (included in the package).
 ```R
-> library("recommenderlab")
-> data("MovieLense")
-> ### use only users with more than 100 ratings
-> MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
-> MovieLense100
+library("recommenderlab")
+data("MovieLense")
+### use only users with more than 100 ratings
+MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
+MovieLense100
+```
+
+```
 358 x 1664 rating matrix of class ‘realRatingMatrix’ with 73610 ratings.
-> train <- MovieLense100[1:50]
-> 
-> ### learn user-based collaborative filtering recommender
-> rec <- Recommender(train, method = "UBCF")
-> rec
+```
+
+Train a user-based collaborative filtering recommender using a small training set.
+```R
+train <- MovieLense100[1:50]
+rec <- Recommender(train, method = "UBCF")
+rec
+```
+
+```
 Recommender of type ‘UBCF’ for ‘realRatingMatrix’ 
 learned using 50 users.
-> 
-> ### create top-N recommendations for new users (users 101 and 102)
-> pre <- predict(rec, MovieLense100[101:102], n = 10)
-> pre
+```
+
+
+Create top-N recommendations for new users (users 101 and 102)
+```R
+pre <- predict(rec, MovieLense100[101:102], n = 10)
+pre
+```
+
+```
 Recommendations as ‘topNList’ with n = 10 for 2 users. 
-> as(pre, "list")
+```
+
+```R
+as(pre, "list")
+```
+
+```
 $`291`
  [1] "Alien (1979)"              "Titanic (1997)"           
  [3] "Contact (1997)"            "Aliens (1986)"            
@@ -74,11 +101,9 @@ $`292`
  [9] "Babe (1995)"                "GoodFellas (1990)"   
 ```
 
-## Further Information
+## References
 
-* Development version of [recommenderlab on github](https://github.com/mhahsler/recommenderlab).
-* [recommenderlab package vignette](https://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf) with complete examples.
+* Michael Hahsler (2016). [recommenderlab: A Framework for Developing and
+Testing Recommendation Algorithms](https://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
 * recommenderlab [reference manual](https://cran.r-project.org/web/packages/recommenderlab/recommenderlab.pdf)
 * An example Shiny App is available at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
-
-_Maintainer:_ [Michael Hahsler](http://michael.hahsler.net)
