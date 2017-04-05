@@ -12,7 +12,7 @@ Classification/ACM: G.4, H.2.8
 Depends: R (>= 2.10.0), Matrix, arules, proxy, registry
 Imports: methods, utils, stats, irlba
 Suggests: ROCR, testthat
-BugReports: https://github.com/mhahsler/recommenderlab/issues
+BugReports: https://github.com/mhahsler/recommenderlab
 URL: http://lyle.smu.edu/IDA/recommenderlab/
 License: GPL-2
 Copyright: (C) Michael Hahsler
