@@ -1,7 +1,9 @@
-# Changes in version 0.2-1.1 (xx/xx/2016)
+# Changes in version 0.2-2 (04/05/2017)
 
 ## Bugfixes
 * predict for IBCF now returns top-N lists correctly.
+* (cross) dissimilarity for binary data now returns the correct data 
+    type (reported by inkrement). 
 
 # Changes in version 0.2-1 (09/15/2016)
 
