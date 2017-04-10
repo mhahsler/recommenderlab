@@ -43,8 +43,6 @@ install_git("mhahsler/recommenderlab")
 
 ## Usage
 
-A Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
-
 Load the package and prepare a dataset (included in the package).
 ```R
 library("recommenderlab")
@@ -101,9 +99,11 @@ $`292`
  [9] "Babe (1995)"                "GoodFellas (1990)"   
 ```
 
+A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) ([https://github.com/mhahsler/recommenderlab/tree/master/Work/apps](source code)). 
+
+
 ## References
 
 * Michael Hahsler (2016). [recommenderlab: A Framework for Developing and
 Testing Recommendation Algorithms](https://CRAN.R-project.org/package=recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
 * recommenderlab [reference manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
-* An example Shiny App is available at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/). 
