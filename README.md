@@ -99,7 +99,8 @@ $`292`
  [9] "Babe (1995)"                "GoodFellas (1990)"   
 ```
 
-A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) ([https://github.com/mhahsler/recommenderlab/tree/master/Work/apps](source code)). 
+A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) 
+([source code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)). 
 
 
 ## References
