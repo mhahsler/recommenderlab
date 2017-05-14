@@ -1040,8 +1040,20 @@ The creator function
 \end{center}
 
 creates the evaluation scheme from a data set using a method
-(e.g., simple split, bootstrap sampling, $k$-fold cross validation)
-with item withholding (parameter \code{given}).
+(e.g., simple split, bootstrap sampling, $k$-fold cross validation).
+Testing is perfomed by withholding items (parameter \code{given}).
+\cite{recommender:Breese:1998} introduced the
+four experimental witholding protocols called \emph{Given 2, Given 5, Given 10} and \emph{All-but-1.}
+During testing, the \emph{Given $x$} protocol presents the algorithm with
+only $x$ randomly chosen items for the test user, and the algorithm
+is evaluated by how well it is able to predict the withheld items.
+For \emph{All-but-$x$}, a generalization of \emph{All-but-1},
+the algorithm sees all but
+$x$ withheld ratings for the test user.
+\code{given} controls x in the evaluations scheme.
+Positive integers result in a Given $x$ protocol, while negative values
+produce a All-but-$x$ protocol.
+
 The function \func{evaluate} is then used to
 evaluate several recommender algorithms using an evaluation scheme resulting
 in a evaluation result list (class~\class{evaluationResultList}) with

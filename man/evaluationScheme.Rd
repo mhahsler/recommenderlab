@@ -36,10 +36,10 @@ evaluationScheme(data, ...)
 }
 \details{
 \code{evaluationScheme} creates an evaluation scheme (training and test data) 
-with \code{k} runs and one of the given methods:
+with \code{k} runs and one of the following methods:
 
 \code{"split"} randomly assigns
-the proportion of objects given by \code{train} to the training set and
+the proportion of objects specified by \code{train} to the training set and
 the rest is used for the test set.
 
 \code{"cross-validation"} creates a k-fold cross-validation scheme. The data
@@ -54,11 +54,13 @@ All objects not in the training set are used for testing.
 
 For evaluation, Breese et al. (1998) introduced the
 four experimental protocols called Given 2, Given 5, Given 10 and All-but-1. 
-For the Given x protocols, for each user the ratings for x randomly chosen 
-items are given to the recommender algorithm to learn the model while 
-the remaining items are withheld for evaluation. For All-but-x, 
-the algorithm is trained with all but
-x withheld ratings. \code{given} controls x in the evaluations scheme.
+During testing, the Given x protocol presents the algorithm with
+only x randomly chosen items for the test user, and the algorithm
+is evaluated by how well it is able to predict the withheld items. 
+For All-but-x, 
+the algorithm sees all but
+x withheld ratings for the test user. 
+\code{given} controls x in the evaluations scheme.
 Positive integers result in a Given x protocol, while negative values
 produce a All-but-x protocol.
 }
