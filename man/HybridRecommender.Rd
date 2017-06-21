@@ -5,7 +5,7 @@
 Create a Hybrid Recommender
 }
 \description{
-Combines several trained recommender algorithms into a hybrid recommender.
+Creates and combines recommendations using several recommender algorithms.
 }
 \usage{
 HybridRecommender(..., weights = NULL)
@@ -15,8 +15,15 @@ HybridRecommender(..., weights = NULL)
 	\item{weights}{ weights for the recommenders. The recommenders are equally
 	weighted by default. }
 }
-%\details{
-%}
+\details{
+    The hybrid recommender is initialized with a set of Recommender objects
+    trained on the same training set (at least the training sets 
+    need to have the same items in the same order).
+
+    For creating recommendations (\code{predict}), each recommender algorithm
+    is used to create ratings. The individual ratings are combined using
+    weighted sum. Weights can be specified in \code{weights}.
+}
 \value{
 An object of class 'Recommender'.
 }
