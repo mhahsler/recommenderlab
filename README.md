@@ -109,3 +109,4 @@ A simple Shiny App running recommenderlab can be found at  [https://mhahsler-app
 * Michael Hahsler (2016). [recommenderlab: A Framework for Developing and
 Testing Recommendation Algorithms](https://CRAN.R-project.org/package=recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
 * recommenderlab [reference manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
+*  Suresh K. Gorakala and Michele Usuelli (2015) [Building a Recommendation System with R](https://www.amazon.com/Building-Recommendation-System-Suresh-Gorakala/dp/1783554495) features the package recommenderlab.
