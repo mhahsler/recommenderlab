@@ -34,6 +34,8 @@ HybridRecommender <- function(..., weights = NULL) {
       ratings[i,] <- colSums(t(sapply(pred, FUN = function(p)
         as(p[i,], "matrix"))) * model$weights, na.rm = TRUE)
     }
+    dimnames(ratings) <- dimnames(newdata)
+
 
     ratings <- as(ratings, "realRatingMatrix")
     colnames(ratings) <- colnames(newdata)
