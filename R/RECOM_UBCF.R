@@ -129,7 +129,7 @@ REAL_UBCF <- function(data, parameter = NULL){
 
     s_uk <- sapply(1:nrow(sim), FUN=function(x)
       sim[x, neighbors[,x]])
-    sum_s_uk <- colSums(s_uk)
+    sum_s_uk <- colSums(s_uk, na.rm=TRUE)
 
     ## calculate the weighted sum
     r_a_norms <- sapply(1:nrow(newdata), FUN=function(i) {
