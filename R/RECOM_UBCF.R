@@ -81,6 +81,7 @@ BIN_UBCF <- function(data, parameter = NULL){
 
 .REAL_UBCF_param <- list(
   method = "cosine",
+  method1 = "jaccard",
   nn = 25,
   sample = FALSE,
   ## FIXME: implement weighted = TRUE,
@@ -118,9 +119,11 @@ REAL_UBCF <- function(data, parameter = NULL){
       newdata <- normalize(newdata, method=model$normalize)
 
     ## predict ratings
-    sim <- similarity(newdata, model$data,
+    sim1 <- similarity(newdata, model$data,
       method = model$method)
-
+    sim2 <-similarity(newdata, model$data,
+      method = model$method1)
+    sim<-sim1+sim2
     neighbors <- .knn(sim, model$nn)
 
     ## r_ui = r_u_bar + [sum_k s_uk * r_ai - r_a_bar] / sum_k s_uk
@@ -165,5 +168,3 @@ recommenderRegistry$set_entry(
   method="UBCF", dataType = "realRatingMatrix", fun=REAL_UBCF,
   description="Recommender based on user-based collaborative filtering.",
   parameters=.REAL_UBCF_param)
-
-
