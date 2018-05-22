@@ -32,7 +32,7 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
     #	POPULAR = list(...
 
     results <- lapply(method, FUN = function(a) try(evaluate(x, a$n,
-      n = n , type=type, parameter = a$p)))
+      n = n , type=type, parameter = a$p, progress = progress, keepModel = keepModel)))
 
     ## handle recommenders that have failed
     errs <- sapply(results, is, "try-error")
