@@ -103,7 +103,7 @@ setMethod("getRatings", signature(x = "ratingMatrix"),
 ## subset
 setMethod("[", signature(x = "ratingMatrix"),
 	function(x, i, j, ..., drop) {
-	    if(!missing(drop)) warning("drop not implemented for ratingMatrix!")
+	    if(!missing(drop) && drop) warning("drop not implemented for ratingMatrix!")
 
 	    if(missing(i)) i <- 1:nrow(x)
 	    if(missing(j)) j <- 1:ncol(x)

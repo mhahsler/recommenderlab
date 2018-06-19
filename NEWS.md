@@ -5,6 +5,7 @@
 * getData for binaryRatingMatrix data with type "known" and "unknown" 
     preserve now user ids/rownames (reported by Kasia Kulma).
 * predict for HybridRecommender now retains user IDs (reported by homodigitus).
+* Removed warning about using drop in subsetting ratingMatrices (reported by donnydongchen).
 
 # Changes in version 0.2-2 (04/05/2017)
 
