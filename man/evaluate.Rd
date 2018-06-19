@@ -24,7 +24,7 @@ evaluate(x, method, ...)
   used for evaluation. If several recommender methods need to be compared,
   \code{method} contains a nested list. Each element describes a recommender
   method and consists of a list with two elements: a character string
-  named \code{"method"} containing the method and a list names
+  named \code{"name"} containing the method and a list named
   \code{"parameters"} containing the parameters used for this recommender method.
   See \code{Recommender} for available methods.}
   \item{type}{evaluate "topNList" or "ratings"?}
