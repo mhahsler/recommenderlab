@@ -7,7 +7,7 @@
 
 This R package provides an infrastructure to test and develop
     recommender algorithms. The package supports rating (e.g., 1-5 stars) and 
-    unary (0-1) data sets. Supported algoritms are:
+    unary (0-1) data sets. Supported algorithms are:
     
 * User-based collborative filtering (UBCF)
 * Item-based collborative filtering (IBCF)
