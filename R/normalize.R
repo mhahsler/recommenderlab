@@ -92,7 +92,7 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
       data <- x@data
 
       if(method_id==2) { ## Z-score
-        data@x <- data@x/rep(sds, colCounts(x))
+        data@x <- data@x*rep(sds, colCounts(x))
       }
 
       data@x <- as.numeric(data@x+rep(means, colCounts(x)))
