@@ -19,8 +19,8 @@ returnRatings <- function(ratings, newdata,
   ratings <- denormalize(ratings)
 
   if(type=="ratingMatrix") {
-    ### replace with known ratings
-    nm <- as(newdata, "matrix")
+    ### replace with known ratings. Removed. We return the approximation by the algorithm instead.
+    nm <- as(denormalize(newdata), "matrix")
     rm <- as(ratings, "matrix")
     rm[!is.na(nm)] <- nm[!is.na(nm)]
     return(as(rm, "realRatingMatrix"))

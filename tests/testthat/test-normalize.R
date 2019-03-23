@@ -14,17 +14,19 @@ db <- matrix(sample(c(NA,0:5),100, replace=TRUE, prob=c(.7,rep(.3/6,6))),
 r <- as(db, "realRatingMatrix")
 r_row <- normalize(r)
 r_row_z <- normalize(r, method="Z-score")
+r_col_z <- normalize(r, method="Z-score", row = FALSE)
 
 r_col <- normalize(r, row = FALSE)
 r_row_col <- normalize(r_row, row = FALSE)
 
 ## check if denormalization works
-expect_identical(r, denormalize(r_row))
-expect_identical(r, denormalize(r_row_z))
-expect_identical(r, denormalize(r_col))
-expect_identical(r, denormalize(r_row_col))
-expect_identical(r_row, denormalize(r_row_col, row = FALSE))
-#expect_identical(r_col, denormalize(r_row_col, row = TRUE))
+expect_equal(r, denormalize(r_row))
+expect_equal(r, denormalize(r_row_z))
+expect_equal(r, denormalize(r_col_z))
+expect_equal(r, denormalize(r_col))
+expect_equal(r, denormalize(r_row_col))
+expect_equal(r_row, denormalize(r_row_col, row = FALSE))
+#expect_equal(r_col, denormalize(r_row_col, row = TRUE))
 
 
 
@@ -32,7 +34,7 @@ expect_identical(r_row, denormalize(r_row_col, row = FALSE))
 r_u1_true <- t(apply(db, MARGIN=1, FUN=function(x) x -mean(x,na.rm=TRUE)))
 names(dimnames(r_u1_true))[2] <- "items" ## fix dimnames
 
-expect_identical(as(r_row, "matrix"), r_u1_true)
+expect_equal(as(r_row, "matrix"), r_u1_true)
 
 ## FIXME: test for Z-score missing
 

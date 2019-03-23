@@ -1,7 +1,8 @@
-# Changes in version 0.2-3.1 (xx/xx/2019)
+# Changes in version 0.2-4 (03/23/2019)
 
 ## Bugfixes
 * Fixed bug in denormalization by column with z-score (reported by jackyrx).
+* Fixed bug in predict with type "ratingMatrix" where known values were not denormalized (reported by MounirHader).
 
 # Changes in version 0.2-3 (06/19/2018)
 

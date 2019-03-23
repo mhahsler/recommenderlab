@@ -10,7 +10,7 @@ Predict Recommendations
 Creates recommendations using a recommender model and data about new users.
 }
 \usage{
-\S4method{predict}{Recommender}(object, newdata, n = 10, data=NULL, 
+\S4method{predict}{Recommender}(object, newdata, n = 10, data=NULL,
     type="topNList", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -18,25 +18,25 @@ Creates recommendations using a recommender model and data about new users.
   \item{object}{a recommender model (class \code{"Recommender"}).}
   \item{newdata}{data for active users (class \code{"ratingMatrix"})
    or the index of users in the training data to create recommendations for.
-   If an index is used then some recommender algorithms need to be passed 
+   If an index is used then some recommender algorithms need to be passed
    the training data as argument \code{data}. Some algorithms may only support
    user indices. }
   \item{n}{ number of recommendations in the top-N list.}
   \item{data}{ training data needed by some recommender algorithms if
     \code{newdata} is a user index and not user data. }
-  \item{type}{ type of recommendation. The default type is 
+  \item{type}{ type of recommendation. The default type is
   \code{"topNList"} which creates
-  a top-N recommendation list with recommendations. 
-  Some recommenders can also create other results (e.g., 
-  type \code{"ratings"} returns only predicted ratings with
+  a top-N recommendation list with recommendations.
+  Some recommenders can also predict ratings with
+  type \code{"ratings"} which returns only predicted ratings with
   known ratings represented by \code{NA},
-  or type \code{"ratingMatrix"} which returns a completed rating matrix).}
+  or type \code{"ratingMatrix"} which returns a completed rating matrix (known values are copied from newdata).}
   \item{\dots}{further arguments.}
 }
 %\details{
 %}
 \value{
-Returns an object of class \code{"topNList"} or of other appropriate 
+Returns an object of class \code{"topNList"} or of other appropriate
 classes.
 }
 \seealso{

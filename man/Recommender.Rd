@@ -43,6 +43,12 @@ rec
 
 getModel(rec)
 
+## save and read a recommender model
+saveRDS(rec, file = "rec.rds")
+rec2 <- readRDS("rec.rds")
+rec2
+unlink("rec.rds")
+
 ## look at registry and a few methods
 recommenderRegistry$get_entry_names()
 

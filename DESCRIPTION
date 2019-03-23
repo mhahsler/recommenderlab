@@ -1,6 +1,6 @@
 Package: recommenderlab
-Version: 0.2-3.1
-Date: 2019-xx-xx
+Version: 0.2-4
+Date: 2019-03-24
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
                 email = "mhahsler@lyle.smu.edu"),
@@ -12,7 +12,7 @@ Classification/ACM: G.4, H.2.8
 Depends: R (>= 2.10.0), Matrix, arules, proxy, registry
 Imports: methods, utils, stats, irlba
 Suggests: ROCR, testthat
-BugReports: https://github.com/mhahsler/recommenderlab
-URL: http://lyle.smu.edu/IDA/recommenderlab/
+BugReports: https://github.com/mhahsler/recommenderlab/issues
+URL: https://github.com/mhahsler/recommenderlab
 License: GPL-2
 Copyright: (C) Michael Hahsler
