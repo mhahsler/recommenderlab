@@ -23,7 +23,7 @@ from 943 users on 1664 movies. Movie metadata is also provided in \code{MovieLen
 %\details{
 %}
 \source{
-GroupLens Research, \url{http://www.grouplens.org/node/73}
+GroupLens Research, \url{https://grouplens.org/datasets/movielens/}
 }
 \references{
 Herlocker, J., Konstan, J., Borchers, A., Riedl, J.. An Algorithmic
