@@ -1,3 +1,8 @@
+# Changes in version 0.2-4.1 (xx/xx/2019)
+
+## Change
+* predict with type "ratingMatrix" now returns predictions for the known ratings instead of replacing them with the known values.
+
 # Changes in version 0.2-4 (03/23/2019)
 
 ## Bugfixes

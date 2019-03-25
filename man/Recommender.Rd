@@ -32,7 +32,8 @@ An object of class 'Recommender'.
 }
 \seealso{
 \code{\linkS4class{Recommender}},
-\code{\linkS4class{ratingMatrix}}.
+\code{\linkS4class{ratingMatrix}},
+\code{\link{predict}}.
 }
 \examples{
 data("MSWeb")

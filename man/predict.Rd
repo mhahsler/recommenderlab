@@ -30,7 +30,8 @@ Creates recommendations using a recommender model and data about new users.
   Some recommenders can also predict ratings with
   type \code{"ratings"} which returns only predicted ratings with
   known ratings represented by \code{NA},
-  or type \code{"ratingMatrix"} which returns a completed rating matrix (known values are copied from newdata).}
+  or type \code{"ratingMatrix"} which returns a completed rating matrix (Note that
+  the predicted ratings may differ from the known ratings).}
   \item{\dots}{further arguments.}
 }
 %\details{
