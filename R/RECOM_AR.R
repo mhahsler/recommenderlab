@@ -49,7 +49,7 @@ BIN_AR <- function(data, parameter = NULL) {
   )
 
   predict <- function(model, newdata, n=10, data=NULL,
-    type = c("topNList"), ...) {
+    type = c("topNList", "ratings", "ratingMatrix"), ...) {
 
     type <- match.arg(type)
 
@@ -63,8 +63,8 @@ BIN_AR <- function(data, parameter = NULL) {
     n <- as.integer(n)
     sort_measure <- model$sort_measure
 
-    reclist <- list()
     m <- is.subset(lhs(model$rule_base), newdata@data)
+    reclist <- list()
     for(i in 1:nrow(newdata)) {
       recom <- head(unique(unlist(
         LIST(rhs(sort(model$rule_base[m[,i]], by=sort_measure)),
@@ -74,7 +74,14 @@ BIN_AR <- function(data, parameter = NULL) {
     }
 
     names(reclist) <- rownames(newdata)
-    new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
+    reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
+
+
+    if(type == "ratings"  || type == "ratingMatrix")
+      return(as(as(reclist, "matrix"), "realRatingMatrix"))
+
+    ### topN list
+    return(reclist)
   }
 
   ## construct recommender object

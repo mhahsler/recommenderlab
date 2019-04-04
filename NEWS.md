@@ -2,6 +2,7 @@
 
 ## Change
 * predict with type "ratingMatrix" now returns predictions for the known ratings instead of replacing them with the known values.
+* Recommender methods Popular and AR now also return ratings for binary data (and thus can be used for HybridRecommender).
 
 # Changes in version 0.2-4 (03/23/2019)
 

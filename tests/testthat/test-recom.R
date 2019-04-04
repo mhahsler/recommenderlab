@@ -8,6 +8,8 @@ data("MovieLense")
 methods <- unique(sapply(recommenderRegistry$get_entries(
   dataType="realRatingMatrix"), "[[", "method"))
 
+cat("Available methods for realRatingMatrix:", paste(methods, collapse = ", "))
+
 MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100,]
 MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100,]
 train <- MovieLense100[1:20]
@@ -61,9 +63,26 @@ for(m in methods) {
   #expect_equal(sum(is.na(as(pre, "matrix"))), 0L)
 }
 
+### Test HybridRecommender (just check if it fails)
+recom <- HybridRecommender(
+  Recommender(train, method = "POPULAR"),
+  Recommender(train, method = "RANDOM"),
+  Recommender(train, method = "RERECOMMEND"),
+  weights = c(.6, .1, .3)
+)
+#recom
+#getModel(recom)
+
+predict(recom, test1)
+predict(recom, test3)
+predict(recom, test1, type = "ratings")
+predict(recom, test3, type = "ratings")
+
 ### test all binary recommenders
 methods <- unique(sapply(recommenderRegistry$get_entries(
   dataType="binaryRatingMatrix"), "[[", "method"))
+
+cat("Available methods for binaryRatingMatrix:", paste(methods, collapse = ", "))
 
 MovieLense100_bin <- binarize(MovieLense100, minRating = 3)
 train <- MovieLense100_bin[1:50]
@@ -89,10 +108,27 @@ for(m in methods) {
   expect_identical(length(l), 3L)
   expect_equal(as.integer(sapply(l, length)), c(10L, 10L, 10L))
 
-  ### AR and RERECOMMEND cannot do it
-  #if(m != "AR" && m != "RERECOMMEND") {
-  #  pre <- predict(rec, test1, n = 10, type = "ratings")
-  #  pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
-  #}
+  ## do I get errors?
+  pre <- predict(rec, test1, n = 10, type = "ratings")
+  cat("Prediction range (should be [0,1]):\n")
+  print(summary(as.vector(as(pre, "matrix"))))
+  pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
+
 }
+
+### Test HybridRecommender (just check if it fails)
+recom <- HybridRecommender(
+  Recommender(train, method = "POPULAR"),
+  Recommender(train, method = "RANDOM"),
+  Recommender(train, method = "AR"),
+  #Recommender(train, method = "RERECOMMEND"), ### not implemented for binary data
+  weights = c(.6, .2, .2)
+)
+#recom
+#getModel(recom)
+
+predict(recom, test1)
+predict(recom, test3)
+predict(recom, test1, type = "ratings")
+predict(recom, test3, type = "ratings")
 
