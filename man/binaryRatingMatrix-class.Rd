@@ -17,12 +17,12 @@
 
 \title{Class "binaryRatingMatrix": A Binary Rating Matrix}
 \description{A matrix to represent binary rating data. 1 codes for a positive
-rating and 0 codes for either no or a negative rating. This 
+rating and 0 codes for either no or a negative rating. This
 coding is common for market basked data where products are either bought or
 not.}
 \section{Objects from the Class}{
 Objects can be created by calls of the form \code{new("binaryRatingMatrix", data = im)}, where \code{im} is an \code{itemMatrix} as defined in package
-\pkg{arules}, by coercion from a matrix (all non-zero values will be a 1), 
+\pkg{arules}, by coercion from a matrix (all non-zero values will be a 1),
 or by using \code{binarize} for
 an object of class "realRatingMatrix".
 }
@@ -36,7 +36,10 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 }
 \section{Methods}{
   \describe{
-    \item{coerce}{\code{signature(from = "matrix", to = "binaryRatingMatrix")}}
+    \item{coerce}{\code{signature(from = "matrix", to = "binaryRatingMatrix")}:
+    The matrix needs to be a logical matrix, or a 0-1 matrix (0 means FALSE and 1 means TRUE).
+    NAs are interpreted as FALSE.
+    }
     \item{coerce}{\code{signature(from = "itemMatrix", to = "binaryRatingMatrix")}}
     \item{coerce}{\code{signature(from = "data.frame", to = "binaryRatingMatrix")}}
     \item{coerce}{\code{signature(from = "binaryRatingMatrix", to = "matrix")}}
@@ -56,7 +59,7 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 \examples{
 ## create a 0-1 matrix
 m <- matrix(sample(c(0,1), 50, replace=TRUE), nrow=5, ncol=10,
-    dimnames=list(users=paste("u", 1:5, sep=''), 
+    dimnames=list(users=paste("u", 1:5, sep=''),
     items=paste("i", 1:10, sep='')))
 m
 
@@ -72,8 +75,8 @@ dim(b)
 dimnames(b)
 
 ## counts
-rowCounts(b)
-colCounts(b)
+rowCounts(b) ## number of ratings per user
+colCounts(b) ## number of ratings per item
 
 ## plot
 image(b)

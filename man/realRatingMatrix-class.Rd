@@ -48,7 +48,8 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 }
 \section{Methods}{
   \describe{
-    \item{coerce}{\code{signature(from = "matrix", to = "realRatingMatrix")}}
+    \item{coerce}{\code{signature(from = "matrix", to = "realRatingMatrix")}: Note that
+    unknown ratings have to be encoded in the matrix as NA and not as 0 (which would mean an actual rating of 0).}
     \item{coerce}{\code{signature(from = "realRatingMatrix", to = "matrix")}}
     \item{coerce}{\code{signature(from = "data.frame", to = "realRatingMatrix")}:
 	coercion from a data.frame with three columns.
@@ -100,9 +101,9 @@ r
 
 ## get some information
 dimnames(r)
-rowCounts(r)
-colCounts(r)
-rowMeans(r)
+rowCounts(r) ## number of ratings per user
+colCounts(r) ## number of ratings per item
+colMeans(r) ## average item rating
 
 
 ## histogram of ratings

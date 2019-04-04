@@ -51,8 +51,11 @@ objects can be created from a realRatingMatrix using
 	\item{coerce}{\code{signature(from = "topNList", to = "dgTMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "dgCMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "ngCMatrix")}}
-	\item{coerce}{\code{signature(from = "topNList", to = "matrix")}}
-	\item{coerce}{\code{signature(from = "topNList", to = "list")}}
+	\item{coerce}{\code{signature(from = "topNList", to = "matrix")}: returns
+	a matrix with the ratings for the top-N items. All other items have a rating of NA.}
+
+	\item{coerce}{\code{signature(from = "topNList", to = "list")}: returns a
+	  list with the items in the topNList.}
 
 	\item{bestN}{\code{signature(x = "topNList")}: returns only the best
 		n recommendations (second argument is \code{n} which defaults to 10).
