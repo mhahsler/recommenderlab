@@ -3,7 +3,7 @@
 BIN_POPULAR <- function(data, parameter = NULL) {
 
   cnt <- colCounts(data)
-  pop <- rank(cnt-max(cnt), ties = "random")/length(cnt) ## pop is proportional to item count
+  pop <- rank(cnt-max(cnt), ties.method = "random")/length(cnt) ## pop is proportional to item count
 
   ratings <- new("realRatingMatrix",
     data = dropNA(t(pop)))
