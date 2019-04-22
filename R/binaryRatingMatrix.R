@@ -64,6 +64,9 @@ setMethod(".splitKnownUnknown", signature(data="binaryRatingMatrix"),
 		if(any(given>nitems)) stop("Not enough ratings for user" ,
 		  paste(which(given>nitems), collapse = ", "))
 
+		if(any(given < 1)) warning("The following users do not have enough items leaving no given items: ",
+		  paste(which(given < 1), collapse = ", "))
+
 		l <- getList(data, decode=FALSE)
 		known_index <- lapply(1:length(l),
 			FUN = function(i) sample(1:length(l[[i]]), given[i]))
@@ -76,7 +79,10 @@ setMethod(".splitKnownUnknown", signature(data="binaryRatingMatrix"),
 
 		unknown <- encode(
 			lapply(1:length(l), FUN = function(x)
-				l[[x]][-known_index[[x]]]),
+				### deal with integer(0) if there are not enough known items
+			  if(length(known_index[[x]]) == 0) l[[x]]
+			  else l[[x]][-known_index[[x]]]
+			  ),
 			itemLabels = itemLabels(data@data))
     rownames(unknown) <- rownames(data)
 

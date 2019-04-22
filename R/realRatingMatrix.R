@@ -147,6 +147,8 @@ setMethod(".splitKnownUnknown", signature(data="realRatingMatrix"),
     if(any(given>nitems)) stop("Not enough ratings for user" ,
       paste(which(given>nitems), collapse = ", "))
 
+    if(any(given < 1)) warning("The following users do not have enough items leaving no given items: ",
+      paste(which(given < 1), collapse = ", "))
 
     ## we create a logical mask via a triplet Matrix
     trip <- as(data, "dgTMatrix")
@@ -157,9 +159,11 @@ setMethod(".splitKnownUnknown", signature(data="realRatingMatrix"),
       function(i) sample(items[[i]],given[i])))
 
     tripUnknown <- trip
-    tripUnknown@x <- tripUnknown@x[-take]
-    tripUnknown@i <- tripUnknown@i[-take]
-    tripUnknown@j <- tripUnknown@j[-take]
+    if(length(take) > 0) { ### only if take is not integer(0)
+      tripUnknown@x <- tripUnknown@x[-take]
+      tripUnknown@i <- tripUnknown@i[-take]
+      tripUnknown@j <- tripUnknown@j[-take]
+    }
     tripKnown <- trip
     tripKnown@x <- tripKnown@x[take]
     tripKnown@i <- tripKnown@i[take]
