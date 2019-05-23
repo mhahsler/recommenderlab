@@ -13,6 +13,8 @@ This R package provides an infrastructure to test and develop
 * Item-based collborative filtering (IBCF)
 * SVD with column-mean imputation (SVD)
 * Funk SVD (SVDF)
+* Alternating Least Squares (ALS)
+* MAtrix factorization with LIBMF (LIBMF)
 * Association rule-based recommender (AR)
 * Popular items (POPULAR)
 * Randomly chosen items for comparison (RANDOM)

@@ -9,6 +9,9 @@ importFrom("utils", "head")
 ### truncated SVD
 importFrom("irlba", "irlba")
 
+### LIBMF
+importFrom("recosystem", "Reco", "data_memory", "out_memory")
+
 ## get generics, cladses and methods
 importClassesFrom("Matrix", "Matrix", "dsparseMatrix", "dgCMatrix", "ngCMatrix", "dgTMatrix")
 importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans",
