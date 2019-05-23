@@ -3,6 +3,7 @@
 ## Change
 * predict with type "ratingMatrix" now returns predictions for the known ratings instead of replacing them with the known values.
 * Recommender methods Popular, AR and RERECOMMENDER now also return ratings for binary data (and thus can be used for HybridRecommender).
+* Added a LIBMF-based recommender.
 
 ## Bugfixes
 * evaluationScheme with negative numbers for given (all-but-x scheme) now works even if there are not given items left (reported by philippschmalen).
