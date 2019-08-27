@@ -1624,7 +1624,7 @@ given-3 evaluation scheme.}
 \end{figure}
 
 Plotting the results shows a barplot with
-the root mean square error, the mean square error and the mean average
+the root mean square error, the mean square error and the mean absolute
 error (see Figures~\ref{fig:real}).
 
 \subsubsection{Using a 0-1 data set}
