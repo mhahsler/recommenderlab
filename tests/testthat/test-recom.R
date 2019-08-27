@@ -112,7 +112,10 @@ for(m in methods) {
   pre <- predict(rec, test1, n = 10, type = "ratings")
   cat("Prediction range (should be [0,1]):\n")
   print(summary(as.vector(as(pre, "matrix"))))
-  pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
+
+  if(m != "RERECOMMEND") {
+    pre <- predict(rec, test1, n = 10, type = "ratingMatrix")
+  }
 
 }
 
@@ -121,8 +124,8 @@ recom <- HybridRecommender(
   Recommender(train, method = "POPULAR"),
   Recommender(train, method = "RANDOM"),
   Recommender(train, method = "AR"),
-  #Recommender(train, method = "RERECOMMEND"), ### not implemented for binary data
-  weights = c(.6, .2, .2)
+  Recommender(train, method = "RERECOMMEND"), ### not implemented for binary data
+  weights = c(.25, .25, .25, .25)
 )
 #recom
 #getModel(recom)
