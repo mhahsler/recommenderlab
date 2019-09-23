@@ -6,7 +6,7 @@
 * Added a LIBMF-based recommender.
 
 ## Bugfixes
-* evaluationScheme with negative numbers for given (all-but-x scheme) now works even if there are not given items left (reported by philippschmalen).
+* evaluationScheme with negative numbers for given (all-but-x scheme) now works even if there are no given items left (reported by philippschmalen).
 
 # Changes in version 0.2-4 (03/23/2019)
 
