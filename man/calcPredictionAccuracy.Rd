@@ -9,9 +9,9 @@
 }
 \description{
   Calculate prediction accuracy. For predicted ratings
-  MAE (mean average error), MSE (means squared error) 
+  MAE (mean average error), MSE (means squared error)
   and RMSE (root means squared error) are calculated. For topNLists
-  various binary classification metrics are returned.
+  various binary classification metrics are returned (e.g., precision, recall, TPR, FPR).
 }
 \usage{
 calcPredictionAccuracy(x, data, ...)
@@ -21,19 +21,28 @@ calcPredictionAccuracy(x, data, ...)
 }
 \arguments{
   \item{x}{ Predicted items in a "topNList" or predicted ratings as a "realRatingMatrix"}
-  \item{data}{ Actual ratings by the user as a "RatingMatrix" }
+  \item{data}{ Observed true ratings for the users as a "RatingMatrix". The users have to be in the same order as in \code{x}. }
   \item{byUser}{ logical; Should the errors be averaged by user or over all
   recommendations?}
   \item{given}{ how many items were given to create the predictions. }
-  \item{goodRating}{ threshold for determining what rating is a good rating. Used only if
-  x is a topNList and data is a "realRatingMatrix".}
+  \item{goodRating}{ If \code{x} is a "topNList" and \code{data} is a "realRatingMatrix" then \code{goodRating} is used as the threshold for determining what rating in \code{data} is considered a good rating.}
   \item{...}{ further arguments.}
 }
-%\details{
-%}
+\details{
+The function calculates the accuracy of predictions compared to the observed true ratings (\code{data}).
+
+If both, the predictions and the actual observed ratings are numeric ratings (i.e. a "realRatingMatrix"),
+then the error measures RMSE, MSE and MAE are returned.
+
+If the predictions are a "topNList" and the observed data is a "binaryRatingMatrix", then binary classification
+measures like precision, recall, TPR and FPR are calculated.
+
+If the ratings are a "topNList" and the observed data is a "realRatingMatrix" then \code{goodRating} is used
+to determine what rating in \code{data} is considered a good rating for calculating binary classification measures. This means that an item in the topNList is considered a true positive if it has a rating of \code{goodRating} or better in the observed data.
+}
 \value{
-Returns a vector with the average measures for \code{byUser=TRUE}. 
-Otherwise, a matrix with a row for each user is returned. 
+Returns a vector with the appropriate measures averaged over all users.
+For \code{byUser=TRUE}, a matrix with a row for each user is returned.
 }
 \seealso{
 \code{\linkS4class{topNList}},
@@ -41,15 +50,15 @@ Otherwise, a matrix with a row for each user is returned.
 \code{\linkS4class{realRatingMatrix}}.
 }
 \references{
-Asela Gunawardana and Guy Shani (2009). A Survey of Accuracy Evaluation Metrics of 
+Asela Gunawardana and Guy Shani (2009). A Survey of Accuracy Evaluation Metrics of
 Recommendation Tasks, Journal of Machine Learning Research 10, 2935-2962.
 }
 \examples{
-### real valued recommender  
+### real valued recommender
 data(Jester5k)
 
 ## create 90/10 split (known/unknown) for the first 500 users in Jester5k
-e <- evaluationScheme(Jester5k[1:500,], method="split", train=0.9, 
+e <- evaluationScheme(Jester5k[1:500,], method="split", train=0.9,
     k=1, given=15)
 e
 
@@ -60,7 +69,7 @@ r <- Recommender(getData(e, "train"), "UBCF")
 p <- predict(r, getData(e, "known"), type="ratings")
 p
 
-## compute error metrics averaged per user and then averaged over all 
+## compute error metrics averaged per user and then averaged over all
 ## recommendations
 calcPredictionAccuracy(p, getData(e, "unknown"))
 head(calcPredictionAccuracy(p, getData(e, "unknown"), byUser=TRUE))
@@ -68,19 +77,19 @@ head(calcPredictionAccuracy(p, getData(e, "unknown"), byUser=TRUE))
 ## evaluate topNLists instead (you need to specify given and goodRating!)
 p <- predict(r, getData(e, "known"), type="topNList")
 p
-calcPredictionAccuracy(p, getData(e, "unknown"), given=15, goodRating=5) 
-  
+calcPredictionAccuracy(p, getData(e, "unknown"), given=15, goodRating=5)
+
 ## evaluate a binary recommender
 data(MSWeb)
 MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) >10,], 50)
 
-e <- evaluationScheme(MSWeb10, method="split", train=0.9, 
+e <- evaluationScheme(MSWeb10, method="split", train=0.9,
     k=1, given=3)
 e
-  
+
 ## create a user-based CF recommender using training data
 r <- Recommender(getData(e, "train"), "UBCF")
-  
+
 ## create predictions for the test data using known ratings (see given above)
 p <- predict(r, getData(e, "known"), type="topNList", n=10)
 p
