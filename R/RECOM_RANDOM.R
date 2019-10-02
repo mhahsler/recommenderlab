@@ -26,7 +26,7 @@ RANDOM <- function(data=NULL, parameter=NULL) {
     ## create random ratings (Z-scores)
     ratings <- matrix(rnorm(nrow(newdata)*ncol(newdata)),
       nrow=nrow(newdata), ncol=ncol(newdata),
-      dimnames=list(NULL, model$labels))
+      dimnames=list(rownames(newdata), model$labels))
 
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
       normalize = getNormalize(newdata))
