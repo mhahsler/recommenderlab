@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \alias{dropNA}
 \alias{dropNA2matrix}
+\alias{dropNAis.na}
 %\alias{sparseNAMatrix-class}
 %\alias{sparseNAMatrix}
 %\alias{[,sparseNAMatrix,index,index,missing-method}
@@ -35,10 +36,11 @@ sparse matrix representation where \code{NA}s are not explicitly stored.
 \usage{
 dropNA(x)
 dropNA2matrix(x)
+dropNAis.na(x)
 }
 \arguments{
-  \item{x}{ a matrix (for \code{dropNA()}). A sparse matrix
-    (for \code{dropNA2matrix()})}
+  \item{x}{ a matrix for \code{dropNA()}, or a sparse matrix with droppend NA values
+    for \code{dropNA2matrix()} or \code{dropNAis.na()}.}
 }
 %\section{Extends}{
 %  Class \code{\linkS4class{dgCMatrix}}, directly.
@@ -52,6 +54,8 @@ the sparse dgCMatrix in \pkg{Matrix} but instead of zeros, \code{NA}s are droppe
 which assumes that all dropped values are zero and not NA!
 This means that the operations might remove zeros or add to NAs incorrectly.
 %The result will always be a dgCMatrix and not a sparseNAMatrix.
+
+\code{dropNAis.na} correctly finds NA values in a sparse matrix with dropped NA values, while \code{is.na()} is not able to distinguish between 0s and NAs.
 }
 \value{
 %Returns a sparseNAMatrix (subclass of dgCMatrix) or a matrix.
@@ -81,6 +85,11 @@ sparse
 
 ## convert back to matrix
 dropNA2matrix(sparse)
+
+
+## Note: be careful with the sparse representation!
+## Do not use is.na, but use
+dropNAis.na(sparse)
 }
 %\keyword{ ~kwd1 }
 %\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

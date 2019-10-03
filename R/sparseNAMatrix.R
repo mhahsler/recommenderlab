@@ -59,6 +59,8 @@
 
 
 ## convert to and from dgCMatrix to preserve 0s and do not store NAs
+
+## sparse -> matrix
 dropNA2matrix <- function(x) {
   if(!is(x, "dsparseMatrix")) stop("x needs to be a subclass of dsparseMatrix!")
 
@@ -76,19 +78,24 @@ dropNA2matrix <- function(x) {
   x
 }
 
+## matrix -> sparse
 dropNA <- function(x) {
+    if(!is(x, "matrix")) stop("x needs to be a matrix!")
 
-  if(is(x, "matrix")) {
     zeros <- which(x==0, arr.ind=TRUE)
     ## keep zeros
     x[is.na(x)] <- 0
     x[zeros] <- NA
     x <- drop0(x)
     x[zeros] <- 0
-
-    return(x)
-  }
-
-  stop("x needs to be a matrix!")
+    x
 }
 
+dropNAis.na <- function(x) {
+  if(!is(x, "dsparseMatrix")) stop("x needs to be a subclass of dsparseMatrix!")
+  x <- as(x, "dgCMatrix")
+
+  ### not represented means NA and 0 means 0
+  ### this coercion keeps 0
+  !as(x, "ngCMatrix")
+}

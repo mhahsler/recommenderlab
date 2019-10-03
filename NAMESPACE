@@ -30,6 +30,7 @@ importMethodsFrom("arules", "sort", "summary",
 export(
   "dropNA",
   "dropNA2matrix",
+  "dropNAis.na",
   "funkSVD",
   "RMSE",
   "MSE",

@@ -41,3 +41,9 @@ r[2,1:5] <- 1:5
 db[2,1:5] <- 1:5
 expect_identical(as(r, "matrix"), db)
 
+## check row/colSums and counts
+expect_identical(rowSums(r), rowSums(db, na.rm = TRUE))
+expect_identical(colSums(r), colSums(db, na.rm = TRUE))
+
+expect_identical(rowCounts(r), apply(db, MARGIN = 1, function(x) sum(!is.na(x))))
+expect_identical(colCounts(r), apply(db, MARGIN = 2, function(x) sum(!is.na(x))))

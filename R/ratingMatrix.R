@@ -44,7 +44,7 @@ setMethod("getData.frame", signature(from = "ratingMatrix"),
 setAs("ratingMatrix", "data.frame", function(from) getData.frame(from))
 
 ## row/col counts, sums, etc.
-## Matrix does not handle dimnames well
+## Matrix does not handle dimnames well. na.rm is ignorred since NAs are missing ratings
 setMethod("colCounts", signature(x = "ratingMatrix"),
 	function(x, ...) {
 		s <- colSums(as(x, "ngCMatrix"))

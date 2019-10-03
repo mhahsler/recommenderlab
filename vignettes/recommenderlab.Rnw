@@ -374,9 +374,10 @@ The easiest form is to just average the ratings in the neighborhood.
 
 \begin{figure}
 \centerline{\includegraphics[width=13cm]{user-based}}
-\caption{User-based collaborative filtering example with (a) rating matrix
-and estimated ratings for the active user, and
-(b) user neighborhood formation.
+\caption{User-based collaborative filtering example with (a) rating matrix $R$
+and estimated ratings for the active user, (b), similarites between the active user and the other users $s_a$ (Euclidean distance converted to similarities), 
+    and
+(b) the user neighborhood formation.
 }
 \label{fig:UBCF}
 \end{figure}
@@ -395,7 +396,7 @@ $k$ users with the highest similarity. To the right in Figure~\ref{fig:UBCF}
 we see a $2$-dimensional representation of the similarities (users with higher
 similarity are displayed closer) with the active user in the center.
 The $k=3$ nearest
-neighbors ($u_4, u_1$ and $u_3$) are selected and marked in the
+neighbors ($u_1, u_2$ and $u_3$) are selected and marked in the
 database to the left. To generate an
 aggregated estimated rating, we
 compute the average ratings in the neighborhood for each item not
@@ -409,7 +410,7 @@ probably would
 not recommend items $i_7$ and $i_5$ because of their low ratings.
 
 The fact that some users in the neighborhood are more similar to
-the active user than others can be
+the active user than others (see Figure~\ref{fig:UBCF} (b)) can be
 incorporated as weights into
 Equation~(\ref{equ:aggregation1}).
 
