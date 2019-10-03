@@ -1,4 +1,4 @@
-## collaborative filtering
+# collaborative filtering
 
 ## simple k-nearest neighbor
 .knn <- function(sim, k) apply(sim, MARGIN=1, FUN=function(x) head(
@@ -50,16 +50,15 @@ BIN_UBCF <- function(data, parameter = NULL){
       s_uk <- sapply(1:nrow(sim), FUN=function(x)
         sim[x, neighbors[,x]])
 
-      sum_s_uk <- colSums(s_uk, na.rm=TRUE)
-
       ## calculate the weighted sum
-      r_a_norms <- sapply(1:nrow(newdata), FUN=function(i) {
+      ratings<- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
         r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
-        drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))
-      })
+        ## normalize by the sum of weights only if a rating is available
+        has_r_neighbors <- as(r_neighbors, "lgCMatrix")
+        drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/drop(as(crossprod(has_r_neighbors, s_uk[,i]), "matrix"))
+      }))
 
-      ratings <- t(r_a_norms)/sum_s_uk
     }else{
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         colCounts(model$data[neighbors[,i]])
@@ -129,16 +128,15 @@ REAL_UBCF <- function(data, parameter = NULL){
 
     s_uk <- sapply(1:nrow(sim), FUN=function(x)
       sim[x, neighbors[,x]])
-    sum_s_uk <- colSums(s_uk, na.rm=TRUE)
 
     ## calculate the weighted sum
-    r_a_norms <- sapply(1:nrow(newdata), FUN=function(i) {
+    ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
       ## neighbors ratings of active user i
       r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
-      drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))
-    })
-
-    ratings <- t(r_a_norms)/sum_s_uk
+      ## normalize by the sum of weights only if a rating is available
+      has_r_neighbors <- as(r_neighbors, "lgCMatrix")
+      drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/drop(as(crossprod(has_r_neighbors, s_uk[,i]), "matrix"))
+    }))
 
     rownames(ratings) <- rownames(newdata)
     ratings <- new("realRatingMatrix", data=dropNA(ratings),

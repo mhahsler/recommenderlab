@@ -2,6 +2,7 @@
 
 ## Bugfixes
 * predict for Recommender RANDOM now uses the correct user ids in the prediction (reported by aliko-str). 
+* fixed weight bug in Recommender UBCF (reported by aliko-str). 
 
 # Changes in version 0.2-5 (08/27/2019)
 
