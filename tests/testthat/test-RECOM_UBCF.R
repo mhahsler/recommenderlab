@@ -59,13 +59,13 @@ similarity(getModel(rec)$data,
 
 pred <- predict(rec, r_a, type = "ratings")
 as(pred, "matrix")
-# Note: no user in the neighborhood has a rating for i2 -> NA
 ### FIXME: Test the results
 #expect_equivalent(as(pred, "matrix"), ???)
 
-### mix with popular to avoid NAs
+# Note: no user in the neighborhood has a rating for i2 -> NA
+# here is a way to fix this with a HybridRecommender
 rec_pop <- Recommender(r_db, method = "POPULAR")
-pred_pop <- predict(rec2, r_a, type = "ratings")
+pred_pop <- predict(rec_pop, r_a, type = "ratings")
 as(pred_pop, "matrix")
 
 hybrid <- HybridRecommender(rec, rec_pop, weights = c(0.999, 0.001))
@@ -84,4 +84,17 @@ pred <- predict(rec, r_a, type = "ratings")
 as(pred, "matrix")
 ### FIXME: Test the results
 #expect_equivalent(as(pred, "matrix"), ???)
+
+### use userID for prediction
+rec <- Recommender(r_db, method = "UBCF",
+  param = list(nn = 1, normalize = NULL, weighted = FALSE))
+
+# User 5 is the most similar
+similarity(getModel(rec)$data,
+  normalize(r_db[1,], method = getModel(rec)$normalize), method = getModel(rec)$method)
+
+pred <- predict(rec, 1, type = "ratings")
+as(pred, "matrix")
+expect_equivalent(as(pred, "matrix")[is.na(as(r_db[1,], "matrix"))],
+  as(r_db[5,], "matrix")[is.na(as(r_db[1,], "matrix"))])
 

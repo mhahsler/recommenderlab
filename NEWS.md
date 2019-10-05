@@ -3,6 +3,7 @@
 ## Bugfixes
 * predict for Recommender RANDOM now uses the correct user ids in the prediction (reported by aliko-str). 
 * fixed weight bug in Recommender UBCF (reported by aliko-str). 
+* Recommender UBCF now removes self-matches if item ids are specified in newdata. Specifying data in predict is no longer necessary. (reported by aliko-str). 
 * HybridRecommender now handles NAs in predictions correctly (was handled as 0).
 
 # Changes in version 0.2-5 (08/27/2019)

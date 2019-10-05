@@ -1,8 +1,17 @@
 # collaborative filtering
 
 ## simple k-nearest neighbor
-.knn <- function(sim, k) apply(sim, MARGIN=1, FUN=function(x) head(
-  order(x, decreasing=TRUE, na.last=TRUE), k))
+.knn <- function(sim, k) {
+  knn <- apply(sim, MARGIN = 1, FUN = function(x)
+    head(order(x, decreasing = TRUE, na.last = NA), k))
+  ## Note: self matches have a sim of NA. na.last = NA removes self matches!
+
+  ## Note: apply drops to a vector if k==1
+  if(k==1) knn <- as.matrix(t(knn))
+
+  knn
+}
+
 
 .BIN_UBCF_param <- list(
   method = "jaccard",
@@ -26,22 +35,21 @@ BIN_UBCF <- function(data, parameter = NULL){
     type=c("topNList", "ratings", "ratingMatrix"), ...) {
 
     type <- match.arg(type)
-
+    newdata_id <- NULL
 
     ## newdata are userid
     if(is.numeric(newdata)) {
-      if(is.null(data) || !is(data, "ratingMatrix"))
-        stop("If newdata is a user id then data needes to be the training dataset.")
-      newdata <- data[newdata,]
-    }
-
-    if(ncol(newdata) != ncol(model$data)) stop("number of items in newdata does not match model.")
+      if(model$sample) stop("User id in newdata does not work when sampling is used!")
+      newdata_id <- newdata
+      newdata <- model$data[newdata,]
+    }else if(ncol(newdata) != ncol(model$data)) stop("number of items in newdata does not match model.")
 
     ## prediction
     ## FIXME: add Weiss dissimilarity
 
-    sim <- similarity(newdata, model$data,
-      method = model$method)
+    sim <- similarity(newdata, model$data, method = model$method)
+    ## FIXME: remove self matches!
+    if(!is.null(newdata_id)) sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 
     neighbors <- .knn(sim, model$nn)
 
@@ -49,13 +57,15 @@ BIN_UBCF <- function(data, parameter = NULL){
       ## similarity of the neighbors
       s_uk <- sapply(1:nrow(sim), FUN=function(x)
         sim[x, neighbors[,x]])
+      if(!is.matrix(s_uk)) s_uk <- as.matrix(t(s_uk))
 
       ## calculate the weighted sum
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
         r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
         ## normalize by the sum of weights only if a rating is available
-      drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
+      drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/
+        drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
       }))
 
     }else{
@@ -76,6 +86,7 @@ BIN_UBCF <- function(data, parameter = NULL){
   new("Recommender", method = "UBCF", dataType = class(data),
     ntrain = nrow(data), model = model, predict = predict)
 }
+
 
 .REAL_UBCF_param <- list(
   method = "cosine",
@@ -105,19 +116,24 @@ REAL_UBCF <- function(data, parameter = NULL){
 
     type <- match.arg(type)
 
+    newdata_id <- NULL
+
     ## newdata are userid
     if(is.numeric(newdata)) {
-      if(is.null(data) || !is(data, "ratingMatrix"))
-        stop("If newdata is a user id then data needes to be the training dataset.")
-      newdata <- data[newdata,]
+      if(model$sample) stop("User id in newdata does not work when sampling is used!")
+      newdata_id <- newdata
+      newdata <- model$data[newdata,]
+    }else {
+      if(ncol(newdata) != ncol(model$data)) stop("number of items in newdata does not match model.")
+
+      if(!is.null(model$normalize))
+        newdata <- normalize(newdata, method=model$normalize)
     }
 
-    if(!is.null(model$normalize))
-      newdata <- normalize(newdata, method=model$normalize)
-
     ## predict ratings
-    sim <- similarity(newdata, model$data,
-      method = model$method)
+    sim <- similarity(newdata, model$data, method = model$method)
+    ## FIXME: remove self matches!
+    if(!is.null(newdata_id)) sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 
     neighbors <- .knn(sim, model$nn)
 
@@ -128,12 +144,14 @@ REAL_UBCF <- function(data, parameter = NULL){
     if(model$weighted) { # average ratings weighted by similarity
       s_uk <- sapply(1:nrow(sim), FUN=function(x)
         sim[x, neighbors[,x]])
+      if(!is.matrix(s_uk)) s_uk <- as.matrix(t(s_uk))
 
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
         r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
         ## normalize by the sum of weights only if a rating is available
-        drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
+        drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/
+          drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
       }))
       ratings[!is.finite(ratings)] <- NA  ### make NaN into NA
 
@@ -147,9 +165,7 @@ REAL_UBCF <- function(data, parameter = NULL){
       ratings[!is.finite(ratings)] <- NA  ### make NaN into NA
     }
 
-
     ### Note: If no user in the neighborhood has a rating for the item then it is NA!
-
 
     rownames(ratings) <- rownames(newdata)
     ratings <- new("realRatingMatrix", data=dropNA(ratings),
