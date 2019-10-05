@@ -63,6 +63,15 @@ as(pred, "matrix")
 ### FIXME: Test the results
 #expect_equivalent(as(pred, "matrix"), ???)
 
+### mix with popular to avoid NAs
+rec_pop <- Recommender(r_db, method = "POPULAR")
+pred_pop <- predict(rec2, r_a, type = "ratings")
+as(pred_pop, "matrix")
+
+hybrid <- HybridRecommender(rec, rec_pop, weights = c(0.999, 0.001))
+pred3 <- predict(hybrid, r_a, type = "ratings")
+as(pred3, "matrix")
+
 ### use default settings (weighted, normalization, and Cosine)
 rec <- Recommender(r_db, method = "UBCF",
   param = list(nn = 3))
@@ -75,3 +84,4 @@ pred <- predict(rec, r_a, type = "ratings")
 as(pred, "matrix")
 ### FIXME: Test the results
 #expect_equivalent(as(pred, "matrix"), ???)
+
