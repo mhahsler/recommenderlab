@@ -31,9 +31,16 @@ HybridRecommender <- function(..., weights = NULL) {
 
     ratings <- matrix(NA, nrow=nrow(newdata), ncol = ncol(newdata))
     for(i in 1:nrow(pred[[1]])) {
-      ratings[i,] <- colSums(t(sapply(pred, FUN = function(p)
-        as(p[i,], "matrix"))) * model$weights, na.rm = TRUE)
+      ### Ignore NAs!
+      ratings[i,] <-
+        colSums(t(sapply(pred, FUN = function(p)
+          as(p[i,], "matrix"))) * model$weights, na.rm = TRUE) /
+        colSums(t(sapply(pred, FUN = function(p)
+          !is.na(as(p[i,], "matrix")))) * model$weights, na.rm = TRUE)
+
     }
+    ratings[!is.finite(ratings)] <- NA
+
     dimnames(ratings) <- dimnames(newdata)
 
 
