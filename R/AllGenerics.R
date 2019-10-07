@@ -3,6 +3,9 @@
 setGeneric(".splitKnownUnknown",
 	function(data, ...) standardGeneric(".splitKnownUnknown"))
 
+setGeneric("hasRating",
+	function(x, ...) standardGeneric("hasRating"))
+
 setGeneric("nratings",
 	function(x, ...) standardGeneric("nratings"))
 

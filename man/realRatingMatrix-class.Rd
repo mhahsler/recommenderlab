@@ -104,7 +104,8 @@ dimnames(r)
 rowCounts(r) ## number of ratings per user
 colCounts(r) ## number of ratings per item
 colMeans(r) ## average item rating
-
+nratings(r) ## total number of ratings
+hasRating(r) ## user-item combinations with ratings
 
 ## histogram of ratings
 hist(getRatings(r), breaks="FD")

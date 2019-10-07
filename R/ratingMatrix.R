@@ -44,52 +44,35 @@ setMethod("getData.frame", signature(from = "ratingMatrix"),
 setAs("ratingMatrix", "data.frame", function(from) getData.frame(from))
 
 ## row/col counts, sums, etc.
-## Matrix does not handle dimnames well. na.rm is ignorred since NAs are missing ratings
+## na.rm is ignorred since NAs are missing ratings
 setMethod("colCounts", signature(x = "ratingMatrix"),
-	function(x, ...) {
-		s <- colSums(as(x, "ngCMatrix"))
-		names(s) <- colnames(x)
-		s
-	})
+	function(x, ...) colSums(hasRating(x)))
 
 setMethod("rowCounts", signature(x = "ratingMatrix"),
-	function(x, ...) {
-		s <- rowSums(as(x, "ngCMatrix"))
-		names(s) <- rownames(x)
-		s
-	})
+	function(x, ...) s <- rowSums(hasRating(x)))
 
 setMethod("colSums", signature(x = "ratingMatrix"),
-	function(x, na.rm = FALSE, dims = 1, ...) {
-		s <- colSums(as(x, "dgCMatrix"), na.rm, dims, ...)
-		names(s) <- colnames(x)
-		s
-	})
+	function(x, na.rm = FALSE, dims = 1, ...) colSums(as(x, "dgCMatrix"), na.rm, dims, ...))
 
 setMethod("rowSums", signature(x = "ratingMatrix"),
-	function(x, na.rm = FALSE, dims = 1, ...) {
-		s <- rowSums(as(x, "dgCMatrix"), na.rm, dims, ...)
-		names(s) <- rownames(x)
-		s
-	})
+	function(x, na.rm = FALSE, dims = 1, ...) rowSums(as(x, "dgCMatrix"), na.rm, dims, ...))
 
 ## we need to ignore 0s
 setMethod("colMeans", signature(x = "ratingMatrix"),
-	function(x, na.rm = FALSE, dims = 1, ...) {
-		s <- colSums(x, dims, na.rm, ...) / colCounts(x, dims, na.rm, ...)
-		names(s) <- colnames(x)
-		s
-	})
+	function(x, na.rm = FALSE, dims = 1, ...)
+	  colSums(x, dims, na.rm, ...) / colCounts(x, dims, na.rm, ...))
 
 setMethod("rowMeans", signature(x = "ratingMatrix"),
-	function(x, na.rm = FALSE, dims = 1, ...) {
-		s <- rowSums(x, dims, na.rm, ...) / rowCounts(x, dims, na.rm, ...)
-		names(s) <- rownames(x)
-		s
-	})
+	function(x, na.rm = FALSE, dims = 1, ...)
+		rowSums(x, dims, na.rm, ...) / rowCounts(x, dims, na.rm, ...))
+
+### Note: use x and not x@data here since binaryRatingMatrix uses itemsets
+### (pkg arules) which are stored in transposed form (see binaryRatingMatrix.R)!
+setMethod("hasRating", signature(x = "ratingMatrix"),
+  function(x, ...) as(x, "ngCMatrix"))
 
 setMethod("nratings", signature(x = "ratingMatrix"),
-	    function(x, ...) sum(rowCounts(x)))
+	    function(x, ...) sum(hasRating(x)))
 
 setMethod("getNormalize", signature(x = "ratingMatrix"),
 	    function(x, ...) x@normalize)

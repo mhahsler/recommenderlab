@@ -1,5 +1,8 @@
 # Changes in version 0.2-5.1 (xx/xx/2019)
 
+## New Features
+* ratingMatrix gained method hasRatings.
+
 ## Bugfixes
 * predict for Recommender RANDOM now uses the correct user ids in the prediction (reported by aliko-str). 
 * fixed weight bug in Recommender UBCF (reported by aliko-str). 

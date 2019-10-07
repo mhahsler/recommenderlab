@@ -24,6 +24,8 @@
 \alias{getNormalize,ratingMatrix-method}
 \alias{getRatings}
 \alias{getRatings,ratingMatrix-method}
+\alias{hasRating}
+\alias{hasRating,ratingMatrix-method}
 \alias{getRatingMatrix}
 \alias{getRatingMatrix,ratingMatrix-method}
 
@@ -46,6 +48,7 @@
     \item{getRatings}{\code{signature(x = "ratingMatrix")}: returns all
 	ratings in \code{x} as a numeric vector. }
     \item{getRatingMatrix}{\code{signature(x = "ratingMatrix")}: returns the ratings as a sparse matrix. The format is different for binary and real rating matices.}
+    \item{hasRating}{\code{signature(x = "ratingMatrix")}: returns a sparse logical matrix with TRUE for user-item combinations which have a rating. }
 		\item{image}{\code{signature(x = "ratingMatrix")}: plot the matrix. }
 		\item{nratings}{\code{signature(x = "ratingMatrix")}: number of ratings in the matrix. }
 		\item{sample}{\code{signature(x = "ratingMatrix")}: sample from users (rows). }
