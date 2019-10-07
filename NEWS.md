@@ -2,6 +2,7 @@
 
 ## New Features
 * ratingMatrix gained method hasRatings.
+* Recommender gained method "HYBRID" to create hybrid recommenders. Now hybrid recommenders can also be used in evaluate().
 
 ## Bugfixes
 * predict for Recommender RANDOM now uses the correct user ids in the prediction (reported by aliko-str). 

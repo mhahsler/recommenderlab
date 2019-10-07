@@ -17,6 +17,10 @@ test1 <- MovieLense100[101]
 test3 <- MovieLense100[101:103]
 
 for(m in methods) {
+
+  ### skip hybrid recommender
+  if(m == "HYBRID") next
+
   context(paste("Algorithm:", m))
   cat("Algorithm:", m, "\n")
   rec <- Recommender(train, method = m)
@@ -90,6 +94,9 @@ test1 <- MovieLense100_bin[101]
 test3 <- MovieLense100_bin[101:103]
 
 for(m in methods) {
+  ### skip hybrid recommender
+  if(m == "HYBRID") next
+
   context(paste("Algorithm:", m))
   cat("Algorithm:", m, "\n")
   rec <- Recommender(train, method = m)
