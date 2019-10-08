@@ -1,11 +1,14 @@
 ##*******************************************************************
 ## dissimilarity for binaryRatingMatrix
+
+
 setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
   function(x, y = NULL, method = NULL, args = NULL, which = "users") {
 
     args <- getParameters(list(alpha=.5), args)
 
-    which <- tolower(which)
+    which <- match.arg(tolower(which), c("users", "items"))
+
     if(!is.null(method)) method <- tolower(method)
     else method <- "jaccard"
 
@@ -50,7 +53,8 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
 
     args <- getParameters(list(na_as_zero = FALSE, alpha=.5), args)
 
-    which <- tolower(which)
+    which <- match.arg(tolower(which), c("users", "items"))
+
     if(!is.null(method)) method <- tolower(method)
     else method <- "cosine"
 
@@ -105,11 +109,14 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
     proxy::dist(x = x, y = y, method = method)
   })
 
+
+## FIXME: Add minimum number of matching items/min number of predictive items
 setMethod("similarity", signature(x = "ratingMatrix"),
   function(x, y = NULL, method = NULL, args = NULL,
-    which = "users") {
+    which = "users", min_matching = 0, min_predictive = 0) {
 
-    which <- tolower(which)
+    which <- match.arg(tolower(which), c("users", "items"))
+
     if(!is.null(method)) method <- tolower(method)
     else method <- "cosine"
 
@@ -117,11 +124,15 @@ setMethod("similarity", signature(x = "ratingMatrix"),
     if(method == "karypis") {
       if(!is.null(y) || which != "items") stop("Kaypis similarities are not implemented between users or as a cross-similarity!")
 
+      if(min_matching > 0 || min_predictive > 0) warning("min_matching and min_predictive for this method not implemented yet.")
+
       return(.karypis(as(x, "dgCMatrix"), dist=FALSE, args))
     }
 
     if(method == "conditional") {
       if(!is.null(y) || which != "items") stop("Conditional similarities are not implemented between users or as a cross-similarity!")
+
+      if(min_matching > 0 || min_predictive > 0) warning("min_matching and min_predictive for this method not implemented yet.")
 
       return(.conditional(as(x, "dgCMatrix"), dist=FALSE, args))
     }
@@ -138,6 +149,31 @@ setMethod("similarity", signature(x = "ratingMatrix"),
     }
 
     attr(sim, "type") <- "simil"
+
+    if(min_matching > 0 || min_predictive > 0) {
+      x_has_r <- hasRating(x)
+      y_has_r <- if(!is.null(y)) hasRating(y) else x_has_r
+
+      if(which == "items") {
+        x_has_r <- t(x_has_r)
+        y_has_r <- t(y_has_r)
+      }
+
+      ### set similarities with less than min_matching items to NA
+      if(min_matching > 0) {
+        shared <- as.matrix(tcrossprod(as(x_has_r, "dgCMatrix"), as(y_has_r, "dgCMatrix")))
+        if(is.matrix(sim)) sim[shared < min_matching] <- NA
+        else  sim[as.dist(shared) < min_matching] <- NA
+      }
+
+      ### set similarities with less than min_predictive items to NA
+      if(min_predictive > 0) {
+        predictive <- as.matrix(rowSums(x_has_r) - shared)
+        if(is.matrix(sim)) sim[predictive < min_predictive] <- NA
+        else sim[as.dist(predictive) < min_predictive] <- NA
+      }
+    }
+
     sim
   })
 

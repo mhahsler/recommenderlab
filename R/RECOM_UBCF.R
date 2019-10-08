@@ -17,7 +17,9 @@
   method = "jaccard",
   nn = 25,
   weighted = TRUE,
-  sample = FALSE
+  sample = FALSE,
+  min_matching_items = 0,
+  min_predictive_items = 0
 )
 
 BIN_UBCF <- function(data, parameter = NULL){
@@ -47,7 +49,8 @@ BIN_UBCF <- function(data, parameter = NULL){
     ## prediction
     ## FIXME: add Weiss dissimilarity
 
-    sim <- similarity(newdata, model$data, method = model$method)
+    sim <- similarity(newdata, model$data, method = model$method,
+      min_matching = model$min_matching_items, min_predictive = model$min_predictive_items)
     ## FIXME: remove self matches!
     if(!is.null(newdata_id)) sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 
@@ -93,7 +96,9 @@ BIN_UBCF <- function(data, parameter = NULL){
   nn = 25,
   sample = FALSE,
   weighted = TRUE,
-  normalize="center"
+  normalize="center",
+  min_matching_items = 0,
+  min_predictive_items = 0
 )
 
 
@@ -131,7 +136,8 @@ REAL_UBCF <- function(data, parameter = NULL){
     }
 
     ## predict ratings
-    sim <- similarity(newdata, model$data, method = model$method)
+    sim <- similarity(newdata, model$data, method = model$method,
+      min_matching = model$min_matching_items, min_predictive = model$min_predictive_items)
     ## FIXME: remove self matches!
     if(!is.null(newdata_id)) sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 

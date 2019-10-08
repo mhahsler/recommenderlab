@@ -375,7 +375,7 @@ The easiest form is to just average the ratings in the neighborhood.
 \begin{figure}
 \centerline{\includegraphics[width=13cm]{user-based}}
 \caption{User-based collaborative filtering example with (a) rating matrix $R$
-and estimated ratings for the active user, (b), similarites between the active user and the other users $s_a$ (Euclidean distance converted to similarities), 
+and estimated ratings for the active user, (b), similarites between the active user and the other users $s_a$ (Euclidean distance converted to similarities),
     and
 (b) the user neighborhood formation.
 }
