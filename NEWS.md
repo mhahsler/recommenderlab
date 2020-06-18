@@ -1,4 +1,4 @@
-# Changes in version 0.2-5.1 (xx/xx/2019)
+# Changes in version 0.2-6 (06/16/2020)
 
 ## New Features
 * ratingMatrix gained method hasRatings.

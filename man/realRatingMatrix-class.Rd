@@ -83,7 +83,7 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 	\code{\link{getList}} and \code{\link{getData.frame}}.
 	Also see \code{\link[Matrix:dgCMatrix-class]{dgCMatrix}},
 	\code{\link[Matrix:dgTMatrix-class]{dgTMatrix}} and
-	\code{\link[Matrix:ngCMatrix-class]{ngCMatrix}}
+	\code{\link[Matrix:nsparseMatrix-classes]{ngCMatrix}}
 	in \pkg{Matrix}.
 }
 \examples{
