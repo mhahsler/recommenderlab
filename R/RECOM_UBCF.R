@@ -66,10 +66,10 @@ BIN_UBCF <- function(data, parameter = NULL){
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
         r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
-        ## normalize by the sum of weights only if a rating is available
-      drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/
-        drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
-      }))
+        ## normalize by the sum by the number of neighbors
+        drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix")) /
+          colSums(!dropNAis.na(r_neighbors))
+         }))
 
     }else{
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {

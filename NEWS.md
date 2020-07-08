@@ -1,3 +1,8 @@
+# Changes in version 0.2-6.1 (xx/xx/2020)
+
+## Bugfixes
+* UBCF for binary data: Fixed normalization for option weighted (reported by bhawwash).
+
 # Changes in version 0.2-6 (06/16/2020)
 
 ## New Features
