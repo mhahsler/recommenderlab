@@ -24,9 +24,9 @@ for(i in 1:length(tab)) {
         items <- integer()
         cust <- as.integer(tab[[i]][3])
     }
-    
+
     if(tab[[i]][1] == "A") {
-        id_to_name[[tab[[i]][2]]] <- tab[[i]][4]   
+        id_to_name[[tab[[i]][2]]] <- tab[[i]][4]
     }
 
     if(tab[[i]][1] == "V") {
@@ -52,6 +52,6 @@ colnames(db) <- labels
 
 MSWeb <- db
 
-save(MSWeb, file = "MSWeb.rda")
+save(MSWeb, file = "MSWeb.rda", compress = "bzip2", compression_level = 9)
 
 
