@@ -1,7 +1,11 @@
 # Changes in version 0.2-6.1 (xx/xx/2020)
 
+## New Features
+* The MovieLense data set includes now also user meta information. 
+
 ## Bugfixes
 * UBCF for binary data: Fixed normalization for option weighted (reported by bhawwash).
+
 
 # Changes in version 0.2-6 (06/16/2020)
 

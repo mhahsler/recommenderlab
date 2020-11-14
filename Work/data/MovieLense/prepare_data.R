@@ -9,13 +9,18 @@ data <- read.table("ml-data/u.data",
 db <- as(data, "realRatingMatrix")
 
 ## add movie labels
-genres <- read.table("ml-data/u.genre", sep ="|", quote="\"")
+genres <- read.table("ml-data/u.genre", sep ="|", quote="\"", stringsAsFactors = TRUE)
 colnames(genres) <- c("genre", "id")
+summary(genres)
 
-movies <- read.table("ml-data/u.item", sep ="|", quote="\"")
+movies <- read.table("ml-data/u.item", sep ="|", quote="\"", stringsAsFactors = TRUE)
 colnames(movies) <- c("id", "title", "year", "NA", "url",
 as.character(genres$genre))
+summary(movies)
 
+users <- read.table("ml-data/u.user", sep ="|", quote="\"", stringsAsFactors = TRUE)
+colnames(users) <- c("id", "age", "sex", "occupation", "zipcode")
+summary(users)
 
 m <- match(colnames(db), movies$id)
 movies <- movies[m,]
@@ -47,7 +52,10 @@ MovieLense <- db
 MovieLense
 
 MovieLenseMeta <- gen
+summary(MovieLenseMeta)
 
+MovieLenseUser <- users
+summary(MovieLenseUser)
 
-save(MovieLense, MovieLenseMeta, file = "MovieLense.rda")
+save(MovieLense, MovieLenseMeta, MovieLenseUser, file = "MovieLense.rda", compress = "bzip2", compression_level = 9)
 
