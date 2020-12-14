@@ -6,6 +6,24 @@
     head(order(x, decreasing = TRUE, na.last = NA), k))
   ## Note: self matches have a sim of NA. na.last = NA removes self matches!
 
+  ## Note: when any user for prediction has fewer neighbors than k, 
+  ## the knn is a list instead of a matrix. The if block below checks 
+  ## whether knn is a list and if it is a list, stop the code and 
+  ## return a message indicating the first user whose number of 
+  ## neighbors is less than k.
+  if (is.list(knn)) {
+    is.short <- lapply(knn, 
+                      FUN = function(x) {
+                        ifelse(length(x) < k, length(x), NA)
+                      }
+    )
+    first.short <- is.short[!is.na(is.short)][1]
+    msg <- sprintf("%d-nearest neighbors are requested but user %s has only %d neighbors", 
+                   k, names(first.short), 
+                   first.short[[1]])
+    stop(msg)
+  }
+  
   ## Note: apply drops to a vector if k==1
   if(k==1) knn <- as.matrix(t(knn))
 
