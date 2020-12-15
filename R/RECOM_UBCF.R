@@ -2,15 +2,10 @@
 
 ## simple k-nearest
 ## returns a list with up to k neighbors for each user
-.knn <- function(sim, k) {
-  knn <- lapply(1:nrow(sim), FUN = function(i)
-    head(order(sim[i,], decreasing = TRUE, na.last = NA), k)
-    )
-
-  # FIXME: check if we have enough neighbors (warning?)
-  knn
-}
-
+# FIXME: check if we have enough neighbors (warning?)
+.knn <- function(sim, k)
+  lapply(1:nrow(sim), FUN = function(i)
+    head(order(sim[i,], decreasing = TRUE, na.last = NA), k))
 
 .BIN_UBCF_param <- list(
   method = "jaccard",
