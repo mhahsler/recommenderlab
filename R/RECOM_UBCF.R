@@ -9,18 +9,19 @@
   ## Note: when any user for prediction has fewer neighbors than k, 
   ## the knn is a list instead of a matrix. The if block below checks 
   ## whether knn is a list and if it is a list, stop the code and 
-  ## return a message indicating the first user whose number of 
-  ## neighbors is less than k.
+  ## return a message indicating the user who has the fewest neighbors.
+  ## The first is returned when there are multiple such users.
   if (is.list(knn)) {
     is.short <- lapply(knn, 
                       FUN = function(x) {
                         ifelse(length(x) < k, length(x), NA)
                       }
     )
-    first.short <- is.short[!is.na(is.short)][1]
+    is.short <- is.short[!is.na(is.short)]
+    min.short <- is.short[which.min(is.short)]
     msg <- sprintf("%d-nearest neighbors are requested but user %s has only %d neighbors", 
-                   k, names(first.short), 
-                   first.short[[1]])
+                   k, names(min.short), 
+                   min.short[[1]])
     stop(msg)
   }
   
