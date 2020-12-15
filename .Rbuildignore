@@ -1,6 +1,5 @@
 proj$
 ^\.Rproj\.user$
-^\.travis\.yml$
 ^cran-comments\.md$
 ^appveyor\.yml$
 ^revdep$
@@ -8,3 +7,4 @@ proj$
 ^.*\.Rproj$
 ^LICENSE
 Work
+^\.github$
