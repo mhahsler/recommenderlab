@@ -5,7 +5,7 @@
 
 ## Bugfixes
 * UBCF for binary data: Fixed normalization for option weighted (reported by bhawwash).
-
+* Fixed problems with less then k neighbors (reported by weiy6).
 
 # Changes in version 0.2-6 (06/16/2020)
 

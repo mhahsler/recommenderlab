@@ -33,7 +33,7 @@ pred <- predict(rec, r_a, type = "ratings")
 
 as(pred, "matrix")
 
-expect_equivalent(as(pred, "matrix"), c(3.5, 4, NA, NA, 7/3, NA, 2, NA))
+expect_equivalent(as(pred, "matrix"), c(7/2, 4, NA, NA, 7/3, NA, 2, NA))
 
 ### use normalization
 # center

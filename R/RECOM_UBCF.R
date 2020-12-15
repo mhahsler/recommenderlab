@@ -1,14 +1,13 @@
 # collaborative filtering
 
-## simple k-nearest neighbor
+## simple k-nearest
+## returns a list with up to k neighbors for each user
 .knn <- function(sim, k) {
-  knn <- apply(sim, MARGIN = 1, FUN = function(x)
-    head(order(x, decreasing = TRUE, na.last = NA), k))
-  ## Note: self matches have a sim of NA. na.last = NA removes self matches!
+  knn <- lapply(1:nrow(sim), FUN = function(i)
+    head(order(sim[i,], decreasing = TRUE, na.last = NA), k)
+    )
 
-  ## Note: apply drops to a vector if k==1
-  if(k==1) knn <- as.matrix(t(knn))
-
+  # FIXME: check if we have enough neighbors (warning?)
   knn
 }
 
@@ -58,14 +57,14 @@ BIN_UBCF <- function(data, parameter = NULL){
 
     if(model$weighted) {
       ## similarity of the neighbors
-      s_uk <- sapply(1:nrow(sim), FUN=function(x)
-        sim[x, neighbors[,x]])
+      s_uk <- sapply(1:nrow(sim), FUN=function(i)
+        sim[i, neighbors[[i]]])
       if(!is.matrix(s_uk)) s_uk <- as.matrix(t(s_uk))
 
       ## calculate the weighted sum
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
-        r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
+        r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
         ## normalize by the sum by the number of neighbors
         drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix")) /
           colSums(!dropNAis.na(r_neighbors))
@@ -73,7 +72,7 @@ BIN_UBCF <- function(data, parameter = NULL){
 
     }else{
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
-        colCounts(model$data[neighbors[,i]])
+        colCounts(model$data[neighbors[[i]]])
       }))
     }
 
@@ -148,13 +147,13 @@ REAL_UBCF <- function(data, parameter = NULL){
     ## r_ai - r_a_bar_ is normalize(r_ai) = newdata
 
     if(model$weighted) { # average ratings weighted by similarity
-      s_uk <- sapply(1:nrow(sim), FUN=function(x)
-        sim[x, neighbors[,x]])
+      s_uk <- sapply(1:nrow(sim), FUN=function(i)
+        sim[i, neighbors[[i]]])
       if(!is.matrix(s_uk)) s_uk <- as.matrix(t(s_uk))
 
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
-        r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
+        r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
         ## normalize by the sum of weights only if a rating is available
         drop(as(crossprod(r_neighbors, s_uk[,i]), "matrix"))/
           drop(as(crossprod(!dropNAis.na(r_neighbors), s_uk[,i]), "matrix"))
@@ -164,7 +163,7 @@ REAL_UBCF <- function(data, parameter = NULL){
     }else{ ### unweighted average
       ratings <- t(sapply(1:nrow(newdata), FUN=function(i) {
         ## neighbors ratings of active user i
-        r_neighbors <- as(model$data[neighbors[,i]], "dgCMatrix")
+        r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
         ## normalize by the sum of weights only if a rating is available
         colSums(r_neighbors)/colSums(!dropNAis.na(r_neighbors))
       }))
