@@ -1590,11 +1590,10 @@ for several recommender methods for the
 \label{fig:precrec2}
 \end{figure}
 
-For this data set and the given evaluation scheme the
-user-based and item-based
-CF methods clearly
-outperform all other methods. In Figure~\ref{fig:roc2} we see that they
-dominate the other method since for each length of top-$N$ list they
+For this data set and the given evaluation scheme
+popular items and the user-based CF methods clearly
+outperform the other methods. In Figure~\ref{fig:roc2} we see that they
+dominate (almost completely) the other method since for each length of top-$N$ list they
 provide a better combination of TPR and FPR.
 
 \subsubsection{Comparing ratings}
@@ -1659,9 +1658,8 @@ given-3 evaluation scheme.}
 \end{figure}
 
 From Figure~\ref{fig:roc3} we see that given less information,
-the performance of item-based CF suffers the most and the simple
-popularity based recommender performs almost a well as user-based CF and
-association rules.
+the performance of user-based CF suffers the most and the simple
+popularity based recommender performs almost a well as item-based CF.
 
 Similar to the examples presented here, it is easy to compare different
 recommender algorithms for different data sets or to compare
