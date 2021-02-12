@@ -64,9 +64,16 @@ plot(ev, annotate = TRUE)
 
 ## evaluate several algorithms with a list
 algorithms <- list(
-		RANDOM = list(name = "RANDOM", param = NULL),
-		POPULAR = list(name = "POPULAR", param = NULL)
-		)
+  RANDOM = list(name = "RANDOM", param = NULL),
+  POPULAR = list(name = "POPULAR", param = NULL),
+  HYBRID = list(name = "HYBRID", param =
+      list(recommenders = list(
+          RANDOM = list(name = "RANDOM", param = NULL),
+          POPULAR = list(name = "POPULAR", param = NULL)
+        )
+      )
+  )
+)
 
 evlist <- evaluate(es, algorithms, n=c(1,3,5,10))
 plot(evlist, legend="topright")
