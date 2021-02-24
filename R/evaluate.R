@@ -68,6 +68,7 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
   )
 
   if(is(pre, "topNList")) {
+    res <- NULL
     for(i in 1:length(n)) {
       NN <- n[i]
 
@@ -76,10 +77,9 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
 
       r <-  calcPredictionAccuracy(topN, test_unknown, byUser=FALSE,
         given=scheme@given, goodRating=scheme@goodRating)
-      if(i==1) res <- rbind(r)
-      else res <- rbind(res, r)
+      res <- rbind(res, r)
     }
-    rownames(res) <- n
+    res <- cbind(res, n)
 
   }else{
     res <- calcPredictionAccuracy(pre, test_unknown, byUser=FALSE,

@@ -94,6 +94,7 @@ exportMethods(
   "getModel",
   "getData",
   "getConfusionMatrix",
+  "getResults",
   "getTopNLists",
   "hasRating",
   "dissimilarity",

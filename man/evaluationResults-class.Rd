@@ -7,6 +7,8 @@
 \alias{avg,evaluationResults-method}
 \alias{getConfusionMatrix}
 \alias{getConfusionMatrix,evaluationResults-method}
+\alias{getResults}
+\alias{getResults,evaluationResults-method}
 \alias{getModel}
 \alias{getModel,evaluationResults-method}
 \alias{getRuns}
@@ -28,10 +30,11 @@ Objects are created by \code{evaluate}.
 }
 \section{Methods}{
   \describe{
-    \item{avg}{\code{signature(x = "evaluationResults")}: returns an averaged
-	confusion matrix. }
+    \item{avg}{\code{signature(x = "evaluationResults")}: returns the evaluation metrics averaged of cross-validation folds. }
     \item{getConfusionMatrix}{\code{signature(x = "evaluationResults")}: 
-	returns a list of confusion matrices.}
+	Deprecated. Use \code{getResults()}.}
+    \item{getResults}{\code{signature(x = "evaluationResults")}: 
+	returns a list of evaluation metrics with one element for each cross-valudation fold.}
     \item{getModel}{\code{signature(x = "evaluationResults")}: returns a
 	list of used recommender models (if avilable). }
     \item{getRuns}{\code{signature(x = "evaluationResults")}: returns

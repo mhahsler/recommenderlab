@@ -1,11 +1,16 @@
-# Changes in version 0.2-6.1 (xx/xx/2020)
+# Changes in version 0.2-6.1 (xx/xx/2021)
 
 ## New Features
-* The MovieLense data set includes now also user meta information. 
+* The MovieLense data set includes now also user meta information.
+
+## Changes
+* getConfusionMatrix() is deprecated. Use getResults() instead.
+* evaluate now reports confusion matrix as counts over all test users instead of being averaged over the users.
+* added an example for how to evaluate hybrid recommenders.
 
 ## Bugfixes
 * UBCF for binary data: Fixed normalization for option weighted (reported by bhawwash).
-* Fixed problems with less then k neighbors (reported by weiy6).
+* Fixed problems with less than k neighbors (reported by weiy6).
 * Fixed incorrect description of comparisons in vignette.
 
 # Changes in version 0.2-6 (06/16/2020)

@@ -32,12 +32,20 @@ setMethod("calcPredictionAccuracy", signature(x= "topNList",
   function(x, data, byUser=FALSE, given=NULL, ...) {
     if(is.null(given)) stop("You need to specify how many items were given for the prediction!")
 
+    N <- rep(ncol(data) - given, nrow(data))
     TP <- rowSums(as(x, "ngCMatrix") * as(data, "ngCMatrix"))
-    TP_FN <- rowCounts(data)
-    TP_FP <- rowCounts(x)
-    FP <- TP_FP - TP
-    FN <- TP_FN - TP
-    TN <-  ncol(data) - given - TP - FP - FN
+    FN <- rowCounts(data) - TP          # note: TP+FN = rowCounts(data)
+    FP <- rowCounts(x) - TP             # note: TP+FP = rowCounts(x)
+    TN <-  N - TP - FP - FN
+
+    # Sum over test users
+    if(!byUser) {
+      TP <- sum(TP, na.rm=TRUE)
+      FP <- sum(FP, na.rm=TRUE)
+      TN <- sum(TN, na.rm=TRUE)
+      FN <- sum(FN, na.rm=TRUE)
+      N  <- sum(N,  na.rm=TRUE)
+    }
 
     ## calculate some important measures
     precision <- TP / (TP + FP)
@@ -45,9 +53,10 @@ setMethod("calcPredictionAccuracy", signature(x= "topNList",
     TPR <- recall
     FPR <- FP / (FP + TN)
 
-    res <- cbind(TP, FP, FN, TN, precision, recall, TPR, FPR)
+    res <- cbind(TP, FP, FN, TN, N, precision, recall, TPR, FPR)
 
-    if(!byUser) res <- colMeans(res, na.rm=TRUE)
+    #Average over test users
+    #if(!byUser) res <- colMeans(res, na.rm=TRUE)
 
     res
     })

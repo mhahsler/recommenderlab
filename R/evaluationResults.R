@@ -4,7 +4,7 @@ setMethod("show", signature(object = "evaluationResults"),
       getRuns(object), sQuote(object@method)))
     if(any(!sapply(getModel(object), is.null)))
       writeLines("Result contains predictive models!")
-    
+
     invisible(NULL)
   })
 
@@ -22,9 +22,14 @@ setMethod("getConfusionMatrix", signature(x = "evaluationResults"),
     lapply(x@results, function(y) y@cm)
   })
 
+setMethod("getResults", signature(x = "evaluationResults"),
+  function(x, ...) {
+    lapply(x@results, function(y) y@cm)
+  })
+
 setMethod("avg", signature(x = "evaluationResults"),
   function(x, trim = 0, na.rm = FALSE, ...) {
-    
+
     x <- getConfusionMatrix(x)
     if(length(x)>1) {
       avg <- x[[1]]
@@ -33,7 +38,7 @@ setMethod("avg", signature(x = "evaluationResults"),
     }else{
       x <- x[[1]]
     }
-    
+
     x
   })
 

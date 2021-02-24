@@ -22,7 +22,7 @@ setMethod("plot", signature(x = "evaluationResults"),
 			if(annotate) text(x[,1], x[,2], pos=3, 
                             rownames(x), xpd=TRUE)
 		}else{
-			cm <- getConfusionMatrix(x)
+			cm <- getResults(x)
 			
 			## plot first
 			x <- cm[[1]][,take]

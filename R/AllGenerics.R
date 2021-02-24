@@ -36,6 +36,9 @@ setGeneric("getRuns",
 setGeneric("getConfusionMatrix",
 	function(x, ...) standardGeneric("getConfusionMatrix"))
 
+setGeneric("getResults",
+  function(x, ...) standardGeneric("getResults"))
+
 setGeneric("getTopNLists",
 	function(x, ...) standardGeneric("getTopNLists"))
 
