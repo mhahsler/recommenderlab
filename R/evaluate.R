@@ -88,6 +88,8 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
     res <- rbind(res)
   }
 
+  rownames(res) <- NULL
+
   time_usage <- function(x) x[1]+x[2]
 
   if(progress) cat("[",

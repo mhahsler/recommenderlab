@@ -22,20 +22,22 @@ calcPredictionAccuracy(x, data, ...)
 \arguments{
   \item{x}{ Predicted items in a "topNList" or predicted ratings as a "realRatingMatrix"}
   \item{data}{ Observed true ratings for the users as a "RatingMatrix". The users have to be in the same order as in \code{x}. }
-  \item{byUser}{ logical; Should the errors be averaged by user or over all
-  recommendations?}
+  \item{byUser}{ logical; Should the accuracy measures be reported for each user individually instead of being averaged over all users?}
   \item{given}{ how many items were given to create the predictions. }
   \item{goodRating}{ If \code{x} is a "topNList" and \code{data} is a "realRatingMatrix" then \code{goodRating} is used as the threshold for determining what rating in \code{data} is considered a good rating.}
   \item{...}{ further arguments.}
 }
 \details{
-The function calculates the accuracy of predictions compared to the observed true ratings (\code{data}).
+The function calculates the accuracy of predictions compared to the observed true ratings (\code{data}) averaged over the users. Use \code{byUser = TRUE} to get the results for each user.
 
-If both, the predictions and the actual observed ratings are numeric ratings (i.e. a "realRatingMatrix"),
-then the error measures RMSE, MSE and MAE are returned.
+If both, the predictions are numeric ratings (i.e. a "realRatingMatrix"),
+then the error measures RMSE, MSE and MAE are calculated.
 
-If the predictions are a "topNList" and the observed data is a "binaryRatingMatrix", then binary classification
-measures like precision, recall, TPR and FPR are calculated.
+If the predictions are a "topNList", then the entries of the confusion matrix (true positives TP, false positives FP, false negatives FN and true negatives TN) and binary classification measures like precision, recall, TPR and FPR are calculated. If data is a "realRatingMatrix", then
+\code{goodRating} has to be specified to identify items that should be recommended (i.e., have a rating of goodRating or more).
+Note that you need to specify the number of items given to the recommender to create predictions.
+The number of predictions by user (N) is the total number of items in the data minus the number of given items. The number of TP is limited by the size of the top-N list. Also, since the counts for TP, FP, FN and TN are averaged over the users (unless \code{byUser = TRUE} is used),
+they will not be whole numbers.
 
 If the ratings are a "topNList" and the observed data is a "realRatingMatrix" then \code{goodRating} is used
 to determine what rating in \code{data} is considered a good rating for calculating binary classification measures. This means that an item in the topNList is considered a true positive if it has a rating of \code{goodRating} or better in the observed data.
@@ -54,7 +56,7 @@ Asela Gunawardana and Guy Shani (2009). A Survey of Accuracy Evaluation Metrics 
 Recommendation Tasks, Journal of Machine Learning Research 10, 2935-2962.
 }
 \examples{
-### real valued recommender
+### recommender for real-valued ratings
 data(Jester5k)
 
 ## create 90/10 split (known/unknown) for the first 500 users in Jester5k
@@ -95,5 +97,6 @@ p <- predict(r, getData(e, "known"), type="topNList", n=10)
 p
 
 calcPredictionAccuracy(p, getData(e, "unknown"), given=3)
+calcPredictionAccuracy(p, getData(e, "unknown"), given=3, byUser = TRUE)
 }
 %\keyword{ ~kwd1 }

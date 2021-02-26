@@ -3,21 +3,21 @@
 setAs("list", "evaluationResultList",
 	function(from) {
 		if(!all(sapply(from, is, "evaluationResults"))) stop("List can only contain evaluationResults!")
-		
+
 		new("evaluationResultList", from)
 	})
 
 setMethod("show", signature(object = "evaluationResultList"),
 	function(object) {
-		writeLines(sprintf("List of evaluation results for %d recommenders:",
+		writeLines(sprintf("List of evaluation results for %d recommenders:\n",
 				length(object)))
-		lapply(object, show)
+		print(unclass(object))
 		invisible(NULL)
 	})
 
 ## avg
-setMethod("avg", signature(x = "evaluationResultList"), 
-	function(x, trim = 0, na.rm = FALSE, ...) { 
+setMethod("avg", signature(x = "evaluationResultList"),
+	function(x, trim = 0, na.rm = FALSE, ...) {
 		lapply(x, avg)
 	})
 

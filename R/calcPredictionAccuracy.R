@@ -39,13 +39,13 @@ setMethod("calcPredictionAccuracy", signature(x= "topNList",
     TN <-  N - TP - FP - FN
 
     # Sum over test users
-    if(!byUser) {
-      TP <- sum(TP, na.rm=TRUE)
-      FP <- sum(FP, na.rm=TRUE)
-      TN <- sum(TN, na.rm=TRUE)
-      FN <- sum(FN, na.rm=TRUE)
-      N  <- sum(N,  na.rm=TRUE)
-    }
+    #if(!byUser) {
+    #  TP <- sum(TP, na.rm=TRUE)
+    #  FP <- sum(FP, na.rm=TRUE)
+    #  TN <- sum(TN, na.rm=TRUE)
+    #  FN <- sum(FN, na.rm=TRUE)
+    #  N  <- sum(N,  na.rm=TRUE)
+    #}
 
     ## calculate some important measures
     precision <- TP / (TP + FP)
@@ -56,7 +56,7 @@ setMethod("calcPredictionAccuracy", signature(x= "topNList",
     res <- cbind(TP, FP, FN, TN, N, precision, recall, TPR, FPR)
 
     #Average over test users
-    #if(!byUser) res <- colMeans(res, na.rm=TRUE)
+    if(!byUser) res <- colMeans(res, na.rm=TRUE)
 
     res
     })

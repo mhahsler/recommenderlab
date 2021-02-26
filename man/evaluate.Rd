@@ -36,13 +36,20 @@ evaluate(x, method, ...)
   \item{\dots}{further arguments. }
 }
 \details{
-See \code{vignette("recommenderlab")} for details on the evaluaiton process and used metrics.
+The evaluation uses the specification in the evaluation scheme to train a recommender models on training data and then evaluates the models on test data.
+The result is a set of accuracy measures averaged over the test users.
+See \code{\link{calcPredictionAccuracy}} for details on the accuracy measures and the averaging.
+Note: Also the confusion matrix counts are averaged over users and therefore not whole numbers.
+
+See \code{vignette("recommenderlab")} for more details on the evaluaiton process and the used metrics.
 }
 \value{
-Returns an object of class \code{"evaluationResults"}
-or if \code{method} is a list an object of class \code{"evaluationResultList"}.
+If a single recommender method is specified in  \code{method}, then an
+object of class \code{"evaluationResults"} is returned.
+If \code{method} is a list of recommendation models, then an object of class \code{"evaluationResultList"} is returned.
 }
 \seealso{
+\code{\link{calcPredictionAccuracy}},
 \code{\linkS4class{evaluationScheme}},
 \code{\linkS4class{evaluationResults}}.
 \code{\linkS4class{evaluationResultList}}.
@@ -83,8 +90,9 @@ algorithms <- list(
 
 evlist <- evaluate(es, algorithms, n=c(1,3,5,10))
 evlist
+names(evlist)
 
-## select the first results
+## select the first results by index
 evlist[[1]]
 avg(evlist[[1]])
 

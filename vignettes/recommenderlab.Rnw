@@ -745,16 +745,17 @@ partitioning the users (rows) in $\mat{R}$ into two
 sets $\set{U}_\mathit{train}\, \cup\, \set{U}_\mathit{test} = \set{U}$.
 The rows of $\mat{R}$ corresponding to the training users $U_\mathit{train}$
 are used to learn the recommender model.
-Then each user $u_a \in \set{U}_\mathit{test}$ is seen as an active user,
-however,
-before creating recommendations some items are withheld from the
+Then each user $u_a \in \set{U}_\mathit{test}$ is seen as an active user.
+Before creating recommendations some items are withheld from the
 profile $r_{u_a\cdot}$ and it measured
 either how well the predicted rating matches the withheld value
 or, for top-$N$ algorithms, if the items in the recommended
-list are rated highly by the user.
-It is assumed that if
-a recommender algorithm performed better in predicting the withheld items,
-it will also perform better in finding good recommendations for unknown items.
+list are rated highly by the user. Finally, the evaluation measures calculated for all
+test users are averaged.
+
+%It is assumed that if
+%a recommender algorithm performed better in predicting the withheld items,
+%it will also perform better in finding good recommendations for unknown items.
 
 To determine how to split $\set{U}$ into
 $\set{U}_\mathit{train}$ and $\set{U}_\mathit{test}$ we can use
