@@ -49,7 +49,7 @@ setMethod("colCounts", signature(x = "ratingMatrix"),
 	function(x, ...) colSums(hasRating(x)))
 
 setMethod("rowCounts", signature(x = "ratingMatrix"),
-	function(x, ...) s <- rowSums(hasRating(x)))
+	function(x, ...) rowSums(hasRating(x)))
 
 setMethod("colSums", signature(x = "ratingMatrix"),
 	function(x, na.rm = FALSE, dims = 1, ...) colSums(as(x, "dgCMatrix"), na.rm, dims, ...))

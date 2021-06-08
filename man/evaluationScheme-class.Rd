@@ -12,17 +12,17 @@
 	An evaluation scheme created from a data set. The scheme can be a simple split into training and test data, k-fold cross-evaluation or using k
 	bootstrap samples.}
 \section{Objects from the Class}{
-Objects can be created by 
+Objects can be created by
 \code{evaluationScheme(data, method="split", train=0.9, k=NULL, given=3).}
 }
 \section{Slots}{
 	 \describe{
     \item{\code{data}:}{Object of class \code{"ratingMatrix"}; the data set. }
-    \item{\code{given}:}{Object of class \code{"integer"}; given ratings are 
-    randomly selected for each evaluation user and 
-    presented to the recommender 
-    algorithm to calculate recommend items/ratings. 
-    The recommended items are compared 
+    \item{\code{given}:}{Object of class \code{"integer"}; given ratings are
+    randomly selected for each evaluation user and
+    presented to the recommender
+    algorithm to calculate recommend items/ratings.
+    The recommended items are compared
     to the remaining items for the evaluation user.}
     \item{\code{goodRating}:}{Object of class \code{"numeric"}; Rating at which an item is considered a positive for evaluation. }
     \item{\code{k}:}{Object of class \code{"integer"}; number of runs for evaluation. Default is 1 for method "split" and 10 for "cross-validation" and "bootstrap".}
@@ -37,13 +37,17 @@ Objects can be created by
   \describe{
 %    \item{evaluate}{\code{signature(x = "evaluationScheme")}: ... }
     \item{getData}{\code{signature(x = "evaluationScheme")}: access data.
-	Parameters are \code{type} ("train", "known" or "unknown") and
-	\code{run} (1...k). \code{"train"} returns the training data for 
-	the run,
-	\code{"known"} returns the known ratings used for prediction 
-	for the test data, 
-	and \code{"unknown"} returns the ratings used for evaluation 
-	for the test data.}
+	Parameters are \code{type} ("train", "known" or "unknown", "given") and
+	\code{run} (1...k).
+	\code{"train"} returns the training data for the run,
+	\code{"known"} returns the known ratings used for prediction
+	for the test data,
+	\code{"unknown"} returns the ratings used for evaluation
+	for the test data, and
+	\code{"given"} returns the number of items that were given in "known." If the \code{given} items
+	was a positive number, then this will be a vector with this number, but if \code{given} was negative (all-but-x),
+	then the number of given items for each test user will be different.
+	}
     \item{show}{\code{signature(object = "evaluationScheme")} }
 	 }
 }

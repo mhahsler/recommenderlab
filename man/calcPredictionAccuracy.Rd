@@ -15,15 +15,21 @@
 }
 \usage{
 calcPredictionAccuracy(x, data, ...)
-\S4method{calcPredictionAccuracy}{realRatingMatrix,realRatingMatrix}(x, data, byUser=FALSE,...)
-\S4method{calcPredictionAccuracy}{topNList,realRatingMatrix}(x, data, byUser=FALSE, given=NULL, goodRating=NA,...)
-\S4method{calcPredictionAccuracy}{topNList,binaryRatingMatrix}(x, data, byUser=FALSE, given=NULL,...)
+
+\S4method{calcPredictionAccuracy}{realRatingMatrix,realRatingMatrix}(x, data, byUser = FALSE, ...)
+
+\S4method{calcPredictionAccuracy}{topNList,realRatingMatrix}(x, data, byUser = FALSE,
+  given = NULL, goodRating = NA, ...)
+
+\S4method{calcPredictionAccuracy}{topNList,binaryRatingMatrix}(x, data, byUser = FALSE,
+  given = NULL, ...)
 }
 \arguments{
   \item{x}{ Predicted items in a "topNList" or predicted ratings as a "realRatingMatrix"}
   \item{data}{ Observed true ratings for the users as a "RatingMatrix". The users have to be in the same order as in \code{x}. }
   \item{byUser}{ logical; Should the accuracy measures be reported for each user individually instead of being averaged over all users?}
-  \item{given}{ how many items were given to create the predictions. }
+  \item{given}{ how many items were given to create the predictions. If the data comes from an evaluation scheme that usses all-but-x (i.e., a negative value for \code{give}), then a vector with the number of items actually given for each prediction needs to be supplied.
+  This can be optained from the evaluation scheme \code{es} via \code{getData(es, "given")}. }
   \item{goodRating}{ If \code{x} is a "topNList" and \code{data} is a "realRatingMatrix" then \code{goodRating} is used as the threshold for determining what rating in \code{data} is considered a good rating.}
   \item{...}{ further arguments.}
 }
@@ -60,43 +66,42 @@ Recommendation Tasks, Journal of Machine Learning Research 10, 2935-2962.
 data(Jester5k)
 
 ## create 90/10 split (known/unknown) for the first 500 users in Jester5k
-e <- evaluationScheme(Jester5k[1:500,], method="split", train=0.9,
-    k=1, given=15)
+e <- evaluationScheme(Jester5k[1:500, ], method = "split", train = 0.9,
+    k = 1, given = 15)
 e
 
 ## create a user-based CF recommender using training data
 r <- Recommender(getData(e, "train"), "UBCF")
 
 ## create predictions for the test data using known ratings (see given above)
-p <- predict(r, getData(e, "known"), type="ratings")
+p <- predict(r, getData(e, "known"), type = "ratings")
 p
 
 ## compute error metrics averaged per user and then averaged over all
 ## recommendations
 calcPredictionAccuracy(p, getData(e, "unknown"))
-head(calcPredictionAccuracy(p, getData(e, "unknown"), byUser=TRUE))
+head(calcPredictionAccuracy(p, getData(e, "unknown"), byUser = TRUE))
 
 ## evaluate topNLists instead (you need to specify given and goodRating!)
-p <- predict(r, getData(e, "known"), type="topNList")
+p <- predict(r, getData(e, "known"), type = "topNList")
 p
-calcPredictionAccuracy(p, getData(e, "unknown"), given=15, goodRating=5)
+calcPredictionAccuracy(p, getData(e, "unknown"), given = 15, goodRating = 5)
 
 ## evaluate a binary recommender
 data(MSWeb)
 MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) >10,], 50)
 
-e <- evaluationScheme(MSWeb10, method="split", train=0.9,
-    k=1, given=3)
+e <- evaluationScheme(MSWeb10, method="split", train = 0.9,
+    k = 1, given = 3)
 e
 
 ## create a user-based CF recommender using training data
 r <- Recommender(getData(e, "train"), "UBCF")
 
 ## create predictions for the test data using known ratings (see given above)
-p <- predict(r, getData(e, "known"), type="topNList", n=10)
+p <- predict(r, getData(e, "known"), type="topNList", n = 10)
 p
 
-calcPredictionAccuracy(p, getData(e, "unknown"), given=3)
-calcPredictionAccuracy(p, getData(e, "unknown"), given=3, byUser = TRUE)
+calcPredictionAccuracy(p, getData(e, "unknown"), given = 3)
+calcPredictionAccuracy(p, getData(e, "unknown"), given = 3, byUser = TRUE)
 }
-%\keyword{ ~kwd1 }

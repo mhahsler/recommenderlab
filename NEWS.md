@@ -1,3 +1,8 @@
+# Changes in version 0.2-7.1 (xx/xx/2021)
+
+## Bugfixes
+* calcPredictionAccuracy now works with negative values for given (all-but-x). A negative value produces an error with instructions. 
+
 # Changes in version 0.2-7 (04/26/2021)
 
 ## New Features
