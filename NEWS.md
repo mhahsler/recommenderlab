@@ -2,6 +2,7 @@
 
 ## Bugfixes
 * calcPredictionAccuracy now works with negative values for given (all-but-x). A negative value produces an error with instructions. 
+* We require now proxy version >= 0.4-26 which fixed a conversion bug for cosine similarity.
 
 # Changes in version 0.2-7 (04/26/2021)
 

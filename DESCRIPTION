@@ -9,9 +9,9 @@ Description: Provides a research infrastructure to test and develop
     recommender algorithms including UBCF, IBCF, FunkSVD and association
     rule-based algorithms.
 Classification/ACM: G.4, H.2.8
-Depends: R (>= 3.5.0), Matrix, arules, proxy, registry
+Depends: R (>= 3.5.0), Matrix, arules, proxy (>= 0.4-26), registry
 Imports: methods, utils, stats, irlba, recosystem
-Suggests: ROCR, testthat
+Suggests: testthat
 BugReports: https://github.com/mhahsler/recommenderlab/issues
 URL: https://github.com/mhahsler/recommenderlab
 License: GPL-2

@@ -3,43 +3,58 @@
 
 
 setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
-  function(x, y = NULL, method = NULL, args = NULL, which = "users") {
-
-    args <- getParameters(list(alpha=.5), args)
+  function(x,
+    y = NULL,
+    method = NULL,
+    args = NULL,
+    which = "users") {
+    args <- getParameters(list(alpha = .5), args)
 
     which <- match.arg(tolower(which), c("users", "items"))
 
-    if(!is.null(method)) method <- tolower(method)
-    else method <- "jaccard"
+    if (!is.null(method))
+      method <- tolower(method)
+    else
+      method <- "jaccard"
 
 
     ## handle karypis and conditional dissimilarities
-    if(method == "karypis") {
-      if(!is.null(y) || which != "items") stop("Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!")
+    if (method == "karypis") {
+      if (!is.null(y) ||
+          which != "items")
+        stop(
+          "Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!"
+        )
 
-      return(.karypis(as(x, "dgCMatrix"), dist=TRUE, args))
+      return(.karypis(as(x, "dgCMatrix"), dist = TRUE, args))
     }
 
-    if(method == "conditional") {
-      if(!is.null(y) || which != "items") stop("Conditional dissimilarities are not implemented between users or as a cross-dissimilarity!")
+    if (method == "conditional") {
+      if (!is.null(y) ||
+          which != "items")
+        stop(
+          "Conditional dissimilarities are not implemented between users or as a cross-dissimilarity!"
+        )
 
-      return(.conditional(as(x, "dgCMatrix"), dist=TRUE, args))
+      return(.conditional(as(x, "dgCMatrix"), dist = TRUE, args))
     }
 
 
     ## dissimilarity is defined in arules for itemMatrix
-    if(which == "users") which <- "transactions" ## "items" is ok
+    if (which == "users")
+      which <- "transactions" ## "items" is ok
     x <- x@data
-    if(!is.null(y)) y <- y@data
+    if (!is.null(y))
+      y <- y@data
 
     ## dissimilarity in arules sets the method attribute
     d <- arules::dissimilarity(x, y, method, args, which)
 
     ## cross dissimilarity?
-    if(!is.null(y)) d <- structure(as(d, "matrix"), method = method)
+    if (!is.null(y))
+      d <- structure(as(d, "matrix"), method = method)
     d
-  }
-)
+  })
 
 
 
@@ -48,15 +63,19 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
 ## Idea by Christopher Koeb
 
 setMethod("dissimilarity", signature(x = "realRatingMatrix"),
-  function(x, y = NULL, method = NULL, args = NULL,
+  function(x,
+    y = NULL,
+    method = NULL,
+    args = NULL,
     which = "users") {
-
-    args <- getParameters(list(na_as_zero = FALSE, alpha=.5), args)
+    args <- getParameters(list(na_as_zero = FALSE, alpha = .5), args)
 
     which <- match.arg(tolower(which), c("users", "items"))
 
-    if(!is.null(method)) method <- tolower(method)
-    else method <- "cosine"
+    if (!is.null(method))
+      method <- tolower(method)
+    else
+      method <- "cosine"
 
 
     ### FIX this code!
@@ -67,16 +86,24 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
     #}
 
     ## handle karypis and conditional dissimilarities
-    if(method == "karypis") {
-      if(!is.null(y) || which != "items") stop("Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!")
+    if (method == "karypis") {
+      if (!is.null(y) ||
+          which != "items")
+        stop(
+          "Kaypis dissimilarities are not implemented between users or as a cross-dissimilarity!"
+        )
 
-      return(.karypis(as(x, "dgCMatrix"), dist=TRUE, args))
+      return(.karypis(as(x, "dgCMatrix"), dist = TRUE, args))
     }
 
-    if(method == "conditional") {
-      if(!is.null(y) || which != "items") stop("Conditional dissimilarities are not implemented between users or as a cross-dissimilarity!")
+    if (method == "conditional") {
+      if (!is.null(y) ||
+          which != "items")
+        stop(
+          "Conditional dissimilarities are not implemented between users or as a cross-dissimilarity!"
+        )
 
-      return(.conditional(as(x, "dgCMatrix"), dist=TRUE, args))
+      return(.conditional(as(x, "dgCMatrix"), dist = TRUE, args))
     }
 
 
@@ -84,25 +111,31 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
     ## FIXME: we can do some distances faster
 
     x <- as(x, "matrix")
-    if(which == "items") x <- t(x)
-    if(args$na_as_zero) x[is.na(x)] <- 0
+    if (which == "items")
+      x <- t(x)
+    if (args$na_as_zero)
+      x[is.na(x)] <- 0
 
 
-    if(!is.null(y)) {
+    if (!is.null(y)) {
       y <- as(y, "matrix")
-      if(which == "items") y <- t(y)
-      if(args$na_as_zero) y[is.na(y)] <- 0
+      if (which == "items")
+        y <- t(y)
+      if (args$na_as_zero)
+        y[is.na(y)] <- 0
     }
 
     ### of person we only use 1-pos. corr
-    if(method == "pearson") {
-      if(!is.null(y)) y <- t(y)
-      pc <- suppressWarnings(cor(t(x), y, method="pearson",
-        use="pairwise.complete.obs"))
-      pc[pc<0] <- 0
+    if (method == "pearson") {
+      if (!is.null(y))
+        y <- t(y)
+      pc <- suppressWarnings(cor(t(x), y, method = "pearson",
+        use = "pairwise.complete.obs"))
+      pc[pc < 0] <- 0
       #pc[is.na(pc)] <- 0
-      if(is.null(y)) pc <- as.dist(pc)
-      return(1-pc)
+      if (is.null(y))
+        pc <- as.dist(pc)
+      return(1 - pc)
     }
 
     ## dist in proxy
@@ -112,65 +145,89 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
 
 ## FIXME: Add minimum number of matching items/min number of predictive items
 setMethod("similarity", signature(x = "ratingMatrix"),
-  function(x, y = NULL, method = NULL, args = NULL,
-    which = "users", min_matching = 0, min_predictive = 0) {
-
+  function(x,
+    y = NULL,
+    method = NULL,
+    args = NULL,
+    which = "users",
+    min_matching = 0,
+    min_predictive = 0) {
     which <- match.arg(tolower(which), c("users", "items"))
 
-    if(!is.null(method)) method <- tolower(method)
-    else method <- "cosine"
+    if (!is.null(method))
+      method <- tolower(method)
+    else
+      method <- "cosine"
 
     ## handle karypis and conditional similarities
-    if(method == "karypis") {
-      if(!is.null(y) || which != "items") stop("Kaypis similarities are not implemented between users or as a cross-similarity!")
+    if (method == "karypis") {
+      if (!is.null(y) ||
+          which != "items")
+        stop("Kaypis similarities are not implemented between users or as a cross-similarity!")
 
-      if(min_matching > 0 || min_predictive > 0) warning("min_matching and min_predictive for this method not implemented yet.")
+      if (min_matching > 0 ||
+          min_predictive > 0)
+        warning("min_matching and min_predictive for this method not implemented yet.")
 
-      return(.karypis(as(x, "dgCMatrix"), dist=FALSE, args))
+      return(.karypis(as(x, "dgCMatrix"), dist = FALSE, args))
     }
 
-    if(method == "conditional") {
-      if(!is.null(y) || which != "items") stop("Conditional similarities are not implemented between users or as a cross-similarity!")
+    if (method == "conditional") {
+      if (!is.null(y) ||
+          which != "items")
+        stop(
+          "Conditional similarities are not implemented between users or as a cross-similarity!"
+        )
 
-      if(min_matching > 0 || min_predictive > 0) warning("min_matching and min_predictive for this method not implemented yet.")
+      if (min_matching > 0 ||
+          min_predictive > 0)
+        warning("min_matching and min_predictive for this method not implemented yet.")
 
-      return(.conditional(as(x, "dgCMatrix"), dist=FALSE, args))
+      return(.conditional(as(x, "dgCMatrix"), dist = FALSE, args))
     }
 
     ## use dissimilarity and convert into a similarity
     d <- dissimilarity(x, y, method, args, which)
 
     ## FIXME: other measures in [0,1]
-    if(!is.null(attr(d, "method")) && tolower(attr(d, "method"))
+    if (!is.null(attr(d, "method")) && tolower(attr(d, "method"))
       %in% c("jaccard", "cosine")) {
-      sim <- 1-d
-    }else{
-      sim <- 1/(1+d)
+      sim <- 1 - d
+    } else{
+      sim <- 1 / (1 + d)
     }
 
     attr(sim, "type") <- "simil"
 
-    if(min_matching > 0 || min_predictive > 0) {
+    if (min_matching > 0 || min_predictive > 0) {
       x_has_r <- hasRating(x)
-      y_has_r <- if(!is.null(y)) hasRating(y) else x_has_r
+      y_has_r <- if (!is.null(y))
+        hasRating(y)
+      else
+        x_has_r
 
-      if(which == "items") {
+      if (which == "items") {
         x_has_r <- t(x_has_r)
         y_has_r <- t(y_has_r)
       }
 
       ### set similarities with less than min_matching items to NA
-      if(min_matching > 0) {
-        shared <- as.matrix(tcrossprod(as(x_has_r, "dgCMatrix"), as(y_has_r, "dgCMatrix")))
-        if(is.matrix(sim)) sim[shared < min_matching] <- NA
-        else  sim[as.dist(shared) < min_matching] <- NA
+      if (min_matching > 0) {
+        shared <-
+          as.matrix(tcrossprod(as(x_has_r, "dgCMatrix"), as(y_has_r, "dgCMatrix")))
+        if (is.matrix(sim))
+          sim[shared < min_matching] <- NA
+        else
+          sim[as.dist(shared) < min_matching] <- NA
       }
 
       ### set similarities with less than min_predictive items to NA
-      if(min_predictive > 0) {
+      if (min_predictive > 0) {
         predictive <- as.matrix(rowSums(x_has_r) - shared)
-        if(is.matrix(sim)) sim[predictive < min_predictive] <- NA
-        else sim[as.dist(predictive) < min_predictive] <- NA
+        if (is.matrix(sim))
+          sim[predictive < min_predictive] <- NA
+        else
+          sim[as.dist(predictive) < min_predictive] <- NA
       }
     }
 
@@ -178,53 +235,61 @@ setMethod("similarity", signature(x = "ratingMatrix"),
   })
 
 ## conditional similarity (Karypis 2001)
-.conditional <- function(x, dist=TRUE, args=NULL){
+.conditional <- function(x, dist = TRUE, args = NULL) {
   n <- ncol(x)
 
   ## sim(v,u) = freq(uv) / freq(v)
   uv <-  crossprod(x)
-  v <- matrix(colSums(x), nrow = n, ncol = n, byrow = FALSE)
+  v <- matrix(colSums(x),
+    nrow = n,
+    ncol = n,
+    byrow = FALSE)
 
-  sim <- uv/v
+  sim <- uv / v
 
   ## fix if freq was 0
   sim[is.na(sim)] <- 0
 
-  if(dist) sim <- as.dist(1/(1+sim))
-  else attr(sim, "type") <- "simil"
+  if (dist)
+    sim <- as.dist(1 / (1 + sim))
+  else
+    attr(sim, "type") <- "simil"
   attr(sim, "method") <- "conditional"
   sim
 }
 
 ## Karypis similarity
-.karypis <- function(x, dist, args=NULL) {
-
-  ## get alpha
-  args <- getParameters(list(alpha = .5), args)
+.karypis <- function(x, dist, args = NULL) {
+  ## get alpha (na_as_zero is ignored)
+  args <- getParameters(list(na_as_zero = NULL, alpha = .5), args)
 
   n <- ncol(x)
 
   ## normalize rows to unit length
-  x <- x/rowSums(x)
+  x <- x / rowSums(x)
 
   ## for users without items
   x[is.na(x)] <- 0
 
   ## sim(v,u) =
   ##      sum_{for all i: r_i,v >0} r_i,u / freq(v) / freq(u)^alpha
-  uv <-  crossprod(x, x>0)
-  v <- matrix(colSums(x), nrow = n, ncol = n, byrow = FALSE)
+  uv <-  crossprod(x, x > 0)
+  v <- matrix(colSums(x),
+    nrow = n,
+    ncol = n,
+    byrow = FALSE)
   u <- t(v)
 
-  sim <- uv/v/u^args$alpha
+  sim <- uv / v / u ^ args$alpha
 
   ##  fix if freq = 0
   sim[is.na(sim)] <- 0
 
-  if(dist) sim <- as.dist(1/(1+sim))
-  else attr(sim, "type") <- "simil"
+  if (dist)
+    sim <- as.dist(1 / (1 + sim))
+  else
+    attr(sim, "type") <- "simil"
   attr(sim, "method") <- "karypis"
   sim
 
 }
-

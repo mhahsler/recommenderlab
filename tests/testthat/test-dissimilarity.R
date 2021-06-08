@@ -3,13 +3,21 @@ library("recommenderlab")
 
 set.seed(1234)
 
-## create a matrix with ratings
-db <- matrix(as.numeric(sample(c(NA,0:5),100, replace=TRUE,
-  prob=c(.7,rep(.3/6,6)))),
-	nrow=10, ncol=10, dimnames = list(
-		users=paste('u', 1:10, sep=''),
-		items=paste('i', 1:10, sep='')
-		))
+context("dissimilarity")
+
+# check structure
+db <- matrix(
+  as.numeric(sample(
+    c(NA, 0:5), 100, replace = TRUE,
+    prob = c(.7, rep(.3 / 6, 6))
+  )),
+  nrow = 10,
+  ncol = 10,
+  dimnames = list(
+    users = paste('u', 1:10, sep = ''),
+    items = paste('i', 1:10, sep = '')
+  )
+)
 
 x <- as(db, "realRatingMatrix")
 
@@ -30,11 +38,109 @@ s <- similarity(x, x, which = "items")
 expect_is(s, "crossdist")
 expect_equal(dim(s), c(ncol(x), ncol(x)))
 
-## min_matchin, min_predictive
+## min_matching, min_predictive
 s_cd <- similarity(x, x, min_matching = 2, min_predictive = 1)
 s_d <- similarity(x, min_matching = 2, min_predictive = 1)
 expect_equivalent(as.vector(s_cd[lower.tri(s_cd)]), as.vector(s_d))
 
-similarity(x, x, which = "items", min_matching = 0, min_predictive = 0)
-similarity(x, x, which = "items", min_matching = 2, min_predictive = 0)
-similarity(x, x, which = "items", min_matching = 2, min_predictive = 1)
+# TODO: write a test
+similarity(
+  x,
+  x,
+  which = "items",
+  min_matching = 0,
+  min_predictive = 0
+)
+similarity(
+  x,
+  x,
+  which = "items",
+  min_matching = 2,
+  min_predictive = 0
+)
+similarity(
+  x,
+  x,
+  which = "items",
+  min_matching = 2,
+  min_predictive = 1
+)
+
+## Test measures
+compn <- function(x, n = 3) round(as.vector(x), n)
+
+## realRatingMatrix
+x <- rbind(c(1, -1), c(-1, 1))
+x
+rating <- as(matrix(x, ncol = 2), "realRatingMatrix")
+rating
+
+# Cosine
+ibcf <- Recommender(
+  rating,
+  method = 'IBCF',
+  parameter = list(
+    method = 'cosine',
+    k = 1
+  )
+)
+
+# this is between items
+res <- -1
+expect_equal(as(ibcf@model$sim, "matrix")[1, 2], res)
+# same as: 1 - proxy::dist(t(x), method = "cosine")
+expect_equal(compn(dissimilarity(rating, method = "cosine", which = "items")), 1 - res)
+expect_equal(compn(similarity(rating, method = "cosine", which = "items")), res)
+
+# this is between users
+res <- -1
+expect_equal(compn(dissimilarity(rating, method = "cosine")), 1 - res)
+expect_equal(compn(similarity(rating, method = "cosine")), res)
+
+# Others
+expect_equal(compn(dissimilarity(rating, method = "pearson")), 1)
+expect_equal(compn(dissimilarity(rating, method = "pearson", which = "items")), 1)
+
+# only between items
+# TODO: Make sure these are correct. Especially conditional!!!
+expect_equal(compn(dissimilarity(rating, method = "karypis", which = "items")), 1)
+expect_equal(compn(dissimilarity(rating, method = "conditional", which = "items")), 0)
+
+## binaryRatingMatrix
+
+x <- rbind(c(1, 0), c(0, 1), c(1, 1), c(1, 0))
+x
+rating <- as(matrix(x, ncol = 2), "binaryRatingMatrix")
+rating
+
+# Cosine
+ibcf <- Recommender(
+  rating,
+  method = 'IBCF',
+  parameter = list(
+    method = 'cosine',
+    k = 1
+  )
+)
+
+res <- 0.408
+expect_equal(compn(as(ibcf@model$sim, "matrix")[1, 2]), res)
+# same as: 1 - proxy::dist(t(x), method = "cosine")
+
+expect_equal(compn(dissimilarity(rating, method = "cosine", which = "items")), 1 - res)
+expect_equal(compn(similarity(rating, method = "cosine", which = "items")), res)
+
+# this is between users
+res <- c(1.000, 0.293, 0.000, 0.293, 1.000, 0.293)
+expect_equal(compn(dissimilarity(rating, method = "cosine")), res)
+expect_equal(compn(similarity(rating, method = "cosine")), 1 - res)
+
+# Others
+res <- c(1.0, 0.5, 0.0, 0.5, 1.0, 0.5)
+expect_equal(compn(dissimilarity(rating, method = "jaccard")), res)
+expect_equal(compn(dissimilarity(rating, method = "jaccard", which = "items")), 0.75)
+
+# only between items
+# TODO: Make sure these are correct. Especially conditional!!!
+expect_equal(compn(dissimilarity(rating, method = "karypis", which = "items")), 0.826)
+expect_equal(compn(dissimilarity(rating, method = "conditional", which = "items")), 0.667)
