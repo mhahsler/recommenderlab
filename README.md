@@ -3,7 +3,6 @@
 [![CRAN version](https://www.r-pkg.org/badges/version/recommenderlab)](https://cran.r-project.org/package=recommenderlab)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/recommenderlab)](https://cran.r-project.org/package=recommenderlab)
   [![R-CMD-check](https://github.com/mhahsler/recommenderlab/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/recommenderlab/actions)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/recommenderlab?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/recommenderlab)
 
 This R package provides an infrastructure to test and develop
     recommender algorithms. The package supports rating (e.g., 1-5 stars) and 
