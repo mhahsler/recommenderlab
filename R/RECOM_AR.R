@@ -67,22 +67,18 @@ BIN_AR <- function(data, parameter = NULL) {
     m <- is.subset(lhs(model$rule_base), newdata@data)
     reclist <- list()
     for(i in 1:nrow(newdata)) {
-      recom <- head(unique(unlist(
+      recom <- unique(unlist(
         LIST(rhs(sort(model$rule_base[m[,i]], by=sort_measure)),
-          decode=FALSE))), n)
+          decode=FALSE)))
 
       reclist[[i]] <- if(!is.null(recom)) recom else integer(0)
     }
 
     names(reclist) <- rownames(newdata)
-    reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
+    reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = ncol(newdata))
 
-
-    if(type == "ratings"  || type == "ratingMatrix")
-      return(as(as(reclist, "matrix"), "realRatingMatrix"))
-
-    ### topN list
-    return(reclist)
+    returnRatings(as(as(reclist, "dgCMatrix"), "realRatingMatrix"), newdata, type, n)
+    
   }
 
   ## construct recommender object
