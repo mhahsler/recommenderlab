@@ -18,3 +18,4 @@ vignettes/*.pdf
 *.Rproj
 
 Work
+.DS_Store

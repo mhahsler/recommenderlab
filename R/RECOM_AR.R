@@ -4,6 +4,7 @@
   support = 0.1,
   confidence = 0.8,
   maxlen = 3,
+  maxtime = 5,
   sort_measure = "confidence",
   sort_decreasing = TRUE,
   apriori_control = list(),
@@ -24,7 +25,7 @@ BIN_AR <- function(data, parameter = NULL) {
   rule_base <-  suppressWarnings(
     apriori(data,
     parameter=list(support=p$support, confidence=p$confidence,
-      minlen=2, maxlen=p$maxlen), control=p$apriori_control)
+      minlen=2, maxlen=p$maxlen, maxtime=p$maxtime), control=p$apriori_control)
     )
 
   ## additional measures for sorting the rulebase
@@ -66,22 +67,20 @@ BIN_AR <- function(data, parameter = NULL) {
     m <- is.subset(lhs(model$rule_base), newdata@data)
     reclist <- list()
     for(i in 1:nrow(newdata)) {
-      recom <- head(unique(unlist(
+      recom <- unique(unlist(
         LIST(rhs(sort(model$rule_base[m[,i]], by=sort_measure)),
-          decode=FALSE))), n)
+          decode=FALSE)))
 
       reclist[[i]] <- if(!is.null(recom)) recom else integer(0)
     }
 
     names(reclist) <- rownames(newdata)
-    reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = n)
-
-
-    if(type == "ratings"  || type == "ratingMatrix")
-      return(as(as(reclist, "matrix"), "realRatingMatrix"))
-
-    ### topN list
-    return(reclist)
+    
+    reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = ncol(newdata))
+    ratings = new("realRatingMatrix", data = as(reclist, "dgCMatrix"))
+    
+    returnRatings(ratings, newdata, type, n)
+    
   }
 
   ## construct recommender object
