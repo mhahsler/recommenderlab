@@ -75,9 +75,11 @@ BIN_AR <- function(data, parameter = NULL) {
     }
 
     names(reclist) <- rownames(newdata)
+    
     reclist <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = ncol(newdata))
-
-    returnRatings(as(as(reclist, "dgCMatrix"), "realRatingMatrix"), newdata, type, n)
+    ratings = new("realRatingMatrix", data = as(reclist, "dgCMatrix"))
+    
+    returnRatings(ratings, newdata, type, n)
     
   }
 
