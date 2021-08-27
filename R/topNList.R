@@ -20,6 +20,12 @@ setAs("topNList", "dgCMatrix",
 setAs("topNList", "ngCMatrix",
   function(from) as(as(from, "dgCMatrix"), "ngCMatrix"))
 
+setAs("topNList", "realRatingMatrix",
+  function(from) {
+    new("realRatingMatrix", data = as(from, "dgCMatrix"))
+  }
+)
+
 setAs("topNList", "matrix",
   function(from) dropNA2matrix(as(from, "dgCMatrix")))
 
@@ -27,9 +33,6 @@ setMethod("getList", signature(from = "topNList"),
   function(from, decode = TRUE, ...)
     if(decode) lapply(from@items, function(y) from@itemLabels[y])
   else from@items)
-
-setMethod("getRatings", signature(x = "topNList"),
-  function(x, ...) x@ratings)
 
 setAs("topNList", "list", function(from) getList(from, decode = TRUE))
 

@@ -10,16 +10,13 @@
 \alias{coerce,topNList,ngCMatrix-method}
 \alias{coerce,topNList,matrix-method}
 \alias{coerce,topNList,list-method}
+\alias{coerce,topNList,realRatingMatrix-method}
 \alias{colCounts,topNList-method}
 \alias{rowCounts,topNList-method}
 \alias{show,topNList-method}
 \alias{length,topNList-method}
 \alias{removeKnownItems}
 \alias{removeKnownItems,topNList-method}
-\alias{getTopNLists}
-\alias{getTopNLists,realRatingMatrix-method}
-\alias{getRatings,topNList-method}
-
 
 \title{Class "topNList": Top-N List}
 \description{Recommendations a Top-N list. }
@@ -27,7 +24,7 @@
 Objects can be created by
 \code{predict} with a recommender model and new data. Alternatively,
 objects can be created from a realRatingMatrix using
-\code{getTopNLists} (see below).
+\code{\link{getTopNLists}}.
 }
 \section{Slots}{
     \describe{
@@ -48,34 +45,18 @@ objects can be created from a realRatingMatrix using
 }
 \section{Methods}{
     \describe{
+	\item{coerce}{\code{signature(from = "topNList", to = "list")}: returns a
+	  list with the items (labels) in the topNList. }
+	\item{coerce}{\code{signature(from = "topNList", to = "realRatingMatrix")}: creates a rating Matrix with entries for the items in the topN list.}
 	\item{coerce}{\code{signature(from = "topNList", to = "dgTMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "dgCMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "ngCMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "matrix")}: returns
-	a matrix with the ratings for the top-N items. All other items have a rating of NA.}
-
-	\item{coerce}{\code{signature(from = "topNList", to = "list")}: returns a
-	  list with the items in the topNList.}
-
+	a dense matrix with the ratings for the top-N items. All other items have a rating of NA.}
 	\item{bestN}{\code{signature(x = "topNList")}: returns only the best
 		n recommendations (second argument is \code{n} which defaults to 10).
 		The additional argument \code{minRating} can be used to remove all
 		entries with a rating below this value. }
-	\item{getTopNLists}{\code{signature(x = "realRatingMatrix")}: create
-	     top-N lists from the ratings in x. Arguments are
-	     \code{n} (defaults to 10),
-	     \code{randomize} (default is \code{NULL}) and
-		   \code{minRating} (default is \code{NA}).
-		   Items with a rating below \code{minRating} will not be part of the
-		   top-N list. \code{randomize} can be used to get diversity in the
-		   predictions by randomly selecting items with a bias to higher rated
-		   items. The bias is introduced by choosing the items with a probability
-		   proportional to the rating \eqn{(r-min(r)+1)^{randomize}}.
-		   The larger the value
-		   the more likely it is to get very highly rated items and a negative
-		   value for \code{randomize} will select low-rated items. }
-	\item{getRatings}{\code{signature(x = "topNList")}: get the ratings
-	  associated with the items recommended in the top-N list.}
 	\item{length}{\code{signature(x = "topNList")}: for how many users
 	    does this object contain a top-N list? }
 	\item{removeKnownItems}{\code{signature(x = "topNList")}:

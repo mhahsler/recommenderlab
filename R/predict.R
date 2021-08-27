@@ -27,9 +27,8 @@ returnRatings <- function(ratings, newdata,
     return(ratings)
   }
 
-
   ratings <- removeKnownRatings(ratings, newdata)
   if(type=="ratings") return(ratings)
 
-  getTopNLists(ratings, n, randomize = randomize,minRating = minRating)
+  getTopNLists(ratings, n, randomize = randomize, minRating = minRating)
 }

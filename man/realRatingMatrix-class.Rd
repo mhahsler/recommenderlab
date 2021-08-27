@@ -22,6 +22,8 @@
 \alias{removeKnownRatings}
 \alias{removeKnownRatings,realRatingMatrix-method}
 \alias{[<-,realRatingMatrix,ANY,ANY,ANY-method}
+\alias{getTopNLists}
+\alias{getTopNLists,realRatingMatrix-method}
 
 \title{Class "realRatingMatrix": Real-valued Rating Matrix}
 \description{A matrix containing ratings (typically 1-5 stars, etc.).}
@@ -65,6 +67,19 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
     \item{binarize}{\code{signature(x = "realRatingMatrix")}: create a
         \code{"binaryRatingMatrix"} by setting all ratings larger or equal to
         the argument \code{minRating} as 1 and all others to 0.}
+    	\item{getTopNLists}{\code{signature(x = "realRatingMatrix")}: create
+	     top-N lists from the ratings in x. Arguments are
+	     \code{n} (defaults to 10),
+	     \code{randomize} (default is \code{NULL}) and
+		   \code{minRating} (default is \code{NA}).
+		   Items with a rating below \code{minRating} will not be part of the
+		   top-N list. \code{randomize} can be used to get diversity in the
+		   predictions by randomly selecting items with a bias to higher rated
+		   items. The bias is introduced by choosing the items with a probability
+		   proportional to the rating \eqn{(r-min(r)+1)^{randomize}}.
+		   The larger the value
+		   the more likely it is to get very highly rated items and a negative
+		   value for \code{randomize} will select low-rated items. }
     \item{removeKnownRatings}{\code{signature(x = "realRatingMatrix")}: removes
 	all ratings in \code{x} for which ratings are available in
 	the realRatingMatrix (of same dimensions as \code{x})

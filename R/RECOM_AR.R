@@ -75,17 +75,12 @@ BIN_AR <- function(data, parameter = NULL) {
     }
 
     names(reclist) <- rownames(newdata)
+    # create ratings that reflect the order of the topNlist
+    ratings <- lapply(reclist, FUN = function(x) seq(1, 0, along.with = x))
+    topN <- new("topNList", items = reclist, ratings = ratings,
+      itemLabels = colnames(newdata), n = ncol(newdata))
 
-    topN <- new("topNList", items = reclist, itemLabels = colnames(newdata), n = ncol(newdata))
-    topN <- removeKnownItems(topN, newdata)
-    if(type == "topNList") {
-      return(bestN(topN, n))
-    }
-
-    ### FIXME: The order in the topN list could be converted into a rating (e.g., pos1 -> 1, pos2 -> 0.9, etc.)
-    ratings <- new("realRatingMatrix", data = as(topN, "dgCMatrix"))
-    returnRatings(ratings, newdata, type, n)
-
+    returnRatings(topN, newdata, type, n)
   }
 
   ## construct recommender object
