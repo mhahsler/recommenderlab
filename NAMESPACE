@@ -65,6 +65,7 @@ S3method("predict", "funkSVD")
 
 exportMethods(
   "[",
+  "c",
   "coerce",	## setAs
   "show",
   "plot",

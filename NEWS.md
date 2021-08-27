@@ -5,6 +5,8 @@
 * We require now proxy version >= 0.4-26 which fixed a conversion bug for cosine similarity.
 * RECOM_AR now respects already know items (code provided by gregreich).
 
+## Changes
+* topNList has now a method c() to combine multiple lists.
 
 # Changes in version 0.2-7 (04/26/2021)
 

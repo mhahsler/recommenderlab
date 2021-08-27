@@ -17,6 +17,7 @@
 \alias{length,topNList-method}
 \alias{removeKnownItems}
 \alias{removeKnownItems,topNList-method}
+\alias{c,topNList-method}
 
 \title{Class "topNList": Top-N List}
 \description{Recommendations a Top-N list. }
@@ -53,6 +54,7 @@ objects can be created from a realRatingMatrix using
 	\item{coerce}{\code{signature(from = "topNList", to = "ngCMatrix")}}
 	\item{coerce}{\code{signature(from = "topNList", to = "matrix")}: returns
 	a dense matrix with the ratings for the top-N items. All other items have a rating of NA.}
+	\item{c}{\code{signature(x = "topNList")}: combine several topN lists into a single list. The lists need to be for the same data (i.e., items). }
 	\item{bestN}{\code{signature(x = "topNList")}: returns only the best
 		n recommendations (second argument is \code{n} which defaults to 10).
 		The additional argument \code{minRating} can be used to remove all
