@@ -7,9 +7,10 @@
 
 ## Changes
 * topNList has now a method c() to combine multiple lists.
-* AR: Ratings are now equal to quality measure used for ranking.
-* Hybrid: add "max" and "min" aggregation.
+* RECOM_AR: Ratings are now equal to quality measure used for ranking.
+* HYBRIDRECOMMENDER: add "max" and "min" aggregation.
 * removeKnownRatings is now sparse.
+* RECOM_RANDOM now has parameter range to specify the rating range.
 
 # Changes in version 0.2-7 (04/26/2021)
 
