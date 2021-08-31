@@ -80,8 +80,8 @@ setMethod("plot", signature(x = "evaluationResultList"),
 
 
     graphics::plot(NA, xlab=take[1], ylab=take[2], ylim=ylim, xlim=xlim)
-    legend(x=legend, legend=names(x), col=col,
-        pch = pch, lty=lty, bty="n")
+    if (!is.null(legend))
+      legend(x=legend, legend=names(x), col=col, pch = pch, lty=lty, bty="n")
     for(i in 1:length(x)) plot(x[[i]], y=plot_type,
         add=TRUE, col=col[i], type=type, annotate = i %in% annotate,
         pch = pch[i], lty=lty[i], avg = avg, ...)
