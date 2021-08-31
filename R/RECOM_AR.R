@@ -66,17 +66,21 @@ BIN_AR <- function(data, parameter = NULL) {
 
     m <- is.subset(lhs(model$rule_base), newdata@data)
     reclist <- list()
+    ratings <- list()
     for(i in 1:nrow(newdata)) {
-      recom <- unique(unlist(
-        LIST(rhs(sort(model$rule_base[m[,i]], by = sort_measure)),
-          decode=FALSE)))
-
-      reclist[[i]] <- if(!is.null(recom)) recom else integer(0)
+      ars <- sort(model$rule_base[m[,i]], by = sort_measure)
+      ar_rhs <- unlist(LIST(rhs(ars), decode=FALSE))
+      ar_qualities <- quality(ars)[[sort_measure]]
+      ar_duplicates <- duplicated(ar_rhs)
+      recom_item <- ar_rhs[!ar_duplicates]
+      recom_qual <- ar_qualities[!ar_duplicates]
+      
+      reclist[[i]] <- if(!is.null(recom_item)) recom_item else integer(0)
+      ratings[[i]] <- if(!is.null(recom_qual)) recom_qual else integer(0)
     }
 
     names(reclist) <- rownames(newdata)
     # create ratings that reflect the order of the topNlist
-    ratings <- lapply(reclist, FUN = function(x) seq(1, 0, along.with = x))
     topN <- new("topNList", items = reclist, ratings = ratings,
       itemLabels = colnames(newdata), n = ncol(newdata))
 
