@@ -1,7 +1,7 @@
 ## create a hybrid recommender
 
 
-HybridRecommender <- function(..., weights = NULL) {
+HybridRecommender <- function(..., weights = NULL, aggregation_type = "sum") {
   recommenders <- list(...)
 
   if(length(recommenders) < 1) stop("No base recommender specified!")
@@ -9,6 +9,12 @@ HybridRecommender <- function(..., weights = NULL) {
   if(is.null(weights)) weights <- rep(1, length(recommenders))
   else if(length(recommenders) != length(weights)) stop("Number of recommenders and length of weights do not agree!")
   weights <- weights/sum(weights)
+  
+  aggregation_fun <- switch (aggregation_type, 
+                             "sum" = colSums,
+                             "max" = colMaxs,
+                             "min" = colMins
+  )
 
   if(!all(sapply(recommenders, is, "Recommender"))) stop("Not all supplied models are of class 'Recommender'.")
 
@@ -35,11 +41,15 @@ HybridRecommender <- function(..., weights = NULL) {
     for(i in 1:nrow(pred[[1]])) {
       ### Ignore NAs!
       ratings[i,] <-
-        colSums(t(sapply(pred, FUN = function(p)
-          as(p[i,], "matrix"))) * model$weights, na.rm = TRUE) /
-        colSums(t(sapply(pred, FUN = function(p)
-          !is.na(as(p[i,], "matrix")))) * model$weights, na.rm = TRUE)
-
+        aggregation_fun(t(sapply(pred, FUN = function(p)
+          as(p[i,], "matrix"))) * model$weights, na.rm = TRUE)
+      
+      normalizer <- colSums(t(sapply(pred, FUN = function(p)
+        !is.na(as(p[i,], "matrix")))) * model$weights, na.rm = TRUE)
+      if(aggregation_type == "max" || aggregation_type == "min"){
+        normalizer <- (normalizer > 0) * 1
+      }
+      ratings[i,] <- ratings[i,] / normalizer
     }
     ratings[!is.finite(ratings)] <- NA
 
@@ -66,7 +76,8 @@ HybridRecommender <- function(..., weights = NULL) {
 ## recommender interface
 .HYBRID_params <- list(
   recommenders = NULL,
-  weights = NULL
+  weights = NULL,
+  aggregation_type = "sum"
 )
 
 HYBRID <- function(data, parameter = NULL) {
@@ -76,7 +87,7 @@ HYBRID <- function(data, parameter = NULL) {
   recommenders <- lapply(parameter$recommenders, FUN = function(p)
     Recommender(data = data, method = p$name, parameter = p$param))
 
-  do.call(HybridRecommender, c(recommenders, weights = list(p$weights)))
+  do.call(HybridRecommender, c(recommenders, weights = list(p$weights), aggregation_type = list(p$aggregation_type)))
 }
 
 ## register recommender
