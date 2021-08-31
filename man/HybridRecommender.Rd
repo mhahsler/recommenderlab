@@ -8,12 +8,14 @@ Create a Hybrid Recommender
 Creates and combines recommendations using several recommender algorithms.
 }
 \usage{
-HybridRecommender(..., weights = NULL)
+HybridRecommender(..., weights = NULL, aggregation_type = "sum")
 }
 \arguments{
 	\item{\dots}{ objects of class 'Recommender'. }
 	\item{weights}{ weights for the recommenders. The recommenders are equally
 	weighted by default. }
+		\item{aggregation_type}{ How are the recommendations aggregated. Options are "sum", "min", and
+		"max". }
 }
 \details{
     The hybrid recommender is initialized with a set of pretrained Recommender objects.
