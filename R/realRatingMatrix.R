@@ -96,7 +96,7 @@ setMethod("removeKnownRatings", signature(x = "realRatingMatrix"),
     if(nrow(x) != nrow(known))
       stop("removeKnownRatings: Number of rows in x and known do not match!")
 
-    x@data[as(known, "dgCMatrix") != 0] <- 0
+    x@data[hasRating(known)] <- 0
     x@data <- drop0(x@data)
     x
   })
