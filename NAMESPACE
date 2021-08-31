@@ -18,6 +18,7 @@ importFrom("Matrix", "rowSums", "colSums", "rowMeans", "colMeans",
   "summary", "drop0", "rBind")
 ## get just methods
 importMethodsFrom("Matrix", "image", "t", "crossprod", "tcrossprod", "which")
+importFrom("matrixStats", "colMaxs", "colMins")
 
 ## get generics and methods
 importFrom("arules", "predict", "nitems", "sample", "LIST",
