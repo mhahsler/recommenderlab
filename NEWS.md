@@ -9,6 +9,7 @@
 * topNList has now a method c() to combine multiple lists.
 * AR: Ratings are now equal to quality measure used for ranking.
 * Hybrid: add "max" and "min" aggregation.
+* removeKnownRatings is now sparse.
 
 # Changes in version 0.2-7 (04/26/2021)
 
