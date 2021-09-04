@@ -1,10 +1,10 @@
 setMethod("predict", signature(object = "Recommender"),
-  function(object, newdata, n = 10, data=NULL, type="topNList", ...) {
+  function(object, newdata, n = 10, data = NULL, type = "topNList", ...) {
 
     if(!is(newdata, "ratingMatrix") && !is(newdata, "numeric"))
       stop("newdata needs to be a subclass of class ratingMatrix or a numeric vector with user IDs!")
 
-    object@predict(object@model, newdata, n = n, data=data, type= type, ...)
+    object@predict(object@model, newdata, n = n, data = data, type= type, ...)
   }
 )
 
@@ -18,7 +18,7 @@ returnRatings <- function(ratings, newdata,
   ratings <- as(ratings, "realRatingMatrix")
   ratings <- denormalize(ratings)
 
-  if(type=="ratingMatrix") {
+  if(type == "ratingMatrix") {
     ### replace with known ratings. Removed. We return the approximation by the algorithm instead.
     #nm <- as(denormalize(newdata), "matrix")
     #rm <- as(ratings, "matrix")
@@ -28,7 +28,7 @@ returnRatings <- function(ratings, newdata,
   }
 
   ratings <- removeKnownRatings(ratings, newdata)
-  if(type=="ratings") return(ratings)
+  if(type == "ratings") return(ratings)
 
   getTopNLists(ratings, n, randomize = randomize, minRating = minRating)
 }

@@ -43,7 +43,9 @@ setMethod("normalize", signature(x = "realRatingMatrix"),
       }
     }
 
+    # preserve zeros
     #x@data <- dropNA(data)
+    data@x[data@x == 0] <- .Machine$double.xmin
     x@data <- data
 
     x@normalize[[rc]] <- list(method=methods[method_id],
@@ -98,7 +100,9 @@ setMethod("denormalize", signature(x = "realRatingMatrix"),
       data@x <- as.numeric(data@x+rep(means, colCounts(x)))
     }
 
+    # preserve zeros
     #x@data <- dropNA(data)
+    data@x[data@x == 0] <- .Machine$double.xmin
     x@data <- data
 
     x@normalize[[what]] <- NULL

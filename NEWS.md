@@ -6,6 +6,8 @@
 * RECOM_AR now respects already know items (code provided by gregreich).
 
 ## Changes
+* Ratings of zero are now fully supported. We use .Machine$double.xmin to represent 0 in 
+  sparse matices. zapsmall() can be used to change them back to 0.
 * topNList has now a method c() to combine multiple lists.
 * RECOM_AR: Ratings are now equal to quality measure used for ranking.
 * HYBRIDRECOMMENDER: add "max" and "min" aggregation.
