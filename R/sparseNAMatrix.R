@@ -1,5 +1,8 @@
 ### Sparse matrix that drops NAs
 
+# **Important:** see ? dropNA for details about how sparse data is stored
+
+## FIXME: we cannot do this because Matrix does not export xMatrix!
 # coercion from and to dgCMatrix is implicit
 # setAs("matrix", "sparseNAMatrix", function(from) dropNA(from))
 # setAs("sparseNAMatrix", "matrix", function(from) dropNA2matrix(from))
