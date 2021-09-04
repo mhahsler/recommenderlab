@@ -103,13 +103,13 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
     given <- getData(scheme, type = "given", run = run)
 
     ## train recommender
-    time_model <- system.time(r <-
+    time_model <- system.time(rec <-
         Recommender(train, method, parameter = parameter),
       gcFirst = FALSE)
 
 
     time_predict <- system.time(pre <-
-        predict(r, test_known, n = max(n), type = type),
+        predict(rec, test_known, n = max(n), type = type),
       gcFirst = FALSE)
 
     if (is(pre, "topNList")) {
@@ -160,7 +160,7 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
       cm = res,
       model =
         if (keepModel)
-          getModel(r)
+          rec
       else
         NULL)
   }

@@ -4,6 +4,7 @@
 * calcPredictionAccuracy now works with negative values for given (all-but-x). A negative value produces an error with instructions. 
 * We require now proxy version >= 0.4-26 which fixed a conversion bug for cosine similarity.
 * RECOM_AR now respects already know items (code provided by gregreich).
+* evaluate: keepModel = TRUE now works (bug reported by gregreich). 
 
 ## Changes
 * Ratings of zero are now fully supported. We use .Machine$double.xmin to represent 0 in 

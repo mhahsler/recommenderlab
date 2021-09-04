@@ -1,4 +1,3 @@
-## helper
 setClassUnion("listOrNull", c("list", "NULL"))
 
 ## FIXME: we cannot do this because Matrix does not export xMatrix!
@@ -15,6 +14,8 @@ setClass("Recommender",
 		predict = "function"
 	)
 )
+
+setClassUnion("RecommenderOrNull", c("Recommender", "NULL"))
 
 ## Ratings
 setClass("ratingMatrix",
@@ -85,7 +86,7 @@ setClass("evaluationScheme",
 setClass("confusionMatrix",
 	representation(
 		cm	= "matrix",
-		model	= "listOrNull"
+		model	= "RecommenderOrNull"
 	)
 )
 

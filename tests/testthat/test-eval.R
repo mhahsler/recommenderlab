@@ -72,6 +72,27 @@ check_predictions <- function(e, p, given) {
 
 check_predictions(e, p, given)
 
+# check evaluate with keepModel = TRUE
+res <- evaluate(e, "POPULAR")
+avg(res)
+res <- evaluate(e, list(
+  RANDOM = list(name = "RANDOM", param = NULL),
+  POPULAR = list(name = "POPULAR", param = NULL),
+  UBCF = list(name = "UBCF", param = NULL)
+  ))
+avg(res)
+
+res <- evaluate(e, "POPULAR", keepModel = TRUE)
+getModel(res)
+
+res <- evaluate(e, list(
+  RANDOM = list(name = "RANDOM", param = NULL),
+  POPULAR = list(name = "POPULAR", param = NULL),
+  UBCF = list(name = "UBCF", param = NULL)
+  ), keepModel = TRUE)
+getModel(res[[1]])
+
+
 ## Evaluate all-but-x
 set.seed(1234)
 given <- -1
@@ -129,3 +150,4 @@ calcPredictionAccuracy(p,
   getData(e, "unknown"),
   given = 15,
   goodRating = 5)
+
