@@ -17,8 +17,8 @@ recommenderRegistry$set_field("parameters", type = "list",
 
 print.recommender_method <- function(x, ...) {
   with(x, {
-    writeLines(sprintf("Recommender method: %s for %s\nDescription: %s\nReference: %s",
-                       method, dataType, description, reference))
+    writeLines(strwrap(sprintf("Recommender method: %s for %s\nDescription: %s\nReference: %s",
+                       method, dataType, description, reference), exdent = 2))
 
     if(is.list(parameters)) {
       writeLines("Parameters:")
