@@ -1,10 +1,11 @@
-# Changes in version 0.2-7.1 (xx/xx/2021)
+# Changes in version 0.2-7.1 (cc/xx/2022)
 
 ## Bugfixes
 * calcPredictionAccuracy now works with negative values for given (all-but-x). A negative value produces an error with instructions. 
 * We require now proxy version >= 0.4-26 which fixed a conversion bug for cosine similarity.
 * RECOM_AR now respects already know items (code provided by gregreich).
 * evaluate: keepModel = TRUE now works (bug reported by gregreich). 
+* Recom_SVD: fixed issue with missing values set to zero (bug reported by jpbrooks@vcu.edu)
 
 ## Changes
 * Ratings of zero are now fully supported. We use .Machine$double.xmin to represent 0 in 

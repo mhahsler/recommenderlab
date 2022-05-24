@@ -59,7 +59,7 @@ REAL_ALS <- function(data, parameter = NULL) {
     if (is.numeric(newdata)) {
       if (is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needs to be the training dataset.")
-      newdata <- data[newdata, ]
+      newdata <- data[newdata,]
     }
 
     if (ncol(newdata) != ncol(model$data@data))
@@ -105,11 +105,11 @@ REAL_ALS <- function(data, parameter = NULL) {
         nrow = p$n_factors,
         ncol = n_m)
     colnames(M) <- colnames(normalized_data)
-    # But the first row is initialiazed as the average rating of that movie
-    M[1, ] <-
+    # But the first row is initialized as the average rating of that movie
+    M[1,] <-
       colSums(R, na.rm = TRUE) / colSums(W) # colMeans() would consider empty spaces in a dgCMatrix as zeroes
-    mean_rating <- mean(M[1, ], na.rm = TRUE)
-    M[1, ][is.na(M[1, ])] <- mean_rating
+    mean_rating <- mean(M[1,], na.rm = TRUE)
+    M[1,][is.na(M[1,])] <- mean_rating
 
     # For U (users) , we initialize with 1s and zeroes, although it does not really matter,
     # because U will be overwritten in the first phase of the loop
@@ -119,7 +119,7 @@ REAL_ALS <- function(data, parameter = NULL) {
     U[, 1] <- 1
 
     # Replace the NAs in rating matrix R with zeroes
-    if (class(R) != "dgCMatrix") {
+    if (!is(R, "dgCMatrix")) {
       R <- dropNA(R)
     }
 
@@ -144,10 +144,10 @@ REAL_ALS <- function(data, parameter = NULL) {
       # Minimize U %*% M for fixed M, by iterating over m users
       for (ii in 1:n_u) {
         # First drop the M columns and R rows irrelevant for user ii, in order to speed up the calculation
-        M_selected <- M[, W[ii,] == 1, drop = FALSE]
-        R_selected <- R[ii,][W[ii,] == 1, drop = FALSE]
+        M_selected <- M[, W[ii, ] == 1, drop = FALSE]
+        R_selected <- R[ii, ][W[ii, ] == 1, drop = FALSE]
         # Update U for user ii
-        U[ii,] <-
+        U[ii, ] <-
           t(solve(
             M_selected %*% t(M_selected) + p$lambda * n_u_i[ii] * diag(p$n_factors),
             (M_selected %*% R_selected)
@@ -198,7 +198,7 @@ REAL_ALS <- function(data, parameter = NULL) {
 
     # During the model construction above, a rating was calculated for each user-item combination
     # Here, it is just a matter of returning the ratings associated with the users in newdata
-    ratingMatrix <- ratings[-(1:nrow(model$data)), ]
+    ratingMatrix <- ratings[-(1:nrow(model$data)),]
 
     # Now return the ratings, as a "topNList", "ratings" or "ratingMatrix"
     returnRatings(ratingMatrix, newdata, type, n)
@@ -271,10 +271,10 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
     type = c("topNList", "ratings", "ratingMatrix"),
     ...) {
     # The same function used for realRatingMatrices is also used for binaryRatingMatrices
-    if (class(model$data) == "binaryRatingMatrix") {
+    if (is(model$data, "binaryRatingMatrix")) {
       model$data <- as(as(model$data, "dgCMatrix"), "realRatingMatrix")
     }
-    if (class(newdata) == "binaryRatingMatrix") {
+    if (is(newdata, "binaryRatingMatrix")) {
       newdata <- as(as(newdata, "dgCMatrix"), "realRatingMatrix")
     }
 
@@ -287,7 +287,7 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
     if (is.numeric(newdata)) {
       if (is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needs to be the training dataset.")
-      newdata <- data[newdata, ]
+      newdata <- data[newdata,]
     }
 
     if (ncol(newdata) != ncol(model$data@data))
@@ -301,7 +301,8 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
     # Use both data and newdata to train your model
     # Therefore, the data must first be combined
     #data <- combine_data(model$data@data, newdata@data)
-    data <- rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix"))
+    data <-
+      rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix"))
 
     ### MFH: There is no NA in implicit data!
     # The rating matrix R assigns 0 (NA) to missing data, and 1 to measured data
@@ -328,10 +329,10 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
         ncol = n_m)
     colnames(M) <- colnames(data)
     # But the first row is initialiazed as the average rating of that movie
-    M[1, ] <-
+    M[1,] <-
       colSums(R * (W + 1), na.rm = TRUE) / colSums(W + 1) # colMeans() would consider empty spaces in a dgCMatrix as zeroes
-    mean_rating <- mean(M[1, ], na.rm = TRUE)
-    M[1, ][is.na(M[1, ])] <- mean_rating
+    mean_rating <- mean(M[1,], na.rm = TRUE)
+    M[1,][is.na(M[1,])] <- mean_rating
 
     # For U (users) , we initialize with 1s and zeroes, although it does not really matter,
     # because U will be overwritten in the first phase of the loop
@@ -363,14 +364,14 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
       M_x_t_M <- M %*% t(M)
       for (ii in 1:n_u) {
         # First drop the M columns and R rows irrelevant for user ii, in order to speed up the calculation
-        M_selected <- M[, R[ii,] != 0, drop = FALSE]
-        W_selected <- W[ii,][R[ii,] != 0]
+        M_selected <- M[, R[ii, ] != 0, drop = FALSE]
+        W_selected <- W[ii, ][R[ii, ] != 0]
         R_selected <-
-          R[ii,][R[ii,] != 0] # Because of the way R is defined, this is just gonna be a vector full of ones
+          R[ii, ][R[ii, ] != 0] # Because of the way R is defined, this is just gonna be a vector full of ones
         # t(t(M_selected) * W_selected) is faster for big matrices than M_selected %*% diag(W_selected)
         M_selected_weighed <- t(t(M_selected) * W_selected)
         # Update U for user ii
-        U[ii,] <-
+        U[ii, ] <-
           t(solve(
             M_x_t_M + M_selected_weighed %*% t(M_selected) + p$lambda * n_u_i[ii] * diag(p$n_factors),
             ((M_selected_weighed + M_selected) %*% R_selected)
@@ -422,7 +423,7 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
 
     # During the model construction above, a rating was calculated for each user-item combination
     # Here, it is just a matter of returning the ratings associated with the users in newdata
-    ratingMatrix <- ratings[-(1:nrow(model$data)), ]
+    ratingMatrix <- ratings[-(1:nrow(model$data)),]
 
     # Now return the ratings, as a "topNList", "ratings" or "ratingMatrix"
     returnRatings(ratingMatrix, newdata, type, n)

@@ -1,0 +1,95 @@
+---
+title: "R package recommenderlab - Lab for Developing and Testing Recommender Algorithms"
+output: github_document
+---
+
+```{r echo=FALSE}
+options(digits = 2)
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, fig.path = 'inst/README_files/')
+```
+
+```{r echo=FALSE, results = 'asis'}
+pkg <- 'recommenderlab'
+
+library(stringr)
+
+  cat(str_interp("[![CRAN version](http://www.r-pkg.org/badges/version/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
+  cat(str_interp("[![stream r-universe status](https://mhahsler.r-universe.dev/badges/${pkg})](https://mhahsler.r-universe.dev/ui#package:${pkg})\n"))
+  cat(str_interp("[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
+```
+
+```{r echo=FALSE, results = 'asis'}
+cat(packageDescription(pkg)$Description)
+```
+The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets. Supported algorithms are:
+    
+* User-based collborative filtering (UBCF)
+* Item-based collborative filtering (IBCF)
+* SVD with column-mean imputation (SVD)
+* Funk SVD (SVDF)
+* Alternating Least Squares (ALS)
+* Matrix factorization with LIBMF (LIBMF)
+* Association rule-based recommender (AR)
+* Popular items (POPULAR)
+* Randomly chosen items for comparison (RANDOM)
+* Re-recommend liked items (RERECOMMEND)
+* Hybrid recommendations (HybridRecommender)
+
+For evaluation, the framework supports given-n and all-but-x protocols with
+
+* Train/test split
+* Cross-validation
+* Repeated bootstrap sampling
+
+Evaluation measures are:
+
+* Rating errors: MSE, RMSE, MAE
+* Top-N recommendations: TPR/FPR (ROC), precision and recall
+
+## Installation
+
+__Stable CRAN version:__ install from within R with
+```{r eval=FALSE}
+install.packages("recommenderlab")
+```
+
+__Current development version:__ Install from [r-universe.](https://mhahsler.r-universe.dev/ui#package:recommenderlab)
+
+## Usage
+
+Load the package and prepare a dataset (included in the package).
+```{r}
+library("recommenderlab")
+data("MovieLense")
+### use only users with more than 100 ratings
+MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
+MovieLense100
+```
+
+Train a user-based collaborative filtering recommender using a small training set.
+```{r}
+train <- MovieLense100[1:50]
+rec <- Recommender(train, method = "UBCF")
+rec
+```
+
+Create top-N recommendations for new users (users 101 and 102)
+```{r}
+pre <- predict(rec, MovieLense100[101:102], n = 5)
+pre
+```
+
+```{r}
+as(pre, "list")
+```
+
+A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) 
+([source code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)). 
+
+
+## References
+
+* Michael Hahsler (2016). [recommenderlab: A Framework for Developing and
+Testing Recommendation Algorithms](https://CRAN.R-project.org/package=recommenderlab/vignettes/recommenderlab.pdf), R package. https://CRAN.R-project.org/package=recommenderlab
+* recommenderlab [reference manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
+*  Suresh K. Gorakala and Michele Usuelli (2015) [Building a Recommendation System with R](https://www.amazon.com/Building-Recommendation-System-Suresh-Gorakala/dp/1783554495) features the package recommenderlab.
