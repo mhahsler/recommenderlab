@@ -56,7 +56,7 @@ REAL_SVD <- function(data, parameter= NULL) {
     #r <- svd$u %*% tcrossprod(diag(svd$d), svd$v)
 
     ### folding in new user u_a = Sigma^-1 V^T r_a
-    r_a <- as(newdata@data, "matrix")
+    r_a <- as(newdata, "matrix")
 
     ### impute missing ratings
     nas <- is.na(r_a)
