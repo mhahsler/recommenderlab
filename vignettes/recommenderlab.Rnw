@@ -36,44 +36,36 @@
 
 %% \VignetteIndexEntry{An introduction to the R package recommenderlab}
 
-\author{Michael Hahsler\\SMU}
+\author{Michael Hahsler}
 
-\title{\pkg{recommenderlab}: A Framework for Developing and Testing Recommendation Algorithms}
+\title{\pkg{recommenderlab}: An R Framework for Developing and Testing Recommendation Algorithms}
 
 %% for pretty printing and a nice hypersummary also set:
 \Plainauthor{Michael Hahsler} %% comma-separated
-\Plaintitle{recommenderlab: A Framework for Developing and Testing Recommendation Algorithms} %% without formatting
-\Shorttitle{Developing and Testing Recommendation Algorithms} %% a short title (if necessary)
+\Plaintitle{recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms} %% without formatting
+\Shorttitle{Developing and Testing Recommendation Algorithms with R} %% a short title (if necessary)
 
-\Abstract{The problem of creating recommendations given a large data base from
-directly elicited ratings  (e.g., ratings of 1 through 5 stars) is a popular
-research area which was lately boosted by the Netflix Prize
-competition. While several libraries which implement recommender algorithms
-have been developed over the last decade there is still the need for a
-framework which facilitates research on recommender systems
-by providing a common development and evaluation environment.
-This paper describes \pkg{recommenderlab} which provides the
-infrastructure to develop  and test recommender algorithms for rating data and
-0-1 data in a unified framework. The Package provides basic algorithms and
-allows the user to develop and use his/her own algorithms in
-the framework via a simple registration procedure.}
+\Abstract{Algorithms that create recommendations based on observed data have
+significant commercial value for online retailers and many other industries.
+Recommender systems has a significant research
+community and studying such systems is part of most modern data science
+curricula. While there is an abundance of software that implements recommendation algorithms, there is little in terms of supporting recommender system research and education. This paper describes the open-source software~\pkg{recommenderlab} which was created with supporting research and education in mind.
+The package can be directly installed in R or downloaded from
+\url{https://github.com/mhahsler/recommenderlab}.}
 
 \Keywords{recommender systems, collaborative filtering, evaluation}
 \Plainkeywords{recommender systems, collaborative filtering, evaluation} %% without formatting
 
 \Address{
-    Michael Hahsler\\
-	Engineering Management, Information, and Systems\\
+  Michael Hahsler\\
+	Computer Science\\
 	Lyle School of Engineering\\
 	Southern Methodist University\\
-	P.O. Box 750123 \\
-	Dallas, TX 75275-0123\\
+	P.O. Box 750122 \\
+	Dallas, TX 75275-0122\\
 	E-mail: \email{mhahsler@lyle.smu.edu}\\
-	URL: \url{http://lyle.smu.edu/~mhahsler}
+	URL: \url{michael@hahsler.net}
 }
-
-
-
 
 
 \begin{document}
@@ -85,18 +77,13 @@ the framework via a simple registration procedure.}
 %\sloppy
 
 
-%\abstract{The problem of creating recommendations given a large data base from
-%directly elicited ratings  (e.g., ratings of 1 through 5 stars) is a popular
-%research area which was lately boosted by the Netflix Prize
-%competition. While several libraries which implement recommender algorithms
-%have been developed over the last decade there is still the need for a
-%framework which facilitates research on recommender systems
-%by providing a common development and evaluation environment.
-%This paper describes \pkg{recommenderlab} which provides the
-%infrastructure to develop  and test recommender algorithms for rating data and
-%0-1 data in a unified framework. The Package provides basic algorithms and
-%allows the user to develop and use his/her own algorithms in
-%the framework via a simple registration procedure.}
+% \abstract{
+% Algorithms that create recommendations based on observed data have
+% significant commercial value for online retailers and many other industries.
+% Recommender systems has a significant research
+% community and studying such systems is part of most modern data science
+% curricula. While there is an abundance of software that implements recommendation algorithms, there is little in terms of supporting recommender system research and education. This paper describes the open-source software~\pkg{recommenderlab} which was created with supporting research and education in mind.
+% }
 
 <<echo=FALSE>>=
 options(scipen=3, digits=4, prompt="R> ", eps=FALSE, width=75)
@@ -105,86 +92,73 @@ set.seed(1234)
 @
 
 \section{Introduction}
-Predicting ratings and creating personalized recommendations for products like
-books, songs or movies online came a long way from
-Information Lense,
-the first system using
-\emph{social filtering} created by \cite{recommender:Malone:1987} more than 20
-years ago.  Today recommender systems are an accepted technology used by market
-leaders in several industries (e.g., by
-Amazon\footnote{\url{http://www.amazon.com}},
-Netflix\footnote{\url{http://www.netflix.com}} and
-Pandora\footnote{\url{http://www.pandora.com}}).
 Recommender
 systems apply statistical and knowledge discovery techniques to the problem of
 making product recommendations based on previously recorded
-data~\citep{recommender:Sarwar:2000}.  Such
-recommendations can help to improve the conversion rate by helping
+usage data~\citep{recommender:Sarwar:2000}.
+Creating such automatically generated personalized recommendations for
+products including
+books, songs, TV shows and movies using collaborative filtering
+have come a long way since
+Information Lense,
+the first system using
+\emph{social filtering} was created
+more than 30 years ago~\citep{recommender:Malone:1987}.
+Today, recommender systems
+are a successful technology used by market
+leaders in several industries (e.g., by
+Amazon, %\footnote{\url{http://www.amazon.com}},
+Netflix, and %\footnote{\url{http://www.netflix.com}} and
+Pandora). %\footnote{\url{http://www.pandora.com}}).
+In retail, such
+recommendations can improve conversion rates by helping
 the customer to find
 products she/he wants to buy faster, promote cross-selling by suggesting
 additional products and can improve customer loyalty through creating a
-value-added relationship~\citep{recommender:Schafer:2001}.  The importance and
-the economic impact of research in this field is reflected by the Netflix
-Prize\footnote{\url{http://www.netflixprize.com/}}, a challenge to improve
-the predictions of Netflix's movie recommender system by more than
-10\% in terms
-of the root mean square error. The grand price of 1 million dollar was
-awarded in September 2009 to the Belcore Pragmatic Chaos team.
+value-added relationship~\citep{recommender:Schafer:2001}.
 
-\cite{recommender:Ansari:2000} categorizes recommender systems into
-\emph{content-based} approaches and \emph{collaborative filtering.}
-Content-based approaches are based on the idea that
-if we can elicit the preference structure of a customer (user)
-concerning product (item) attributes then we can recommend items
-which rank high for the user's most desirable attributes.
-Typically, the preference structure can be elicited by analyzing which
-items the user prefers. For example, for movies the Internet Movie
-Database\footnote{\url{http://www.imdb.com/}}
-contains a wide range of attributes to describe movies including
-genre, director, write, cast, storyline, etc. For music, Pandora,
-a personalized online radio station,
-creates a stream of music via content-based recommendations
-based on a system of hundreds of attributes
-to describe the essence of music at the
-fundamental level including
-rhythm, feel, influences, instruments and many
-more~\citep{recommender:Joyce:2006}.
+Even after 30 years, recommender systems still have a very active research
+community.
+It is often not clear which of the many available algorithms is appropriate for a particular application and new approaches are constantly proposed. Many commercially available software applications implement recommender
+algorithms, however,
+this paper focuses on software support for recommender systems
+research which includes rapid prototyping algorithms and thorough
+evaluation and comparison of algorithms.
+For this purpose, access to the source code is paramount.
+Many open-source projects implementing recommender algorithms have been
+initiated over the years. Table~\ref{tab:software} provides links to several popular
+open source implementations
+which provide code which can be used by researchers.
+The extent of (currently available) functionality as well as the target
+usage of the available software packages vary greatly and many projects have been abandoned over the years. A comprehensive list of recommender systems software is maintained by~\cite{Jenson:2019}.
 
-In \pkg{recommenderab} we concentrate on the second category of recommender
-algorithms called collaborative filtering.
-The idea is that given rating data by many users for many items
-(e.g., 1 to 5 stars for movies elicited directly from the users),
-one can predict a user's rating for an item
-not known to her or him~\citep[see, e.g.,][]{recommender:Goldberg:1992}
-or create
-for a user a so called top-$N$ lists of recommended
-items~\citep[see, e.g.,][]{recommender:Deshpande:2004}.
-The premise is that users who agreed on the rating for some items
-typically also agree on the rating for other items.
+%Crab, MyMediaLite and Vogoo PHP LIB aim at providing simple
+%recommender systems to be easily integrated into web sites.
+%SVDFeature focuses only on matrix factorization..
+%LensKit is a relatively new software package with the aim
+%to provide reference implementations for common collaborative
+%filtering algorithms.
+%Finally, Apache Mahout, a machine learning
+%library aimed to be scalable to large data sets incorporated
+%collaborative filtering algorithms formerly developed under the
+%name Taste.
 
 \begin{table}
 \begin{tabular}{|p{1.9cm}|p{3cm}|l|l|}
 \hline
 {\bf Software} & {\bf Description} & {\bf Language} & {\bf URL} \\
 \hline
-\hline
 Apache Mahout & Machine learning library includes collaborative filtering &Java& \small\url{http://mahout.apache.org/}\\
-\hline
-Cofi & Collaborative filtering library & Java & \small\url{http://www.nongnu.org/cofi/}\\
 \hline
 Crab & Components to create recommender systems & Python & \small\url{https://github.com/muricoca/crab}\\
 \hline
-easyrec & Recommender for Web pages & Java & \small\url{http://easyrec.org/}\\
+LensKit & Collaborative filtering algorithms from GroupLens Research & Python & \small\url{http://lenskit.grouplens.org/}\\
 \hline
-LensKit & Collaborative filtering algorithms from GroupLens Research & Java & \small\url{http://lenskit.grouplens.org/}\\
-\hline
-MyMediaLite & Recommender system algorithms. & C\#/Mono & \small\url{http://mloss.org/software/view/282/}\\
+MyMediaLite & Recommender system algorithms. & C\#/Mono & \small\url{http://www.mymedialite.net/}\\
 \hline
 %RACOFI: A rule-applying collaborative filtering system & Java &  \url{http://lemire.me/fr/abstracts/COLA2003.html}\\
 %\hrule
-PREA & Personalized Recommendation Algorithms Toolkit & Java &  \url{http://prea.gatech.edu/}\\
-\hline
-SVDFeature & Toolkit for feature-based matrix factorization& C++ & \small\url{http://mloss.org/software/view/333/}\\
+SVDFeature & Toolkit for feature-based matrix factorization& C++ & \small\url{https://www.jmlr.org/papers/v13/chen12a.html}\\
 \hline
 Vogoo PHP LIB & Collaborative filtering engine for personalizing web sites & PHP & \small\url{http://sourceforge.net/projects/vogoo/} \\
 
@@ -194,38 +168,68 @@ Vogoo PHP LIB & Collaborative filtering engine for personalizing web sites & PHP
 \label{tab:software}
 \end{table}
 
-Several projects were initiated
-to implement recommender algorithms for collaborative filtering.
-Table~\ref{tab:software} gives an overview of open-source projects
-which provide code which can be used by researchers.
-The extend of (currently available) functionality as well as the target
-usage of the software packages vary greatly.
-Crab, easyrec, MyMediaLite and Vogoo PHP LIB aim at providing simple
-recommender systems to be easily integrated into web sites.
-SVDFeature focuses only on matrix factorization.
-Cofi provides a Java package which implements many
-collaborative filtering algorithms (active development ended 2005).
-LensKit is a relatively new software package with the aim
-to provide reference implementations for common collaborative
-filtering algorithms. This software has not reached a stable version
-at the time this paper was written (October, 2011).
-Finally, Apache Mahout, a machine learning
-library aimed to be scalable to large data sets incorporated
-collaborative filtering algorithms formerly developed under the
-name Taste.
-%% FIXME: Interface to Mahout
-
-The \proglang{R} extension package~\pkg{recommenderlab}
+Most available software focuses on creating
+recommender applications for deployment
+as a production system or they implement a single method as part of a research
+project.
+The R extension package~\pkg{recommenderlab}
 described in this paper
-has a completely different goal to the existing software packages. It
-is not a library to create recommender applications
-but provides a general research infrastructure for recommender systems.
+was designed for a completely different purpose.
+It aims at providing a comprehensive research infrastructure for
+recommender systems.
 The focus is on consistent and efficient data handling,
-easy incorporation of algorithms (either implemented in R or
-interfacing existing algorithms),
+easy incorporation of existing and new algorithms,
 experiment set up and evaluation of the results.
+The open-source programming language R, a popular software
+environment for statistical computing and data scientists~\citep{R:2018},
+%(\url{https://www.r-project.org/}),
+is used as the platform since it easily allows the researcher to
+either implement and integrate algorithms written in a wide range of programming languages including R, Python, Java, C/C++
+and already provides all needed statistical tools
+which is important to provide a useful research environment.
 
-This paper is structured as follows. Section~\ref{sec:CF} introduces
+Although
+developed to support the author's own research and teaching needs
+in 2010,
+there proved to be a need for research-focused software and the
+package \pkg{recommenderlab} turned out to be quite popular.
+A healthy community of users who file bug reports, suggest improvements and contribute their own algorithms has grown around the package and is coordinated using the software's GitHub page\footnote{\url{https://github.com/mhahsler/recommenderlab}}.
+Authors not related to the developer have written a textbook about how to use the package~\citep{Suresh:2015}. The package is used in several university courses to demonstrate the basics of recommender system development.
+Finally, the package was employed by several researchers to develop and test their own algorithms~\citep[e.g.,][]{Chen:2013, Buhl:2016, Beel:2016, Lombardi:2017}.
+
+
+Package~\pkg{recommenderlab} focuses on collaborative filtering
+which is based on the idea that given rating data by many users for many items
+(e.g., 1 to 5 stars),
+%for movies elicited directly from the users),
+one can predict a user's rating for an item
+not known to her or him~\citep[see, e.g.,][]{recommender:Goldberg:1992}
+or create
+for each user a so called top-$N$ lists of recommended
+items~\citep[see, e.g.,][]{recommender:Sarwar:2001,recommender:Deshpande:2004}.
+The premise is that users who agreed on the rating for some items
+typically also tend to agree on the rating for other items.
+
+\pkg{recommenderlab} provides implementations of many popular algorithms, including the following.
+
+\begin{itemize}
+    \item {\bf User-based collaborative filtering (UBCF)} predicts ratings by aggregating the ratings of users who have a similar rating history to the active user~\citep{recommender:Goldberg:1992,Resnick:1994,recommender:Shardanand:1995}.
+    \item {\bf Item-based collaborative filtering (IBCF)} uses item-to-item similarity based on user ratings to find items that are similar to the items the active user likes~\citep{Kitts:2000,recommender:Sarwar:2001,
+recommender:Linden:2003,recommender:Deshpande:2004}.
+    \item {\bf Latent factor models} use singular value decomposition (SVD) to
+        estimate missing ratings using methods like SVD with column-mean imputation, Funk SVD or alternating least squares~\citep{Hu:2008,recommender:Koren:2009}.
+    \item {\bf Association rule-based recommender (AR)} uses association rules to find recommended items~\citep{Fu:2000,Mobasher:2001,Geyer-Schulz:2002,Lin:2002,Demiriz:2004}.
+    \item {\bf Popular items (POPULAR)} is a non-personalized algorithm which recommends to all users the most popular items they have not rated yet.
+    \item {\bf Randomly chosen items (RANDOM)} creates random recommendations which can be used as a baseline for recommender algorithm evaluation.
+    \item {\bf Re-recommend liked items (RERECOMMEND)} recommends items which the user has rated highly in the past. These recommendations can be useful for items that are typically consumed more than once (e.g., listening to songs or buying groceries).
+    \item {\bf Hybrid recommendations (HybridRecommender)} aggregates the recommendations of several algorithms~\citep{Cano:2017}.
+\end{itemize}
+
+We will discuss some of these algorithms in the rest of the paper. Detailed information
+can be found in the
+survey book by~\cite{recommender:Desrosiers:2011}.
+
+This rest of this paper is structured as follows. Section~\ref{sec:CF} introduces
 collaborative filtering and
 some of its popular algorithms.
 In section~\ref{sec:evaluation} we discuss the evaluation of recommender
@@ -235,50 +239,52 @@ in section~\ref{sec:infrastructure}. In section~\ref{sec:examples} we
 illustrate the capabilities on the package to create and evaluate
 recommender algorithms. We conclude with section~\ref{sec:conclusion}.
 
-<<echo=FALSE>>=
-citation("recommenderlab")
-@
-
 \section{Collaborative Filtering}
 \label{sec:CF}
 
-Collaborative filtering (CF) uses given rating data by many users for many
-items as the basis for predicting missing ratings and/or for creating
-a top-$N$ recommendation list for a given user, called the active user.
-Formally, we have a set of
-users $\set{U} = \{u_1, u_2, \ldots, u_m\}$ and a set of
-items $\set{I} = \{i_1, i_2, \ldots, i_n\}$.
-Ratings are stored in a $m \times n$ user-item rating matrix $\mat{R} = (r_{jk})$ where
-each row represents a user $u_j$ with $1 \le j\le m$ and columns represent
-items $i_k$ with $1 \le k\le n$. $r_{jk}$ represents the rating of user
+To understand the use of the software, a few formal definitions are
+necessary.
+We will often give examples for a movie recommender, but the examples
+generalize to other types of items as well.
+Let $\set{U} = \{u_1, u_2, \ldots, u_m\}$ be the set of users
+and $\set{I} = \{i_1, i_2, \ldots, i_n\}$ the set of items.
+Ratings are stored in a $m \times n$ user-item rating matrix $\mat{R} = (r_{jk})$, where
+%each row represents a user $u_j$ with $1 \le j\le m$ and columns represent
+%items $i_k$ with $1 \le k\le n$.
+$r_{jk}$ represents the rating of user
 $u_j$ for item $i_k$.
-Typically only a small fraction of ratings are
-known and for many cells in $\mat{R}$ the values are missing.
-Many algorithms operate on ratings on a specific scale (e.g., 1 to 5 (stars))
-and estimated ratings are allowed to be within an interval of matching range
-(e.g., $[1,5]$). From this point of view recommender systems solve a regression
-problem.
+%Ratings use a specific rating scale. For example, Netflix uses 1 to 5 stars.
+%and estimated ratings are allowed to be within an interval of matching range
+%(e.g., $[1,5]$).
+Typically, only a small fraction of ratings are
+known and for many cells in $\mat{R}$, the values are missing.
+Missing values represent movies that the user has not rated and potentially also not seen yet.
 
-The aim of collaborative filtering is to create recommendations for a user
+Collaborative filtering aims to create recommendations for a user
 called the active user $u_a \in \set{U}$.
 We define the set of items unknown to user $u_a$ as
-$\set{I}_a = \set{I} \setminus \{i_l \in \set{I}| r_{al} = 1\}$.
+$\set{I}_a = \set{I} \setminus \{i_l \in \set{I}| r_{al}\ \textrm{is not missing}\}$.
 The two typical tasks are to predict
-ratings for all items in $\set{I}_a$ or to create a list of
-the best $N$ recommendations
+ratings for all items in $\set{I}_a$ or to create a list containing the best $N$ recommended items from $\set{I}_a$
 (i.e., a top-$N$ recommendation list) for
 $u_a$.
-Formally, predicting all missing ratings is calculating a complete row of the
-rating matrix $\hat{r}_{a\cdot}$ where the missing values
+Predicting all missing ratings means completing the row of the
+rating matrix
+%$\hat{r}_{a\cdot}$
+where the missing values
 for items in $\set{I}_a$
 are replaced by ratings estimated from other data in $\mat{R}$.
-The estimated ratings are in the same range as the original rating
-(e.g., in the range $[1,5]$ for a five star rating scheme).
-
-Creating a top-$N$ list~\citep{recommender:Sarwar:2001} can
+%The estimated ratings are in the same range as the original rating
+%(e.g., in the range $[1,5]$ for a five star rating scheme).
+From this point of view, recommender systems are related to matrix completion
+problem.
+%\marginpar{cite}
+Creating a top-$N$ list can
 be seen as a second step after predicting ratings for all
 unknown items in $\set{I}_a$
 and then taking the $N$ items with the highest predicted ratings.
+Some algorithms skip predicting ratings first and are able to
+find the top $N$ items directly.
 A list
 of top-$N$ recommendations for a user $u_a$ is an partially ordered set
 $T_N = (\set{X}, \ge)$, where
@@ -728,6 +734,10 @@ A popular simple item-based approach is the \emph{Slope One}
 algorithm \citep{recommender:Lemire:2005}.
 Another family of algorithms is based on latent factors approach using
 matrix decomposition~\citep{recommender:Koren:2009}.
+More recently, deep learning has become a very popular method for
+flexible matrix completion, matrix factorization and collaborative ranking. A
+comprehensive survey is presented by~\cite{recommender:Zhang:2019}.
+
 These algorithms are outside the scope of this introductory paper.
 %% FIXME: Expand here
 
@@ -1798,7 +1808,7 @@ This research was funded in part by the NSF Industry/University Cooperative Rese
 %
 
 %\bibliographystyle{abbrvnat}
-\bibliography{recommender,recom_talk,data,stuff,association_rules}
+\bibliography{recommender,recom_talk,data,stuff,association_rules,recommenderlab_usage}
 
 \end{document}
 
