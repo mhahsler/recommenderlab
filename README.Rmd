@@ -5,7 +5,8 @@ output: github_document
 
 ```{r echo=FALSE}
 options(digits = 2)
-knitr::opts_chunk$set(tidy = TRUE, message = FALSE, fig.path = 'inst/README_files/')
+knitr::opts_chunk$set(message = FALSE, fig.path = 'inst/README_files/')
+set.seed(1234)
 ```
 
 ```{r echo=FALSE, results = 'asis'}
@@ -55,23 +56,25 @@ __Current development version:__ Install from [r-universe.](https://mhahsler.r-u
 
 ## Usage
 
-Load the package and prepare a dataset (included in the package).
+Load the package and prepare a dataset (included in the package). The MovieLense
+data contains user ratings for movies on a 1 to 5 star scale.
+We only use here users with more than 100 ratings.
 ```{r}
 library("recommenderlab")
 data("MovieLense")
-### use only users with more than 100 ratings
-MovieLense100 <- MovieLense[rowCounts(MovieLense) >100,]
+
+MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100, ]
 MovieLense100
 ```
 
 Train a user-based collaborative filtering recommender using a small training set.
 ```{r}
-train <- MovieLense100[1:50]
+train <- MovieLense100[1:100]
 rec <- Recommender(train, method = "UBCF")
 rec
 ```
 
-Create top-N recommendations for new users (users 101 and 102)
+Create top-N recommendations for new users (users 101 and 102).
 ```{r}
 pre <- predict(rec, MovieLense100[101:102], n = 5)
 pre
@@ -80,6 +83,28 @@ pre
 ```{r}
 as(pre, "list")
 ```
+
+Use a 10-fold cross-validation scheme to compare the top-N lists of several algorithms.
+Movies with 4 or more stars are considered a good recommendation. 
+We plot true negative vs. true positive rate for top-N lists of different lengths.
+```{r TNR_vs_TPR}
+scheme <- evaluationScheme(MovieLense100, method = "cross-validation", k = 10, 
+  given = -5, goodRating = 4)
+scheme
+
+algorithms <- list(
+  "random items" = list(name = "RANDOM", param = NULL),
+  "popular items" = list(name = "POPULAR", param = NULL),
+  "user-based CF" = list(name = "UBCF", param = list(nn = 3))
+)
+
+results <- evaluate(scheme, algorithms, type = "topNList",
+  n=c(1, 3, 5, 10), progress = FALSE)
+
+plot(results, annotate = 2, legend = "topleft")
+```
+
+## Shiny App
 
 A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) 
 ([source code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)). 

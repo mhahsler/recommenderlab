@@ -1543,7 +1543,7 @@ a negative number for \code{given}.
 <<>>=
 set.seed(2016)
 scheme <- evaluationScheme(Jester5k[1:1000], method="split", train = .9,
-  k=1, given=-5, goodRating=5)
+  given=-5, goodRating=5)
 scheme
 
 algorithms <- list(
