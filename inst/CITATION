@@ -1,0 +1,11 @@
+citation(auto = meta)
+
+bibentry(bibtype = "misc",
+  title = "recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms",
+  author = person("Michael", "Hahsler",
+	    email = "mhahsler@lyle.smu.edu"),
+  year = 2022,
+  doi = "10.48550/ARXIV.2205.12371",
+  howpublished = "arXiv:2205.12371 [cs.IR]",
+  month = "May"
+  )

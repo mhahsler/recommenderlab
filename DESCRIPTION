@@ -1,13 +1,15 @@
 Package: recommenderlab
-Version: 0.2-7.1
-Date: 2022-xx-xx
+Version: 1.0.0
+Date: 2022-05-27
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
-                email = "mhahsler@lyle.smu.edu"),
-             person("Bregt", "Vereet", role = c("ctb", "cph")))
-Description: Provides a research infrastructure to test and develop
-    recommender algorithms including UBCF, IBCF, FunkSVD and association
-    rule-based algorithms.
+	    email = "mhahsler@lyle.smu.edu",
+	    comment = c(ORCID = "0000-0003-2716-1405")),
+	     person("Bregt", "Vereet", role = c("ctb")))
+Description: Provides a research infrastructure to develop and evaluate
+    collaborative filtering recommender algorithms. This includes a sparse 
+    representation for user-item matrices, many popular algorithms, top-N recommendations,
+    and cross-validation. Hahsler (2022) <doi:10.48550/arXiv.2205.12371>.
 Classification/ACM: G.4, H.2.8
 Depends: R (>= 3.5.0), Matrix, arules, proxy (>= 0.4-26), registry
 Imports: methods, utils, stats, irlba, recosystem, matrixStats

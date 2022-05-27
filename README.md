@@ -9,10 +9,11 @@ status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 
-Provides a research infrastructure to test and develop recommender
-algorithms including UBCF, IBCF, FunkSVD and association rule-based
-algorithms. The package supports rating (e.g., 1-5 stars) and unary
-(0-1) data sets. Supported algorithms are:
+Provides a research infrastructure to develop and evaluate collaborative
+filtering recommender algorithms. This includes a sparse representation
+for user-item matrices, many popular algorithms, top-N recommendations,
+and cross-validation. The package supports rating (e.g., 1-5 stars) and
+unary (0-1) data sets. Supported algorithms are:
 
 -   User-based collborative filtering (UBCF)
 -   Item-based collborative filtering (IBCF)
@@ -43,7 +44,7 @@ Evaluation measures are:
 **Stable CRAN version:** install from within R with
 
 ``` r
-install.packages("`{r} pkq`")
+install.packages("recommenderlab")
 ```
 
 **Current development version:** Install from
@@ -108,13 +109,13 @@ code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
 
 ## References
 
--   Michael Hahsler (2016). [recommenderlab: A Framework for Developing
-    and Testing Recommendation
-    Algorithms](https://CRAN.R-project.org/package=recommenderlab/vignettes/recommenderlab.pdf),
-    R package. <https://CRAN.R-project.org/package=recommenderlab>
+-   Michael Hahsler (2022) recommenderlab: An R framework for developing
+    and testing recommendation algorithms. arXiv:2205.12371 \[cs.IR\].
+    DOI:
+    [10.48550/arXiv.2205.12371](https://doi.org/10.48550/arXiv.2205.12371).
 -   recommenderlab [reference
     manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
 -   Suresh K. Gorakala and Michele Usuelli (2015) [Building a
     Recommendation System with
     R](https://www.amazon.com/Building-Recommendation-System-Suresh-Gorakala/dp/1783554495)
-    features the package recommenderlab.
+    (Packt Publishing) features the package recommenderlab.
