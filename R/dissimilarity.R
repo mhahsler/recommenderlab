@@ -18,7 +18,7 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
       method <- "jaccard"
 
 
-    ## handle karypis and conditional dissimilarities
+    ## handle Karypis and conditional dissimilarities
     if (method == "karypis") {
       if (!is.null(y) ||
           which != "items")
@@ -77,7 +77,6 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
     else
       method <- "cosine"
 
-
     ### FIX this code!
     ## shortcut for Cosine (compute sparse)
     #if(method=="cosine" && is.null(y)) {
@@ -106,7 +105,6 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
       return(.conditional(as(x, "dgCMatrix"), dist = TRUE, args))
     }
 
-
     ## do regular distances
     ## FIXME: we can do some distances faster
 
@@ -125,20 +123,20 @@ setMethod("dissimilarity", signature(x = "realRatingMatrix"),
         y[is.na(y)] <- 0
     }
 
-    ### of person we only use 1-pos. corr
+    ### of person we only use 1 - cor
     if (method == "pearson") {
       if (!is.null(y))
         y <- t(y)
-      pc <- suppressWarnings(cor(t(x), y, method = "pearson",
+      suppressWarnings(pcd <- 1 - cor(t(x), y, method = "pearson",
         use = "pairwise.complete.obs"))
-      pc[pc < 0] <- 0
-      #pc[is.na(pc)] <- 0
       if (is.null(y))
-        pc <- as.dist(pc)
-      return(1 - pc)
+        pcd <- as.dist(pcd)
+      else
+        class(pcd) <- "crossdist"
+      return(pcd)
     }
 
-    ## dist in proxy
+    ## use dist in proxy
     proxy::dist(x = x, y = y, method = method)
   })
 
@@ -153,13 +151,15 @@ setMethod("similarity", signature(x = "ratingMatrix"),
     min_matching = 0,
     min_predictive = 0) {
     which <- match.arg(tolower(which), c("users", "items"))
+    args <-
+      getParameters(list(na_as_zero = FALSE, alpha = .5), args)
 
     if (!is.null(method))
       method <- tolower(method)
     else
       method <- "cosine"
 
-    ## handle karypis and conditional similarities
+    ## handle Karypis and conditional similarities
     if (method == "karypis") {
       if (!is.null(y) ||
           which != "items")
@@ -186,18 +186,43 @@ setMethod("similarity", signature(x = "ratingMatrix"),
       return(.conditional(as(x, "dgCMatrix"), dist = FALSE, args))
     }
 
-    ## use dissimilarity and convert into a similarity
-    d <- dissimilarity(x, y, method, args, which)
+    xm <- as(x, "matrix")
+    if (which == "items")
+      xm <- t(xm)
+    if (args$na_as_zero)
+      xm[is.na(xm)] <- 0
 
-    ## FIXME: other measures in [0,1]
-    if (!is.null(attr(d, "method")) && tolower(attr(d, "method"))
-      %in% c("jaccard", "cosine")) {
-      sim <- 1 - d
-    } else{
-      sim <- 1 / (1 + d)
+    ym <- NULL
+    if (!is.null(y)) {
+      ym <- as(y, "matrix")
+      if (which == "items")
+        ym <- t(ym)
+      if (args$na_as_zero)
+        ym[is.na(ym)] <- 0
     }
 
-    attr(sim, "type") <- "simil"
+    ### of person is just cor
+    if (method == "pearson") {
+      sim <-
+        suppressWarnings(cor(
+          t(xm),
+          if (!is.null(ym))
+            t(ym)
+          else
+            NULL,
+          method = "pearson",
+          use = "pairwise.complete.obs"
+        ))
+      if (is.null(y))
+      {
+        sim <- as.dist(sim)
+        class(sim) <- c("simil", "dist")
+      } else
+        class(sim) <- c("crosssimil", "crossdist")
+    } else {
+      ## use simil in proxy (class is "simil" "dist" or "crosssimil" "crossdist")
+      sim <- proxy::simil(x = xm, y = ym, method = method)
+    }
 
     if (min_matching > 0 || min_predictive > 0) {
       x_has_r <- hasRating(x)
@@ -261,7 +286,8 @@ setMethod("similarity", signature(x = "ratingMatrix"),
 ## Karypis similarity
 .karypis <- function(x, dist, args = NULL) {
   ## get alpha (na_as_zero is ignored)
-  args <- getParameters(list(na_as_zero = NULL, alpha = .5), args)
+  args <-
+    getParameters(list(na_as_zero = NULL, alpha = .5), args)
 
   n <- ncol(x)
 

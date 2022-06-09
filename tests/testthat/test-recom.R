@@ -5,10 +5,12 @@ library("recommenderlab")
 data("MovieLense")
 
 ### test all real rating recommenders
+context("Test real rating algorithms")
 methods <- unique(sapply(recommenderRegistry$get_entries(
   dataType="realRatingMatrix"), "[[", "method"))
 
-cat("Available methods for realRatingMatrix:", paste(methods, collapse = ", "))
+if (interactive())
+  cat("Available methods for realRatingMatrix:", paste(methods, collapse = ", "))
 
 MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100,]
 MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100,]
@@ -21,9 +23,14 @@ for(m in methods) {
   ### skip hybrid recommender
   if(m == "HYBRID") next
 
-  context(paste("Algorithm:", m))
-  cat("Algorithm:", m, "\n")
-  rec <- Recommender(train, method = m)
+  if (interactive())
+    cat("Algorithm:", m, "\n")
+
+  if(m == "SVD") suppressWarnings(rec <- Recommender(train, method = m))
+  else
+    rec <- Recommender(train, method = m)
+
+
   rec
 
   ### default is top-N list
@@ -83,10 +90,13 @@ predict(recom, test1, type = "ratings")
 predict(recom, test3, type = "ratings")
 
 ### test all binary recommenders
+context("Test binary algorithms")
+
 methods <- unique(sapply(recommenderRegistry$get_entries(
   dataType="binaryRatingMatrix"), "[[", "method"))
 
-cat("Available methods for binaryRatingMatrix:", paste(methods, collapse = ", "))
+if (interactive())
+  cat("Available methods for binaryRatingMatrix:", paste(methods, collapse = ", "))
 
 MovieLense100_bin <- binarize(MovieLense100, minRating = 3)
 train <- MovieLense100_bin[1:50]
@@ -97,8 +107,8 @@ for(m in methods) {
   ### skip hybrid recommender
   if(m == "HYBRID") next
 
-  context(paste("Algorithm:", m))
-  cat("Algorithm:", m, "\n")
+
+  if (interactive()) cat("Algorithm:", m, "\n")
   rec <- Recommender(train, method = m)
   rec
 
@@ -117,8 +127,11 @@ for(m in methods) {
 
   ## do I get errors?
   pre <- predict(rec, test1, n = 10, type = "ratings")
+
+  if (interactive()) {
   cat("Prediction range (should be [0,1]):\n")
   print(summary(as.vector(as(pre, "matrix"))))
+}
 
   if(m != "RERECOMMEND") {
     pre <- predict(rec, test1, n = 10, type = "ratingMatrix")

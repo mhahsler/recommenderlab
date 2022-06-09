@@ -1,3 +1,9 @@
+# Changes in version 1.0.1 (xx/xx/2022)
+
+## Bugfixes
+* Fixed simularity() and dissimilarity() after changes for Cosine in package proxy 
+  (reported by Artur Gramacki).
+
 # Changes in version 1.0.0 (05/27/2022)
 
 ## Bugfixes

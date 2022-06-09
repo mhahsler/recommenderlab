@@ -38,9 +38,12 @@ similarity(x, y = NULL, method = NULL, args = NULL, ...)
   \item{...}{further arguments.}
 }
 \details{
-Similarities are computed from dissimilarities using \eqn{s=1/(1+d)}
-or \eqn{s=1-d} depending on the measure. For Pearson we use 1 - positive
-correlation.
+Most dissimlarites and similarities are calculated using the \pkg{proxy} package.
+Similarities are typically converted into dissimilarities using \eqn{s = 1 / (1 + d)}
+or \eqn{s = 1 - d} (used for Jaccard, Cosine and Pearson correlation) depending on the measure.
+
+Similarities are usually defined in the range of \eqn{[0, 1]}, however,
+Cosine similarity and Pearson correlation are defined in the interval \eqn{[-1, 1]}.
 
 Similarities are calculated using only the ratings that are available for both
 users/items. This can lead to calculating the measure using only a very small number (maybe only one)
@@ -50,13 +53,15 @@ To predict ratings, there need to be additional ratings in argument \code{y}.
 \code{min_matching} or \code{min_predictive} fails, then \code{NA} is reported instead of the calculated similarity.
 }
 \value{
-  returns an object of class \code{dist}, \code{simil}
+  returns an object of class \code{"dist"}, \code{"simil"}
   or an appropriate object (e.g.,
-  a matrix) to represent a cross-(dis)similarity.
+  a matrix with class \code{"crossdist"} o \code{"crosssimil"}) to represent
+  a cross-(dis)similarity.
 }
 \seealso{
-\code{\linkS4class{ratingMatrix}} and
-\code{\link[arules]{dissimilarity}} in \pkg{arules}.
+\code{\linkS4class{ratingMatrix}},
+\code{\link[arules]{dissimilarity}} in \pkg{arules}, and
+\code{\link[proxy]{dist}} in \pkg{proxy}.
 }
 \examples{
 data(MSWeb)

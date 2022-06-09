@@ -20,9 +20,10 @@ dimnames(u_a) <- list("u_a", paste0("i", 1:8))
 r_db <- as(db, "realRatingMatrix")
 r_a <- as(u_a, "realRatingMatrix")
 
-
 sim <- similarity(r_db, r_a, method = "Euclidean")
-expect_equivalent(sim, 1/(1+dist(db, u_a)))
+sim_man <- 1 / (1 + dist(db, u_a))
+class(sim_man) <- c("crosssimil", "crossdist")
+expect_equivalent(sim, sim_man)
 
 ### users 1,2 and 4 are the 3 nearest neighbors!
 sim

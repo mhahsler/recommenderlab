@@ -98,8 +98,8 @@ expect_equal(compn(dissimilarity(rating, method = "cosine")), 1 - res)
 expect_equal(compn(similarity(rating, method = "cosine")), res)
 
 # Others
-expect_equal(compn(dissimilarity(rating, method = "pearson")), 1)
-expect_equal(compn(dissimilarity(rating, method = "pearson", which = "items")), 1)
+expect_equal(compn(dissimilarity(rating, method = "pearson")), 2)
+expect_equal(compn(dissimilarity(rating, method = "pearson", which = "items")), 2)
 
 # only between items
 # TODO: Make sure these are correct. Especially conditional!!!

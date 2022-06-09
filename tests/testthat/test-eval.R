@@ -3,6 +3,8 @@ library("recommenderlab")
 
 ## Evaluate top-N list for binary recommender
 
+context("Evaluate top-N list for binary recommender")
+
 data(MSWeb)
 MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) > 10,], 50)
 
