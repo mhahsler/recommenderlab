@@ -8,8 +8,6 @@ knitr::opts_chunk$set(message = FALSE, fig.path = 'inst/README_files/')
 set.seed(1234)
 ```
 
-
-
 # <img src='man/figures/logo.svg' align="right" height="139" /> R package recommenderlab - Lab for Developing and Testing Recommender Algorithms 
 
 
