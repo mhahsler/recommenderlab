@@ -91,14 +91,15 @@ as(pre, "list")
 ```
 
     ## $`0`
-    ## [1] "Godfather, The (1972)"    "Titanic (1997)"          
-    ## [3] "Schindler's List (1993)"  "L.A. Confidential (1997)"
-    ## [5] "Aliens (1986)"           
+    ## [1] "M (1931)"                                 
+    ## [2] "Braindead (1992)"                         
+    ## [3] "Charade (1963)"                           
+    ## [4] "Touch of Evil (1958)"                     
+    ## [5] "Die xue shuang xiong (Killer, The) (1989)"
     ## 
     ## $`1`
-    ## [1] "Godfather: Part II, The (1974)" "Usual Suspects, The (1995)"    
-    ## [3] "GoodFellas (1990)"              "Raising Arizona (1987)"        
-    ## [5] "Schindler's List (1993)"
+    ## [1] "SubUrbia (1997)"        "Apostle, The (1997)"    "Dead Man (1995)"       
+    ## [4] "War Room, The (1993)"   "Beautiful Thing (1996)"
 
 Use a 10-fold cross-validation scheme to compare the top-N lists of
 several algorithms. Movies with 4 or more stars are considered a good
