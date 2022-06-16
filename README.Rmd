@@ -71,14 +71,14 @@ MovieLense100
 
 Train a user-based collaborative filtering recommender using a small training set.
 ```{r}
-train <- MovieLense100[1:100]
+train <- MovieLense100[1:300]
 rec <- Recommender(train, method = "UBCF")
 rec
 ```
 
-Create top-N recommendations for new users (users 101 and 102).
+Create top-N recommendations for new users (users 301 and 302).
 ```{r}
-pre <- predict(rec, MovieLense100[101:102], n = 5)
+pre <- predict(rec, MovieLense100[301:302], n = 5)
 pre
 ```
 
@@ -97,7 +97,8 @@ scheme
 algorithms <- list(
   "random items" = list(name = "RANDOM", param = NULL),
   "popular items" = list(name = "POPULAR", param = NULL),
-  "user-based CF" = list(name = "UBCF", param = list(nn = 3))
+  "user-based CF" = list(name = "UBCF", param = list(nn = 3)),
+  "item-based CF" = list(name = "IBCF", param = list(k = 100))
 )
 
 results <- evaluate(scheme, algorithms, type = "topNList",
