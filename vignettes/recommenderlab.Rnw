@@ -342,16 +342,16 @@ or all users within
 a given similarity threshold.
 Popular similarity measures for CF are
 the \emph{Pearson correlation coefficient} and
-the \emph{Cosine similarity}. These similarity measures are defined
+the \emph{Cosine similarity}. These measures are defined
 between two users $u_x$ and $u_y$ as
 \begin{equation}
-\mathrm{sim_{Pearson}}(\vec{x},\vec{y}) =
+    \mathrm{m_{Pearson}}(\vec{x},\vec{y}) =
 	    \frac{\sum_{i \in I} (\vec{x}_i \, \bar{\vec{x}})(\vec{y}_i \, \bar{\vec{y}})}
 		{(|I| -1) \, \mathrm{sd}(\vec{x}) \, \mathrm{sd}(\vec{y})}
 \end{equation}
 and
 \begin{equation}
-\mathrm{sim_{Cosine}}(\vec{x},\vec{y}) =
+    \mathrm{m_{Cosine}}(\vec{x},\vec{y}) =
 	    \frac{\vec{x}\cdot\vec{y}}
 		    {\|\vec{x}\| \|\vec{y}\|},
 \end{equation}
@@ -363,9 +363,14 @@ two users' profile vectors.
 $\mathrm{sd}(\cdot)$ is the standard deviation and
 $\|\cdot\|$ is the $l^2$-norm of a vector.
 For calculating similarity using rating data only the dimensions (items)
-are used which were rated by both users.
+are used which were rated by both users. Note that cosine and 
+correlation are in the range $[-1, 1]$, but similarity measures need to 
+be in the range of $[0, 1]$. We, use the transformation
 
-Now the neighborhood for the active user $\set{N}(a) \subset \set{U}$
+$$s = \frac{1}{2} m + 1.$$
+
+Using the similariy,
+the neighborhood for the active user $\set{N}(a) \subset \set{U}$
 can be selected
 by either a threshold on the similarity or by taking the
 $k$ nearest neighbors.
@@ -427,23 +432,29 @@ Equation~(\ref{equ:aggregation1}).
 $s_{ai}$ is the similarity between the active user~$u_a$ and user
 $u_i$ in the neighborhood.
 
-For some types of data the performance of the recommender algorithm can
-be improved by removing user rating bias.
+For rating data, the performance of the recommender algorithm can
+be improved by removing user rating bias where some users tend to always use higher ratings while others tend to use lower ratings. 
 This can be done by normalizing the rating data before applying the
 recommender algorithm.
 Any normalization
 function $h: \mathbb{R}^{n \times m} \mapsto \mathbb{R}^{n \times m}$
-can be used for preprocessing. Ideally, this function is reversible
+can be used for preprocessing. Such a function needs to be reversible by
+$h^{-1}$
 to map the predicted rating on the normalized scale back
 to the original rating scale.
 Normalization is used to remove individual rating bias by
 users who consistently always use lower or higher
 ratings than other users.
-A popular method is to center the rows of the user-item rating matrix
+The most popular method is to center the rows of the user-item rating matrix
 by
 $$h(r_{ui}) = r_{ui} - \bar{r}_u,$$
 where $\bar{r}_u$ is the mean of all available ratings in row~$u$ of
-the user-item rating matrix $\mat{R}$.
+the user-item rating matrix $\mat{R}$. 
+This means that ratings are now measured for each user by how much they are 
+above or below the user's average rating.
+The inverse is simply,
+
+$$h^-1(h(r_{ui})) = h(r_{ui}) + \bar{r}_u = r_{ui}.$$
 
 Other methods like Z-score normalization which also takes rating variance
 into account can be found in the

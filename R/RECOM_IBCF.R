@@ -1,4 +1,5 @@
-## item-based top N recomender (see Karypis 2001)
+## Item-Based Collaborative Filtering
+## Top-N recomender (see Karypis 2001)
 
 .BIN_IBCF_params <- list(
   k = 30,
@@ -27,7 +28,7 @@ BIN_IBCF <- function(data, parameter = NULL) {
     sim <- sim / rowSums(sim, na.rm = TRUE)
 
   for (i in 1:nrow(sim))
-    sim[i, head(order(sim[i,], decreasing = FALSE, na.last = FALSE),
+    sim[i, head(order(sim[i, ], decreasing = FALSE, na.last = FALSE),
       ncol(sim) - p$k)] <- 0
 
   ## make sparse
@@ -49,7 +50,7 @@ BIN_IBCF <- function(data, parameter = NULL) {
     if (is.numeric(newdata)) {
       if (is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needes to be the training dataset.")
-      newdata <- data[newdata,]
+      newdata <- data[newdata, ]
     }
 
     if (ncol(newdata) != nrow(model$sim))
@@ -116,24 +117,18 @@ REAL_IBCF <- function(data, parameter = NULL) {
 
   diag(sim) <- NA
 
-  ## normalize rows to sum up to 1
-  ## FIXME: this does not make sense if they can be negative!
-  #if(p$normalize_sim_matrix) {
-  #  sim <- sim/rowSums(sim, na.rm=TRUE)
-  #}
-  ## normalize rows to average to 0
+  ## normalize rows to sum up to 1 (abs is used for similarities that can be neg.)
   if (p$normalize_sim_matrix) {
-    #sim <- sim - rowMeans(sim, na.rm = TRUE)
-    sim <- t(scale(sim))
+    sim <- sim / rowSums(abs(sim), na.rm = TRUE)
   }
 
   ## reduce similarity matrix to keep only the k highest similarities
   ##sim[!is.finite(sim)] <- NA
   for (i in 1:nrow(sim))
-    sim[i, head(order(sim[i,], decreasing = FALSE, na.last = FALSE),
+    sim[i, head(order(sim[i, ], decreasing = FALSE, na.last = FALSE),
       ncol(sim) - p$k)] <- NA
 
-  ## make sparse
+  ## make sparse NA -> 0. Having an actual 0 in the reduced matrix is very unlikely.
   sim <- dropNA(sim)
 
   model <- c(list(description = "IBCF: Reduced similarity matrix",
@@ -152,7 +147,7 @@ REAL_IBCF <- function(data, parameter = NULL) {
     if (is.numeric(newdata)) {
       if (is.null(data) || !is(data, "ratingMatrix"))
         stop("If newdata is a user id then data needes to be the training dataset.")
-      newdata <- data[newdata,]
+      newdata <- data[newdata, ]
     }
 
     if (ncol(newdata) != nrow(model$sim))
@@ -167,13 +162,7 @@ REAL_IBCF <- function(data, parameter = NULL) {
     sim <- model$sim
     u <- as(newdata, "dgCMatrix")
 
-    ### NOTE: cosine and pearson have similarity scores in [-1, 1] so we just
-    ###       average the weighted ratings
-    if (tolower(model$method) %in% c("cosine", "pearson"))
-      ratings <-
-      t(as(tcrossprod(sim, u) / rowSums(u != 0), "matrix"))
-    else
-      ratings <-
+    ratings <-
       t(as(tcrossprod(sim, u) / tcrossprod(sim, u != 0), "matrix"))
 
     ratings <- new("realRatingMatrix",

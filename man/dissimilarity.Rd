@@ -43,7 +43,8 @@ Similarities are typically converted into dissimilarities using \eqn{s = 1 / (1 
 or \eqn{s = 1 - d} (used for Jaccard, Cosine and Pearson correlation) depending on the measure.
 
 Similarities are usually defined in the range of \eqn{[0, 1]}, however,
-Cosine similarity and Pearson correlation are defined in the interval \eqn{[-1, 1]}.
+Cosine similarity and Pearson correlation are defined in the interval \eqn{[-1, 1]}. We rescale these
+measures with \eqn{s' = 1 / 2 (s + 1)} to the interval \eqn{[0, 1]}.
 
 Similarities are calculated using only the ratings that are available for both
 users/items. This can lead to calculating the measure using only a very small number (maybe only one)

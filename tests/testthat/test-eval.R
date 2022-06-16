@@ -75,23 +75,28 @@ check_predictions <- function(e, p, given) {
 check_predictions(e, p, given)
 
 # check evaluate with keepModel = TRUE
-res <- evaluate(e, "POPULAR")
+res <- evaluate(e, "POPULAR", progress = FALSE)
 avg(res)
 res <- evaluate(e, list(
   RANDOM = list(name = "RANDOM", param = NULL),
   POPULAR = list(name = "POPULAR", param = NULL),
   UBCF = list(name = "UBCF", param = NULL)
-  ))
+), progress = FALSE)
 avg(res)
 
-res <- evaluate(e, "POPULAR", keepModel = TRUE)
+res <- evaluate(e, "POPULAR", progress = FALSE, keepModel = TRUE)
 getModel(res)
 
-res <- evaluate(e, list(
-  RANDOM = list(name = "RANDOM", param = NULL),
-  POPULAR = list(name = "POPULAR", param = NULL),
-  UBCF = list(name = "UBCF", param = NULL)
-  ), keepModel = TRUE)
+res <- evaluate(
+  e,
+  list(
+    RANDOM = list(name = "RANDOM", param = NULL),
+    POPULAR = list(name = "POPULAR", param = NULL),
+    UBCF = list(name = "UBCF", param = NULL)
+  ),
+  keepModel = TRUE,
+  progress = FALSE
+)
 getModel(res[[1]])
 
 
@@ -119,7 +124,9 @@ check_predictions(e, p, given)
 
 ### TODO: Test the results!
 
+
 # Evaluate recommender for real-valued ratings
+context("Evaluate real valued recommenders")
 data(Jester5k)
 
 ## create 90/10 split (known/unknown) for the first 500 users in Jester5k
@@ -152,4 +159,3 @@ calcPredictionAccuracy(p,
   getData(e, "unknown"),
   given = 15,
   goodRating = 5)
-

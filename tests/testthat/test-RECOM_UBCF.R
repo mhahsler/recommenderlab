@@ -1,6 +1,8 @@
 library("testthat")
 library("recommenderlab")
 
+context("Test UBCF")
+
 ### Example from vignette
 db <- rbind(
   c(NA,  4,  4,  2,  1,  2, NA, NA),

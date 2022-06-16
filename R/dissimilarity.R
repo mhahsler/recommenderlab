@@ -224,6 +224,11 @@ setMethod("similarity", signature(x = "ratingMatrix"),
       sim <- proxy::simil(x = xm, y = ym, method = method)
     }
 
+    # change from [-1, 1] to [0, 1]
+    if (method == "pearson" || method == "cosine")
+      sim <- (sim + 1) / 2
+
+
     if (min_matching > 0 || min_predictive > 0) {
       x_has_r <- hasRating(x)
       y_has_r <- if (!is.null(y))

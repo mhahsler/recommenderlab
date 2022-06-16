@@ -1,4 +1,4 @@
-# collaborative filtering
+# User-Based Collaborative Filtering
 
 ## simple k-nearest
 ## returns a list with up to k neighbors for each user
@@ -201,11 +201,7 @@ REAL_UBCF <- function(data, parameter = NULL) {
           ## neighbors ratings of active user i
           r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
           ## normalize by the sum of weights only if a rating is available
-          if (tolower(model$method) %in% c("cosine", "pearson"))
-            drop(as(crossprod(r_neighbors, s_uk[, i]), "matrix")) /
-            sum(!dropNAis.na(r_neighbors))
-          else
-            drop(as(crossprod(r_neighbors, s_uk[, i]), "matrix")) /
+          drop(as(crossprod(r_neighbors, s_uk[, i]), "matrix")) /
             drop(as(crossprod(
               !dropNAis.na(r_neighbors), s_uk[, i]
             ), "matrix"))
