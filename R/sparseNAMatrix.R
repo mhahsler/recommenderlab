@@ -66,10 +66,11 @@
 
 ## sparse -> matrix
 dropNA2matrix <- function(x) {
-  if(!is(x, "dsparseMatrix")) stop("x needs to be a subclass of dsparseMatrix!")
+  if(!is(x, "dgCMatrix")) stop("x needs to be a dgCMatrix!")
 
   x <- as(x, "matrix")
   x[x == 0] <- NA
+  # remove the small values representing real 0s
   zapsmall(x)
 }
 
@@ -77,13 +78,15 @@ dropNA2matrix <- function(x) {
 dropNA <- function(x) {
     if(!is(x, "matrix")) stop("x needs to be a matrix!")
 
+    # we preserve real zeros using a very small number
     x[x == 0] <- .Machine$double.xmin
     x[is.na(x)] <- 0
-    drop0(x)
+    #drop0(x)
+    # drop0 sometimes results in a "dsCMatrix"
+    as(x, "dgCMatrix")
 }
 
 dropNAis.na <- function(x) {
-  if(!is(x, "dsparseMatrix")) stop("x needs to be a subclass of dsparseMatrix!")
-  x <- as(x, "dgCMatrix")
+  if(!is(x, "dgCMatrix")) stop("x needs to be a dgCMatrix!")
   !as(x, "ngCMatrix")
 }

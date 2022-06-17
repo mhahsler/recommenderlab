@@ -166,3 +166,4 @@ expect_equal(compn(dissimilarity(
 expect_equal(compn(dissimilarity(
   rating, method = "conditional", which = "items"
 )), 0.667)
+

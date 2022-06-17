@@ -248,14 +248,14 @@ We will often give examples for a movie recommender, but the examples
 generalize to other types of items as well.
 Let $\set{U} = \{u_1, u_2, \ldots, u_m\}$ be the set of users
 and $\set{I} = \{i_1, i_2, \ldots, i_n\}$ the set of items.
-Ratings are stored in a $m \times n$ user-item rating matrix $\mat{R} = (r_{jk})$, where
-%each row represents a user $u_j$ with $1 \le j\le m$ and columns represent
-%items $i_k$ with $1 \le k\le n$.
-$r_{jk}$ represents the rating of user
-$u_j$ for item $i_k$.
-%Ratings use a specific rating scale. For example, Netflix uses 1 to 5 stars.
-%and estimated ratings are allowed to be within an interval of matching range
-%(e.g., $[1,5]$).
+Ratings are stored in a $m \times n$ user-item rating matrix $\mat{R} = (r_{jl})$, where
+each row represents a user $u_j$ with $1 \le j\le m$ and columns represent
+items $i_l$ with $1 \le l\le n$.
+We use $\mathbf{r}_j$ to denote the row vector of $\mat{R}$
+with the ratings of user $u_j$.
+Ratings use a specific rating scale. For example, Netflix uses 1 to 5 stars.
+and estimated ratings are allowed to be within an interval of matching range
+(e.g., $[1,5]$).
 Typically, only a small fraction of ratings are
 known and for many cells in $\mat{R}$, the values are missing.
 Missing values represent movies that the user has not rated and potentially also not seen yet.
@@ -263,7 +263,7 @@ Missing values represent movies that the user has not rated and potentially also
 Collaborative filtering aims to create recommendations for a user
 called the active user $u_a \in \set{U}$.
 We define the set of items unknown to user $u_a$ as
-$\set{I}_a = \set{I} \setminus \{i_l \in \set{I}| r_{al}\ \textrm{is not missing}\}$.
+$\set{I}_a = \set{I} \setminus \{i_l \in \set{I}\;|\;r_{al}\ \textrm{is not missing}\}$.
 The two typical tasks are to predict
 ratings for all items in $\set{I}_a$ or to create a list containing the best $N$ recommended items from $\set{I}_a$
 (i.e., a top-$N$ recommendation list) for
@@ -343,43 +343,48 @@ a given similarity threshold.
 Popular similarity measures for CF are
 the \emph{Pearson correlation coefficient} and
 the \emph{Cosine similarity}. These measures are defined
-between two users $u_x$ and $u_y$ as
+between two vectors with ratings $\mathbf{x}$ and $\mathbf{y}$.
+
 \begin{equation}
-    \mathrm{m_{Pearson}}(\vec{x},\vec{y}) =
-	    \frac{\sum_{i \in I} (\vec{x}_i \, \bar{\vec{x}})(\vec{y}_i \, \bar{\vec{y}})}
-		{(|I| -1) \, \mathrm{sd}(\vec{x}) \, \mathrm{sd}(\vec{y})}
+    \mathrm{m_{Pearson}}(\mathbf{x},\mathbf{y}) =
+    \frac{1}{n - 1}
+    \sum_{l = 1}^n
+    \left( \frac{x_l - \bar{\mathbf{x}}}{s_x} \right)
+    \left( \frac{y_l - \bar{\mathbf{y}}}{s_y} \right)
+    \label{equ:pearson}
 \end{equation}
 and
 \begin{equation}
-    \mathrm{m_{Cosine}}(\vec{x},\vec{y}) =
-	    \frac{\vec{x}\cdot\vec{y}}
-		    {\|\vec{x}\| \|\vec{y}\|},
+    \mathrm{m_{Cosine}}(\mathbf{x},\mathbf{y}) =
+	    \frac{\mathbf{x}\cdot\mathbf{y}}
+		    {\|\mathbf{x}\| \|\mathbf{y}\|},
+		    \label{equ:cosine}
 \end{equation}
-where
-$\vec{x} = r_{x}$ and
-$\vec{y} = r_{y}$ represent the
+where $n$ is the number of elements in the rating vectors and missing ratings are skipped in the calculation. $s_x$ and $s_y$  is the standard deviation and
+$\|\cdot\|$ is the $l^2$-norm of a vector. To calculate the measure between two users, $u_x$ and $u_y$,
+$\mathbf{x} = \mathbf{r}_{x}$ and
+$\mathbf{y} = \mathbf{r}_{y}$ represent the
 row vectors in $\mat{R}$ with the
-two users' profile vectors.
-$\mathrm{sd}(\cdot)$ is the standard deviation and
-$\|\cdot\|$ is the $l^2$-norm of a vector.
+two users' profile vectors are used.
 For calculating similarity using rating data only the dimensions (items)
-are used which were rated by both users. Note that cosine and 
-correlation are in the range $[-1, 1]$, but similarity measures need to 
+are used which were rated by both users. Note that cosine and
+correlation are in the range $[-1, 1]$, but similarity measures need to
 be in the range of $[0, 1]$. We, use the transformation
 
 $$s = \frac{1}{2} m + 1.$$
 
-Using the similariy,
+Using the similarity,
 the neighborhood for the active user $\set{N}(a) \subset \set{U}$
 can be selected
 by either a threshold on the similarity or by taking the
 $k$ nearest neighbors.
 Once the users in the neighborhood are found, their ratings are
-aggregated to form the predicted rating for the active user.
+aggregated to form the predicted rating for the active user $u_a$.
 The easiest form is to just average the ratings in the neighborhood.
+For item $i_l$ this is
 
 \begin{equation}
-\hat{r}_{aj}=\frac{1}{|\set{N}(a)|} \sum_{i\in\set{N}(a)} r_{ij}
+\hat{r}_{al}=\frac{1}{|\set{N}(a)|} \sum_{i\in\set{N}(a)} r_{il}.
 \label{equ:aggregation1}
 \end{equation}
 
@@ -426,14 +431,14 @@ incorporated as weights into
 Equation~(\ref{equ:aggregation1}).
 
 \begin{equation}
-\hat{r}_{aj}=\frac{1}{\sum_{i\in\set{N}(a)} s_{ai}} \sum_{i\in\set{N}(a)} s_{ai} r_{ij}
+\hat{r}_{al}=\frac{1}{\sum_{i\in\set{N}(a)} s_{al}} \sum_{i\in\set{N}(a)} s_{ai} r_{il}
 \label{equ:aggregation2}
 \end{equation}
 $s_{ai}$ is the similarity between the active user~$u_a$ and user
 $u_i$ in the neighborhood.
 
 For rating data, the performance of the recommender algorithm can
-be improved by removing user rating bias where some users tend to always use higher ratings while others tend to use lower ratings. 
+be improved by removing user rating bias where some users tend to always use higher ratings while others tend to use lower ratings.
 This can be done by normalizing the rating data before applying the
 recommender algorithm.
 Any normalization
@@ -447,14 +452,14 @@ users who consistently always use lower or higher
 ratings than other users.
 The most popular method is to center the rows of the user-item rating matrix
 by
-$$h(r_{ui}) = r_{ui} - \bar{r}_u,$$
-where $\bar{r}_u$ is the mean of all available ratings in row~$u$ of
-the user-item rating matrix $\mat{R}$. 
-This means that ratings are now measured for each user by how much they are 
+$$h(r_{jl}) = r_{jl} - \bar{\mathbf{r}}_j,$$
+where $\bar{r}_j$ is the mean of all available ratings in row~$j$ of
+the user-item rating matrix $\mat{R}$.
+This means that ratings are now measured for each user by how much they are
 above or below the user's average rating.
 The inverse is simply,
 
-$$h^-1(h(r_{ui})) = h(r_{ui}) + \bar{r}_u = r_{ui}.$$
+$$h^{-1}(h(r_{jl})) = h(r_{jl}) + \bar{\mathbf{r}}_j = r_{jl}.$$
 
 Other methods like Z-score normalization which also takes rating variance
 into account can be found in the
@@ -477,7 +482,10 @@ that are similar to other items they like.
 
 The model-building step consists of calculating a similarity matrix
 containing all item-to-item similarities using a given similarity measure.
-Popular are again Pearson correlation and Cosine similarity.
+Popular are again Pearson correlation and Cosine similarity and
+Equations~\ref{equ:pearson} and \ref{equ:cosine} are used. Here the rating vectors
+$x$ and $y$ are columns of $\mat{R}$ representing the ratings for two items.
+
 %% FIXME for real data
 %For item-based CF, \cite{recommender:Deshpande:2004} proposed
 %a \emph{Conditional probability-based
@@ -510,8 +518,8 @@ To reduce the model size
 to $n \times k$ with $k \ll n$,
 for each item only a list of the $k$ most similar
 items and their similarity values are stored.
-The $k$ items which are most similar to item $i$ is
-denoted by the set $\set{S}(i)$ which can be seen as the
+The $k$ items which are most similar to item $i_l$ is
+denoted by the set $\set{S}(l)$ which can be seen as the
 neighborhood of size $k$ of the item.
 Retaining only $k$ similarities per item improves the
 space and time complexity significantly but potentially sacrifices
@@ -530,8 +538,8 @@ for related items.
 \end{figure}
 
 \begin{equation}
-    \hat{r}_{ai} =  \frac{1}{\sum_{j \in \set{S}(i)\cap \{l\,;\,r_{al} \ne ?\}}{s_{ij}}}
-    \sum_{j \in \set{S}(i)\cap \{l\,;\,r_{al} \ne ?\}}{s_{ij} r_{aj}}
+    \hat{r}_{al} =  \frac{1}{\sum_{i \in \set{S}(l)}{s_{li}}}
+    \sum_{i \in \set{S}(l)}{s_{li} r_{ai}}
 \end{equation}
 
 
@@ -604,11 +612,11 @@ analogous to similar situations for classifiers
 positive examples. The 0-class is a mixture of positive and negative examples.
 
 
-In the 0-1 case with $r_{jk} \in {0,1}$ where we define:
+In the 0-1 case with $r_{jl} \in {0,1}$ where we define:
 \begin{equation}
-r_{jk}=
+r_{jl}=
 \begin{cases}
-1& \text{user $u_j$ is known to have a preference for item $i_k$} \\
+1& \text{user $u_j$ is known to have a preference for item $i_l$} \\
 0& \text{otherwise.}
 \end{cases}
 \end{equation}
@@ -639,8 +647,8 @@ only focuses on matching ones
 and thus prevents the problem with zeroes
 is the \emph{Jaccard index}:
 \begin{equation}
-\mathrm{sim_{Jaccard}}(\set{X},\set{Y}) = \frac{|\set{X}\cap \set{Y}|}
-{|\set{X}\cup \set{Y}|},
+\mathrm{sim_{Jaccard}}(\set{X},\set{Y}) =
+\frac{|\set{X}\cap \set{Y}|}{|\set{X}\cup \set{Y}|},
 \end{equation}
 where
 $\set{X}$ and $\set{Y}$ are the sets of the items with a 1 in user profiles
@@ -816,15 +824,15 @@ This is the basis for the \emph{Mean
 Average Error (MAE)}
 
 \begin{equation}
-\mathrm{MAE} = \frac{1}{|\set{K}|} \sum_{(i,j)\in \set{K}} |r_{ij} - \hat{r}_{ij}|,
+\mathrm{MAE} = \frac{1}{|\set{K}|} \sum_{(j,l)\in \set{K}} |r_{jl} - \hat{r}_{jl}|,
 \end{equation}
-where $\set{K}$ is the set of all user-item pairings  $(i,j)$
-for which we have a predicted rating $\hat{r}_{ij}$ and a known rating
-$r_{ij}$ which was not used to learn the recommendation model.
+where $\set{K}$ is the set of all user-item pairings  $(j,l)$
+for which we have a predicted rating $\hat{r}_{jl}$ and a known rating
+$r_{jl}$ which was not used to learn the recommendation model.
 
 Another popular measure is the \emph{Root Mean Square Error (RMSE)}.
 \begin{equation}
-\mathrm{RMSE} = \sqrt{\frac{\sum_{(i,j)\in \set{K}} (r_{ij} - \hat{r}_{ij})^2}{|\set{K}|}}
+\mathrm{RMSE} = \sqrt{\frac{\sum_{(j,l)\in \set{K}} (r_{jl} - \hat{r}_{jl})^2}{|\set{K}|}}
 \end{equation}
 
 RMSE penalizes larger errors stronger than MAE and thus is suitable for

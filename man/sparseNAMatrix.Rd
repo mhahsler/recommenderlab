@@ -47,29 +47,30 @@ dropNAis.na(x)
 %}
 \details{
 The representation is based on
-the sparse dgCMatrix in \pkg{Matrix} but instead of zeros, \code{NA}s are dropped.
+the sparse \code{dgCMatrix} in \pkg{Matrix} but instead of zeros, \code{NA}s are dropped.
 This is achieved by the following:
 
 \itemize{
 \item Zeros are represented with a very small value (\code{.Machine$double.xmin})
 so they do not get dropped in the sparse representation.
-\item NAs are converted to 0 before using \code{drop0()} to make them not explicitly stored.
+\item NAs are converted to 0 before cercions to \code{dgCMatrix} to make them not explicitly stored.
 }
 
 \bold{Caution:} Be careful when working with the sparse matrix and sparse matrix operations
 (multiplication, addition, etc.) directly.
 \itemize{
 \item Sparse matrix operations will see 0 where NAs should be.
-\item Zeros are have a small, but non-zero value (\code{.Machine$double.xmin}).
+\item Actual zero ratings have a small, but non-zero value (\code{.Machine$double.xmin}).
 \item Sparse matrix operations that can result in a true 0
    need to be followed by replacing the 0 with \code{.Machine$double.xmin} or other operations
-   (like subsetting) will drop the 0.
+   (like subsetting) may drop the 0.
 }
 
-\code{dropNAis.na()} correctly finds NA values in a sparse matrix with dropped NA values, while \code{is.na()} does not work.
+\code{dropNAis.na()} correctly finds NA values in a sparse matrix with dropped NA values, while
+\code{is.na()} does not work.
 
 \code{dropNA2matrix()} converts the sparse representation into a dense matrix. NAs represented by
-dropped values are converted to true NAs. Zeros are recovered by using \code{zapsmall} which replaces
+dropped values are converted to true NAs. Zeros are recovered by using \code{zapsmall()} which replaces
 small values by 0.
 }
 \value{
