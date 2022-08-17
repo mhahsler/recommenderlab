@@ -42,7 +42,7 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
 
     ## dissimilarity is defined in arules for itemMatrix
     if (which == "users")
-      which <- "transactions" ## "items" is ok
+      which <- "transactions" ## "items" is OK
     x <- x@data
     if (!is.null(y))
       y <- y@data
@@ -244,7 +244,7 @@ setMethod("similarity", signature(x = "ratingMatrix"),
       ### set similarities with less than min_matching items to NA
       if (min_matching > 0) {
         shared <-
-          as.matrix(tcrossprod(as(x_has_r, "dgCMatrix"), as(y_has_r, "dgCMatrix")))
+          as.matrix(tcrossprod(as(x_has_r, "dsparseMatrix"), as(y_has_r, "dsparseMatrix")))
         if (is.matrix(sim))
           sim[shared < min_matching] <- NA
         else
@@ -269,7 +269,7 @@ setMethod("similarity", signature(x = "ratingMatrix"),
   n <- ncol(x)
 
   ## sim(v,u) = freq(uv) / freq(v)
-  uv <-  crossprod(x)
+  uv <-  as.matrix(crossprod(x))
   v <- matrix(colSums(x),
     nrow = n,
     ncol = n,
@@ -289,22 +289,25 @@ setMethod("similarity", signature(x = "ratingMatrix"),
 }
 
 ## Karypis similarity
+## FIXME: check this!!!
 .karypis <- function(x, dist, args = NULL) {
   ## get alpha (na_as_zero is ignored)
+  stop("Karypis similarity not implemented!")
+
   args <-
     getParameters(list(na_as_zero = NULL, alpha = .5), args)
 
   n <- ncol(x)
 
   ## normalize rows to unit length
-  x <- x / rowSums(x)
+  #x <- x / rowSums(x)
 
   ## for users without items
   x[is.na(x)] <- 0
 
   ## sim(v,u) =
   ##      sum_{for all i: r_i,v >0} r_i,u / freq(v) / freq(u)^alpha
-  uv <-  crossprod(x, x > 0)
+  uv <-  as.matrix(crossprod(x, x > 0))
   v <- matrix(colSums(x),
     nrow = n,
     ncol = n,

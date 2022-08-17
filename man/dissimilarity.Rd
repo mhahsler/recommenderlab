@@ -12,11 +12,11 @@ Dissimilarity and Similarity Calculation Between Rating Data
 Calculate dissimilarities/similarities between ratings by users and for items.
 }
 \usage{
-\S4method{dissimilarity}{binaryRatingMatrix}(x, y = NULL, method = NULL, args = NULL, which="users")
-\S4method{dissimilarity}{realRatingMatrix}(x, y = NULL, method = NULL, args = NULL, which="users")
+\S4method{dissimilarity}{binaryRatingMatrix}(x, y = NULL, method = NULL, args = NULL, which = "users")
+\S4method{dissimilarity}{realRatingMatrix}(x, y = NULL, method = NULL, args = NULL, which = "users")
 
 similarity(x, y = NULL, method = NULL, args = NULL, ...)
-\S4method{similarity}{ratingMatrix}(x, y = NULL, method = NULL, args = NULL, which="users",
+\S4method{similarity}{ratingMatrix}(x, y = NULL, method = NULL, args = NULL, which = "users",
   min_matching = 0, min_predictive = 0)
 }
 \arguments{

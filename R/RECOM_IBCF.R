@@ -32,7 +32,7 @@ BIN_IBCF <- function(data, parameter = NULL) {
       ncol(sim) - p$k)] <- 0
 
   ## make sparse
-  sim <- as(sim, "dgCMatrix")
+  as(drop0(sim), "generalMatrix")
 
   model <- c(list(description = "IBCF: Reduced similarity matrix",
     sim = sim),
@@ -63,7 +63,8 @@ BIN_IBCF <- function(data, parameter = NULL) {
     ## predict all ratings (average similarity)
     #ratings <- tcrossprod(sim,u)
     ratings <-
-      t(as(tcrossprod(sim, u) / tcrossprod(sim != 0, u != 0), "matrix"))
+      #t(as(tcrossprod(sim, u) / tcrossprod(sim != 0, u != 0), "matrix"))
+      t(as(tcrossprod(sim, u), "matrix") / as(tcrossprod(sim != 0, u != 0), "matrix"))
     dimnames(ratings) <- dimnames(newdata)
 
     returnRatings(ratings, newdata, type, n)
@@ -163,7 +164,8 @@ REAL_IBCF <- function(data, parameter = NULL) {
     u <- as(newdata, "dgCMatrix")
 
     ratings <-
-      t(as(tcrossprod(sim, u) / tcrossprod(sim, u != 0), "matrix"))
+      #t(as(tcrossprod(sim, u) / tcrossprod(sim, u != 0), "matrix"))
+      t(as(tcrossprod(sim, u), "matrix") / as(tcrossprod(sim, u != 0), "matrix"))
 
     ratings <- new("realRatingMatrix",
       data = dropNA(ratings),

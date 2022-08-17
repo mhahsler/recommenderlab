@@ -81,12 +81,11 @@ dropNA <- function(x) {
     # we preserve real zeros using a very small number
     x[x == 0] <- .Machine$double.xmin
     x[is.na(x)] <- 0
-    #drop0(x)
     # drop0 sometimes results in a "dsCMatrix"
-    as(x, "dgCMatrix")
+    as(drop0(x), "generalMatrix")
 }
 
 dropNAis.na <- function(x) {
   if(!is(x, "dgCMatrix")) stop("x needs to be a dgCMatrix!")
-  !as(x, "ngCMatrix")
+  x == 0
 }

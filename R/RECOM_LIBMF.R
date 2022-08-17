@@ -22,7 +22,7 @@ REAL_LIBMF <- function(data, parameter = NULL) {
     type = c("topNList", "ratings", "ratingMatrix"),
     ...) {
     dat <-
-      as(rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix")), "dgTMatrix")
+      as(rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix")), "TsparseMatrix")
 
     r <- Reco()
     r$train(
@@ -52,7 +52,7 @@ REAL_LIBMF <- function(data, parameter = NULL) {
           Dim = newdata@data@Dim,
           Dimnames = newdata@data@Dimnames
         ),
-        "dgCMatrix"
+        "CsparseMatrix"
       ))
 
     returnRatings(ratings, newdata, type, n)

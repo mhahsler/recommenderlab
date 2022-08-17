@@ -1,92 +1,125 @@
 ### Define new S4 generics
 
 setGeneric(".splitKnownUnknown",
-	function(data, ...) standardGeneric(".splitKnownUnknown"))
+  function(data, ...)
+    standardGeneric(".splitKnownUnknown"))
 
 setGeneric("hasRating",
-	function(x, ...) standardGeneric("hasRating"))
+  function(x, ...)
+    standardGeneric("hasRating"))
 
 setGeneric("nratings",
-	function(x, ...) standardGeneric("nratings"))
+  function(x, ...)
+    standardGeneric("nratings"))
 
 setGeneric("getRatings",
-	function(x, ...) standardGeneric("getRatings"))
+  function(x, ...)
+    standardGeneric("getRatings"))
 
 setGeneric("getNormalize",
-	function(x, ...) standardGeneric("getNormalize"))
+  function(x, ...)
+    standardGeneric("getNormalize"))
 
 setGeneric("getRatingMatrix",
-	function(x, ...) standardGeneric("getRatingMatrix"))
+  function(x, ...)
+    standardGeneric("getRatingMatrix"))
 
 setGeneric("normalize",
-	function(x, ...) standardGeneric("normalize"))
+  function(x, ...)
+    standardGeneric("normalize"))
 
 setGeneric("denormalize",
-	function(x, ...) standardGeneric("denormalize"))
+  function(x, ...)
+    standardGeneric("denormalize"))
 
 setGeneric("getData",
-	function(x, ...) standardGeneric("getData"))
+  function(x, ...)
+    standardGeneric("getData"))
 
 setGeneric("getModel",
-	function(x, ...) standardGeneric("getModel"))
+  function(x, ...)
+    standardGeneric("getModel"))
 
 setGeneric("getRuns",
-	function(x, ...) standardGeneric("getRuns"))
+  function(x, ...)
+    standardGeneric("getRuns"))
 
 setGeneric("getConfusionMatrix",
-	function(x, ...) standardGeneric("getConfusionMatrix"))
+  function(x, ...)
+    standardGeneric("getConfusionMatrix"))
 
 setGeneric("getResults",
-  function(x, ...) standardGeneric("getResults"))
+  function(x, ...)
+    standardGeneric("getResults"))
 
 setGeneric("getTopNLists",
-	function(x, ...) standardGeneric("getTopNLists"))
+  function(x, ...)
+    standardGeneric("getTopNLists"))
 
 setGeneric("evaluate",
-	function(x, method, ...) standardGeneric("evaluate"))
+  function(x, method, ...)
+    standardGeneric("evaluate"))
 
 setGeneric("avg",
-	function(x, ...) standardGeneric("avg"))
+  function(x, ...)
+    standardGeneric("avg"))
 
 setGeneric("binarize",
-	function(x, ...) standardGeneric("binarize"))
+  function(x, ...)
+    standardGeneric("binarize"))
 
 setGeneric("colCounts",
-	function(x, ...) standardGeneric("colCounts"))
+  function(x, ...)
+    standardGeneric("colCounts"))
 
 setGeneric("rowCounts",
-	function(x, ...) standardGeneric("rowCounts"))
+  function(x, ...)
+    standardGeneric("rowCounts"))
 
 setGeneric("rowSds",
-	function(x, ...) standardGeneric("rowSds"))
+  function(x, ...)
+    standardGeneric("rowSds"))
 
 setGeneric("colSds",
-	function(x, ...) standardGeneric("colSds"))
+  function(x, ...)
+    standardGeneric("colSds"))
 
 setGeneric("bestN",
-	function(x, ...) standardGeneric("bestN"))
+  function(x, ...)
+    standardGeneric("bestN"))
 
 setGeneric("calcPredictionAccuracy",
-	function(x, data, ...) standardGeneric("calcPredictionAccuracy"))
+  function(x, data, ...)
+    standardGeneric("calcPredictionAccuracy"))
 
 setGeneric("evaluationScheme",
-	function(data, ...) standardGeneric("evaluationScheme"))
+  function(data, ...)
+    standardGeneric("evaluationScheme"))
 
 setGeneric("removeKnownRatings",
-	function(x, ...) standardGeneric("removeKnownRatings"))
+  function(x, ...)
+    standardGeneric("removeKnownRatings"))
 
 setGeneric("removeKnownItems",
-	function(x, ...) standardGeneric("removeKnownItems"))
+  function(x, ...)
+    standardGeneric("removeKnownItems"))
 
 setGeneric("Recommender",
-	function(data, ...) standardGeneric("Recommender"))
+  function(data, ...)
+    standardGeneric("Recommender"))
 
 setGeneric("similarity",
-	function(x, y = NULL, method = NULL, args = NULL, ...)
-	standardGeneric("similarity"))
+  function(x,
+    y = NULL,
+    method = NULL,
+    args = NULL,
+    ...)
+    standardGeneric("similarity"))
 
 setGeneric("getData.frame",
-	function(from, ...) standardGeneric("getData.frame"))
+  function(from, ...)
+    standardGeneric("getData.frame"))
 
 setGeneric("getList",
-	function(from, ...) standardGeneric("getList"))
+  function(from, ...)
+    standardGeneric("getList"))

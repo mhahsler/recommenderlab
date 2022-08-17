@@ -12,8 +12,8 @@ pkg_title(pkg)
 Provides a research infrastructure to develop and evaluate collaborative filtering recommender algorithms. This includes a sparse representation for user-item matrices, many popular algorithms, top-N recommendations, and cross-validation. 
 The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets. Supported algorithms are:
     
-* User-based collborative filtering (**UBCF**)
-* Item-based collborative filtering (**IBCF**)
+* User-based collaborative filtering (**UBCF**)
+* Item-based collaborative filtering (**IBCF**)
 * SVD with column-mean imputation (**SVD**)
 * Funk SVD (**SVDF**)
 * Alternating Least Squares (**ALS**)

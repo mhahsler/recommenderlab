@@ -1,3 +1,8 @@
+# Changes in version 1.0.2 (08/17/2022)
+
+## Internal Changes
+* Preparations for changes in coercion for Matrix 1.4.2
+
 # Changes in version 1.0.1 (06/17/2022)
 
 ## Bugfixes

@@ -2,42 +2,48 @@
 
 ## Coercions
 setAs("matrix", "binaryRatingMatrix",
-	function(from) new("binaryRatingMatrix",
-		data = as(from, "itemMatrix")))
+  function(from)
+    new("binaryRatingMatrix",
+      data = as(from, "itemMatrix")))
 
 setAs("binaryRatingMatrix", "matrix",
-	function(from) as(from@data, "matrix"))
+  function(from)
+    as(from@data, "matrix"))
 
 setAs("itemMatrix", "binaryRatingMatrix",
-	function(from) new("binaryRatingMatrix",
-		data = from))
+  function(from)
+    new("binaryRatingMatrix",
+      data = from))
 
 setAs("binaryRatingMatrix", "itemMatrix",
-	function(from) from@data)
+  function(from)
+    from@data)
 
 ## itemMatrix stores data transposed!
 setAs("binaryRatingMatrix", "ngCMatrix",
-	function(from) t(as(from@data, "ngCMatrix")))
+  function(from)
+    t(as(from@data, "ngCMatrix")))
 
 setAs("binaryRatingMatrix", "dgCMatrix",
-	function(from) as(as(from, "ngCMatrix"), "dgCMatrix"))
+  function(from)
+    as(as(from, "ngCMatrix"), "dsparseMatrix"))
 
 setAs("binaryRatingMatrix", "dgTMatrix",
-	function(from) as(as(from, "dgCMatrix"), "dgTMatrix"))
+  function(from)
+    as(as(from, "dgCMatrix"), "TsparseMatrix"))
 
 ## list
 setMethod("getList", signature(from = "binaryRatingMatrix"),
-	function(from, decode = TRUE, ...) {
-		LIST(from@data, decode = decode)
-	}
-)
+  function(from, decode = TRUE, ...) {
+    LIST(from@data, decode = decode)
+  })
 
 ## FIXME: we could do this cheaper
 setAs("data.frame", "binaryRatingMatrix",
-	function(from) {
-	    rr <- as(from, "realRatingMatrix")
-	    binarize(rr, minRating=-Inf)
-	})
+  function(from) {
+    rr <- as(from, "realRatingMatrix")
+    binarize(rr, minRating = -Inf)
+  })
 
 
 ## FIXME: removeKnownRatings should be implemented here!
@@ -49,50 +55,58 @@ setAs("data.frame", "binaryRatingMatrix",
 #	})
 
 ## split test data
-setMethod(".splitKnownUnknown", signature(data="binaryRatingMatrix"),
-	function(data, given) {
+setMethod(".splitKnownUnknown", signature(data = "binaryRatingMatrix"),
+  function(data, given) {
+    ## given might of length one or length(data)
+    if (length(given) == 1)
+      given <- rep(given, nrow(data))
+    nitems <- rowCounts(data)
 
-		## given might of length one or length(data)
-		if(length(given)==1) given <- rep(given, nrow(data))
-		nitems <- rowCounts(data)
+    allBut <- given < 0
+    if (any(allBut)) {
+      given[allBut] <- nitems[allBut] + given[allBut]
+    }
 
-		allBut <- given < 0
-		if(any(allBut)) {
-		  given[allBut] <- nitems[allBut] + given[allBut]
-		}
+    if (any(given > nitems))
+      stop("Not enough ratings for user" ,
+        paste(which(given > nitems), collapse = ", "))
 
-		if(any(given>nitems)) stop("Not enough ratings for user" ,
-		  paste(which(given>nitems), collapse = ", "))
+    if (any(given < 1))
+      warning(
+        "The following users do not have enough items leaving no given items: ",
+        paste(which(given < 1), collapse = ", ")
+      )
 
-		if(any(given < 1)) warning("The following users do not have enough items leaving no given items: ",
-		  paste(which(given < 1), collapse = ", "))
+    l <- getList(data, decode = FALSE)
+    known_index <- lapply(
+      1:length(l),
+      FUN = function(i)
+        sample(1:length(l[[i]]), given[i])
+    )
 
-		l <- getList(data, decode=FALSE)
-		known_index <- lapply(1:length(l),
-			FUN = function(i) sample(1:length(l[[i]]), given[i]))
-
-		known <- encode(
-			lapply(1:length(l), FUN = function(x)
-				l[[x]][known_index[[x]]]),
-			itemLabels = itemLabels(data@data))
+    known <- encode(lapply(
+      1:length(l),
+      FUN = function(x)
+        l[[x]][known_index[[x]]]
+    ),
+      itemLabels = itemLabels(data@data))
     rownames(known) <- rownames(data)
 
-		unknown <- encode(
-			lapply(1:length(l), FUN = function(x)
-				### deal with integer(0) if there are not enough known items
-			  if(length(known_index[[x]]) == 0) l[[x]]
-			  else l[[x]][-known_index[[x]]]
-			  ),
-			itemLabels = itemLabels(data@data))
+    unknown <- encode(lapply(
+      1:length(l),
+      FUN = function(x)
+        ### deal with integer(0) if there are not enough known items
+        if (length(known_index[[x]]) == 0)
+          l[[x]]
+      else
+        l[[x]][-known_index[[x]]]
+    ),
+      itemLabels = itemLabels(data@data))
     rownames(unknown) <- rownames(data)
 
-		known <- new("binaryRatingMatrix", data = known)
-		unknown <- new("binaryRatingMatrix", data = unknown)
+    known <- new("binaryRatingMatrix", data = known)
+    unknown <- new("binaryRatingMatrix", data = unknown)
 
-		list(
-			known = known,
-			unknown = unknown
-		)
-	})
-
-
+    list(known = known,
+      unknown = unknown)
+  })

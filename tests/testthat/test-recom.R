@@ -1,7 +1,6 @@
 library("testthat")
 library("recommenderlab")
 
-
 data("MovieLense")
 
 ### test all real rating recommenders
@@ -16,8 +15,8 @@ if (interactive())
   cat("Available methods for realRatingMatrix:",
     paste(methods, collapse = ", "))
 
-MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100, ]
-MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100, ]
+MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100,]
+MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100,]
 train <- MovieLense100[1:20]
 test1 <- MovieLense100[101]
 test3 <- MovieLense100[101:103]
