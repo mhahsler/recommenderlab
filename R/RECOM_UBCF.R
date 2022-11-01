@@ -8,7 +8,7 @@
     1:nrow(sim),
     FUN = function(i)
       head(order(
-        sim[i, ], decreasing = TRUE, na.last = NA
+        sim[i,], decreasing = TRUE, na.last = NA
       ), k)
   )
 
@@ -47,7 +47,7 @@ BIN_UBCF <- function(data, parameter = NULL) {
       if (model$sample)
         stop("User id in newdata does not work when sampling is used!")
       newdata_id <- newdata
-      newdata <- model$data[newdata, ]
+      newdata <- model$data[newdata,]
     } else if (ncol(newdata) != ncol(model$data))
       stop("number of items in newdata does not match model.")
 
@@ -139,9 +139,10 @@ REAL_UBCF <- function(data, parameter = NULL) {
   if (!is.null(p$normalize))
     data <- normalize(data, method = p$normalize)
 
-  model <- c(list(description = "UBCF-Real data: contains full or sample of data set",
-    data = data),
-    p)
+  model <-
+    c(list(description = "UBCF-Real data: contains full or sample of data set",
+      data = data),
+      p)
 
   predict <- function(model,
     newdata,
@@ -158,7 +159,7 @@ REAL_UBCF <- function(data, parameter = NULL) {
       if (model$sample)
         stop("User id in newdata does not work when sampling is used!")
       newdata_id <- newdata
-      newdata <- model$data[newdata, ]
+      newdata <- model$data[newdata,]
     } else {
       if (ncol(newdata) != ncol(model$data))
         stop("number of items in newdata does not match model.")
@@ -180,6 +181,14 @@ REAL_UBCF <- function(data, parameter = NULL) {
       sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 
     neighbors <- .knn(sim, model$nn)
+
+    # Note: we may get less than k neighbors!
+    not_enough_nn <- which(sapply(neighbors, FUN = function(n) length(n) < model$nn))
+    if (length(not_enough_nn) > 0)
+      stop("The following users do not have enough neighbors: ",
+        paste(not_enough_nn, collapse = ", "),
+        "\n Maybe they have no ratings and need to be removed?")
+
 
     ## r_ui = r_u_bar + [sum_k s_uk * r_ai - r_a_bar] / sum_k s_uk
     ## k is the neighborhood
