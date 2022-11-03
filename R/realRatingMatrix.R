@@ -169,7 +169,7 @@ setMethod(".splitKnownUnknown", signature(data = "realRatingMatrix"),
 
     if (any(given < 1))
       warning(
-        "The following users do not have enough items leaving no given items: ",
+        "The following users do not have enough ratings leaving no given items: ",
         paste(which(given < 1), collapse = ", ")
       )
 

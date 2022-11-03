@@ -22,12 +22,14 @@ setMethod("evaluationScheme", signature(data = "ratingMatrix"),
       stop("Length of given has to be one or length of data!")
 
     ## check size
-    not_enough_ratings <- which(rowCounts(data) < given)
+    if (given > 0)
+      not_enough_ratings <- which(rowCounts(data) < given)
+    else ### all-but-x
+      not_enough_ratings <- which(rowCounts(data) < (-given + 1))
+
     if (length(not_enough_ratings) > 1) {
       warning(
-        "Dropping these users from the evaluations which have less than given = ",
-        given,
-        " ratings!\n",
+        "Dropping these users from the evaluation since they have fewer rating than specified in given!\n",
         "These users are ",
         paste(not_enough_ratings, collapse = ", ")
       )
