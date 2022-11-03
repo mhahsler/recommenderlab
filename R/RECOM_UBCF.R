@@ -181,38 +181,34 @@ REAL_UBCF <- function(data, parameter = NULL) {
       sim[cbind(seq(length(newdata_id)), newdata_id)]  <- NA
 
     neighbors <- .knn(sim, model$nn)
-
     # Note: we may get less than k neighbors!
-    not_enough_nn <- which(sapply(neighbors, FUN = function(n) length(n) < model$nn))
-    if (length(not_enough_nn) > 0)
-      stop("The following users do not have enough neighbors: ",
-        paste(not_enough_nn, collapse = ", "),
-        "\n Maybe they have no ratings and need to be removed?")
-
 
     ## r_ui = r_u_bar + [sum_k s_uk * r_ai - r_a_bar] / sum_k s_uk
     ## k is the neighborhood
     ## r_ai - r_a_bar_ is normalize(r_ai) = newdata
 
     if (model$weighted) {
-      # average ratings weighted by similarity
-      s_uk <- sapply(
-        1:nrow(sim),
+      # average ratings weighted by similarity. This is a list so we can have a
+      # different number of nn for each user.
+      s_uk <- lapply(
+        seq(nrow(sim)),
         FUN = function(i)
           sim[i, neighbors[[i]]]
       )
-      if (!is.matrix(s_uk))
-        s_uk <- as.matrix(t(s_uk))
 
       ratings <- t(sapply(
-        1:nrow(newdata),
+        seq(nrow(newdata)),
         FUN = function(i) {
+          ## Seems like we do not need to check for no nearest neighbor
+          #if (length(neighbors[[i]]) < 1)
+          #  return(rep(NA_real_, times = ncol(model$data)))
+
           ## neighbors ratings of active user i
           r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
           ## normalize by the sum of weights only if a rating is available
-          drop(as(crossprod(r_neighbors, s_uk[, i]), "matrix")) /
+          drop(as(crossprod(r_neighbors, s_uk[[i]]), "matrix")) /
             drop(as(crossprod(
-              !dropNAis.na(r_neighbors), s_uk[, i]
+              !dropNAis.na(r_neighbors), s_uk[[i]]
             ), "matrix"))
 
         }
@@ -222,15 +218,19 @@ REAL_UBCF <- function(data, parameter = NULL) {
     } else{
       ### unweighted average
       ratings <- t(sapply(
-        1:nrow(newdata),
+        seq(nrow(newdata)),
         FUN = function(i) {
+          ## return nothing if we no nearest neighbor
+          if (length(neighbors[[i]]) < 1)
+            return(rep(NA_real_, times = ncol(model$data)))
+
           ## neighbors ratings of active user i
           r_neighbors <- as(model$data[neighbors[[i]]], "dgCMatrix")
           ## normalize by the sum of weights only if a rating is available
           colSums(r_neighbors) / colSums(!dropNAis.na(r_neighbors))
         }
       ))
-      ratings[!is.finite(ratings)] <- NA  ### make NaN into NA
+      ratings[!is.finite(ratings)] <- NA_real_  ### make NaN into NA
     }
 
     ### Note: If no user in the neighborhood has a rating for the item then it is NA!

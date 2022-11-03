@@ -1,7 +1,11 @@
 # Changes in version 1.0.2.1 (xx/xx/2022)
 
+## New Features
+* evaluationScheme now drops users with to few ratings with a warning.
+
 ## Bugfixes
 * Fixed issues with ratingMatrix with missing dimnames.
+* UBCF does now also work for users with fewer than n nearest neighbors.
 
 # Changes in version 1.0.2 (08/17/2022)
 

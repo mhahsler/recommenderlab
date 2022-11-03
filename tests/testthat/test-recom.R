@@ -27,18 +27,23 @@ for (m in methods) {
     next
 
   if (interactive())
-    cat("Algorithm:", m, "\n")
+    cat("Algorithm:", m)
 
   if (m == "SVD")
-    suppressWarnings(rec <- Recommender(train, method = m))
+    tm <- system.time(suppressWarnings(rec <- Recommender(train, method = m)))
   else
-    rec <- Recommender(train, method = m)
-
+    tm <- system.time(rec <- Recommender(train, method = m))
 
   rec
 
+  if (interactive())
+    cat("\t [ train ", formatC(tm[3], digits = 4), "s / ")
+
   ### default is top-N list
-  pre <- predict(rec, test1, n = 10)
+  tm <- system.time(pre <- predict(rec, test1, n = 10))
+  if (interactive())
+    cat("pred ", formatC(tm[3], digits = 4), "s]\n")
+
   pre
   l <- as(pre, "list")
   expect_identical(length(l), 1L)

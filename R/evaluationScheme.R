@@ -22,8 +22,21 @@ setMethod("evaluationScheme", signature(data = "ratingMatrix"),
       stop("Length of given has to be one or length of data!")
 
     ## check size
-    if (any(rowCounts(data) < given))
-      stop("Some observations have size<given!")
+    not_enough_ratings <- which(rowCounts(data) < given)
+    if (length(not_enough_ratings) > 1) {
+      warning(
+        "Dropping these users from the evaluations which have less than given = ",
+        given,
+        " ratings!\n",
+        "These users are ",
+        paste(not_enough_ratings, collapse = ", ")
+      )
+      data <- data[-not_enough_ratings]
+      n <- nrow(data)
+
+      if (length(given) != 1)
+        given <- given[-not_enough_ratings]
+    }
 
     ## methods
     methods <- c("split", "cross-validation", "bootstrap")
