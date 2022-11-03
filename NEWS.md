@@ -1,3 +1,8 @@
+# Changes in version 1.0.2.1 (xx/xx/2022)
+
+## Bugfixes
+* Fixed issues with ratingMatrix with missing dimnames.
+
 # Changes in version 1.0.2 (08/17/2022)
 
 ## Internal Changes

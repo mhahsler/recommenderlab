@@ -8,10 +8,10 @@ setMethod("dim", signature(x = "ratingMatrix"),
   function(x)
     dim(x@data))
 
-## dimnames
+## dimnames (labes expands missing names to a sequence)
 setMethod("dimnames", signature(x = "ratingMatrix"),
   function(x)
-    dimnames(x@data))
+    labels(x@data))
 
 setReplaceMethod("dimnames", signature(x = "ratingMatrix",
   value = "list"), function(x, value) {
