@@ -2,6 +2,7 @@
 
 ## New Features
 * evaluationScheme now drops users with to few ratings with a warning.
+* evaluationScheme creation is now faster for realRatingMatrix.
 
 ## Bugfixes
 * Fixed issues with ratingMatrix with missing dimnames.

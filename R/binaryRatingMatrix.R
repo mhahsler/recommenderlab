@@ -62,30 +62,33 @@ setMethod(".splitKnownUnknown", signature(data = "binaryRatingMatrix"),
       given <- rep(given, nrow(data))
     nitems <- rowCounts(data)
 
+    ## calculate given for all-but-x case
     allBut <- given < 0
     if (any(allBut)) {
       given[allBut] <- nitems[allBut] + given[allBut]
     }
 
-    if (any(given > nitems))
-      stop("Not enough ratings for user" ,
-        paste(which(given > nitems), collapse = ", "))
-
+    ## check that we have enough ratings. This can happen for all-but-x
     if (any(given < 1))
       warning(
         "The following users do not have enough items leaving no given items: ",
         paste(which(given < 1), collapse = ", ")
       )
 
+    if (any(given > nitems))
+      stop("Not enough ratings for user" ,
+        paste(which(given > nitems), collapse = ", "))
+
+    ## split
     l <- getList(data, decode = FALSE)
     known_index <- lapply(
-      1:length(l),
+      seq_along(l),
       FUN = function(i)
         sample(1:length(l[[i]]), given[i])
     )
 
     known <- encode(lapply(
-      1:length(l),
+      seq_along(l),
       FUN = function(x)
         l[[x]][known_index[[x]]]
     ),
@@ -93,7 +96,7 @@ setMethod(".splitKnownUnknown", signature(data = "binaryRatingMatrix"),
     rownames(known) <- rownames(data)
 
     unknown <- encode(lapply(
-      1:length(l),
+      seq_along(l),
       FUN = function(x)
         ### deal with integer(0) if there are not enough known items
         if (length(known_index[[x]]) == 0)

@@ -20,6 +20,7 @@ e <- evaluationScheme(
   given = given
 )
 
+
 ## create a user-based CF recommender using training data
 r <- Recommender(getData(e, "train"), "UBCF")
 
@@ -100,6 +101,16 @@ res <- evaluate(
 getModel(res[[1]])
 
 
+## test cross-validation (train should be unkown + known)
+e <- evaluationScheme(
+  MSWeb10,
+  method = "cross",
+  k = 2,
+  given = given
+)
+
+expect_equal(as(e@data, "matrix"), as(e@knownData, "matrix") | as(e@unknownData, "matrix"))
+
 ## Evaluate all-but-x
 set.seed(1234)
 given <- -1
@@ -139,6 +150,7 @@ e <- evaluationScheme(
 )
 e
 
+
 ## create a user-based CF recommender using training data
 r <- Recommender(getData(e, "train"), "UBCF")
 
@@ -159,3 +171,18 @@ calcPredictionAccuracy(p,
   getData(e, "unknown"),
   given = 15,
   goodRating = 5)
+
+
+## test cross-validation (train should be unkown + known)
+e <- evaluationScheme(
+  Jester5k[1:10, ],
+  method = "cross",
+  k = 2,
+  given = given
+)
+
+m <- as(e@knownData@data + e@unknownData@data, "matrix")
+m[m == 0] <- NA
+expect_equal(as(e@data, "matrix"), m)
+
+

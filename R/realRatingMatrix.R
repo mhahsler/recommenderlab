@@ -158,47 +158,47 @@ setMethod(".splitKnownUnknown", signature(data = "realRatingMatrix"),
       given <- rep(given, nrow(data))
     nitems <- rowCounts(data)
 
+    ## convert all-but-x to given
     allBut <- given < 0
-    if (any(allBut)) {
+    if (any(allBut))
       given[allBut] <- nitems[allBut] + given[allBut]
-    }
 
-    if (any(given > nitems))
-      stop("Not enough ratings for user" ,
-        paste(which(given > nitems), collapse = ", "))
-
+    ## check that we have enough ratings (this can happen for all-but-x)
     if (any(given < 1))
       warning(
         "The following users do not have enough ratings leaving no given items: ",
         paste(which(given < 1), collapse = ", ")
       )
 
-    ## we create a logical mask via a triplet Matrix
-    trip <- as(data, "dgTMatrix")
-    items <- lapply(0:(nrow(data) - 1),
-      function(i)
-        which(trip@i == i))
+    if (any(given > nitems))
+      stop("Not enough ratings for user" ,
+        paste(which(given > nitems), collapse = ", "))
 
-    take <-  unlist(lapply(1:length(items),
-      function(i)
-        sample(items[[i]], given[i])))
+    ## start the split
+    trip <- as(t(data@data), "dgTMatrix")
+    data_list <- split(trip@i + 1L, trip@j)
 
-    tripUnknown <- trip
-    if (length(take) > 0) {
-      ### only if take is not integer(0)
-      tripUnknown@x <- tripUnknown@x[-take]
-      tripUnknown@i <- tripUnknown@i[-take]
-      tripUnknown@j <- tripUnknown@j[-take]
-    }
+    take <- unlist(lapply(seq_along(data_list), function(i) {
+      tk <- rep(FALSE, times = length(data_list[[i]]))
+      tk[sample(seq_along(tk), given[i])] <- TRUE
+      tk
+      }))
+
     tripKnown <- trip
     tripKnown@x <- tripKnown@x[take]
     tripKnown@i <- tripKnown@i[take]
     tripKnown@j <- tripKnown@j[take]
 
+    ntake <- !take
+    tripUnknown <- trip
+    tripUnknown@x <- tripUnknown@x[ntake]
+    tripUnknown@i <- tripUnknown@i[ntake]
+    tripUnknown@j <- tripUnknown@j[ntake]
+
     known <- new("realRatingMatrix",
-      data = as(tripKnown, "CsparseMatrix"))
+      data = as(t(tripKnown), "CsparseMatrix"))
     unknown <- new("realRatingMatrix",
-      data = as(tripUnknown, "CsparseMatrix"))
+      data = as(t(tripUnknown), "CsparseMatrix"))
 
     list(known = known,
       unknown = unknown)

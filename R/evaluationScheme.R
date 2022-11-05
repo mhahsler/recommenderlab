@@ -63,7 +63,7 @@ setMethod("evaluationScheme", signature(data = "ratingMatrix"),
 
     ## cross-validation
     else if (method_ind == 2) {
-      train <- as.numeric(NA)
+      train <- NA_real_
 
       times <- as.integer(n / k)
       fold_ids <- sample(rep(1:k, times), times * k)

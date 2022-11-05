@@ -64,7 +64,7 @@ x withheld ratings for the test user.
 Positive integers result in a Given x protocol, while negative values
 produce a All-but-x protocol.
 
-If a user does not have enough ratings to satisfy \{given}, then the user is dropped from the
+If a user does not have enough ratings to satisfy \code{given}, then the user is dropped from the
 evaluation with a warning.
 }
 \value{
