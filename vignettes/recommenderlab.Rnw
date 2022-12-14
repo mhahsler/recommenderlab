@@ -371,7 +371,7 @@ are used which were rated by both users. Note that cosine and
 correlation are in the range $[-1, 1]$, but similarity measures need to
 be in the range of $[0, 1]$. We, use the transformation
 
-$$s = \frac{1}{2} m + 1.$$
+$$s = \frac{m + 1}{2}.$$
 
 Using the similarity,
 the neighborhood for the active user $\set{N}(a) \subset \set{U}$
@@ -431,7 +431,7 @@ incorporated as weights into
 Equation~(\ref{equ:aggregation1}).
 
 \begin{equation}
-\hat{r}_{al}=\frac{1}{\sum_{i\in\set{N}(a)} s_{al}} \sum_{i\in\set{N}(a)} s_{ai} r_{il}
+\hat{r}_{al}=\frac{1}{\sum_{i\in\set{N}(a)} s_{ai}} \sum_{i\in\set{N}(a)} s_{ai} r_{il}
 \label{equ:aggregation2}
 \end{equation}
 $s_{ai}$ is the similarity between the active user~$u_a$ and user
