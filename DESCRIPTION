@@ -11,8 +11,8 @@ Description: Provides a research infrastructure to develop and evaluate
     representation for user-item matrices, many popular algorithms, top-N recommendations,
     and cross-validation. Hahsler (2022) <doi:10.48550/arXiv.2205.12371>.
 Classification/ACM: G.4, H.2.8
-Depends: R (>= 3.5.0), Matrix, arules, proxy (>= 0.4-26), registry
-Imports: methods, utils, stats, irlba, recosystem, matrixStats
+Depends: R (>= 3.5.0), Matrix, arules, proxy (>= 0.4-26)
+Imports: registry, methods, utils, stats, irlba, recosystem, matrixStats
 Suggests: testthat
 BugReports: https://github.com/mhahsler/recommenderlab/issues
 URL: https://github.com/mhahsler/recommenderlab

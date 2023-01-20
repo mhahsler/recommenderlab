@@ -1,16 +1,13 @@
+## we use S4
 import("methods")
 
 importFrom("graphics", "plot", "barplot", "lines", "text") ## we need the generic for plot
-importFrom("proxy", "dist", "as.dist")
+importFrom("utils", "head")
 importFrom("stats", "sd", "median", "princomp", "loadings", "runif",
   "rnorm", "cor")
-importFrom("utils", "head")
 
-### truncated SVD
-importFrom("irlba", "irlba")
-
-### LIBMF
-importFrom("recosystem", "Reco", "data_memory", "out_memory")
+importFrom("registry", "registry", "match_partial_ignorecase", "match_exact")
+importFrom("proxy", "dist", "as.dist")
 
 ## get generics, cladses and methods
 importClassesFrom("Matrix", "Matrix", "dsparseMatrix", "dgCMatrix", "ngCMatrix", "dgTMatrix")
@@ -26,6 +23,12 @@ importFrom("arules", "predict", "nitems", "sample", "LIST",
 ## get just methods
 importMethodsFrom("arules", "sort", "summary",
   "lhs", "rhs", "quality", "quality<-", "is.subset", "interestMeasure")
+
+### truncated SVD
+importFrom("irlba", "irlba")
+
+### LIBMF
+importFrom("recosystem", "Reco", "data_memory", "out_memory")
 
 ## export functions
 export(
@@ -43,10 +46,8 @@ export(
 )
 
 ## registry uses S3
-import("registry")
 export("recommenderRegistry")
 S3method("print", "recommender_method")
-
 
 ## recommenderlab exports
 exportClasses(
