@@ -1,7 +1,7 @@
-# Changes in version 1.0.2.1 (xx/xx/2022)
+# Changes in version 1.0.3 (01/20/2023)
 
 ## New Features
-* evaluationScheme now drops users with to few ratings with a warning.
+* evaluationScheme now drops users with too few ratings with a warning.
 * evaluationScheme creation is now faster for realRatingMatrix.
 
 ## Bugfixes
