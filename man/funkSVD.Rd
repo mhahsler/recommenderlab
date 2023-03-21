@@ -4,6 +4,7 @@
 \title{Funk SVD for Matrices with Missing Data}
 \description{
 Implements matrix decomposition by the stochastic gradient descent optimization popularized by Simon Funk to minimize the error on the known values.
+This function is used by the recommender method "SVDF" (see \code{\link{Recommender}}).
 }
 \usage{
 funkSVD(x, k = 10, gamma = 0.015, lambda = 0.001,
@@ -47,19 +48,21 @@ The code is based on the implmentation in package \pkg{rrecsys} by
 Ludovik Coba and Markus Zanker.
 }
 \examples{
-### this takes a while to run
+# this takes a while to run!
 \dontrun{
 data("Jester5k")
+
+# helper to calculate root mean squared error
+rmse <- function(pred, truth) sqrt(sum((truth-pred)^2, na.rm = TRUE))
 
 train <- as(Jester5k[1:100], "matrix")
 fsvd <- funkSVD(train, verbose = TRUE)
 
-### reconstruct the rating matrix as R = UV'
-### and calculate the root mean square error on the known ratings
+# reconstruct the original rating matrix as R = UV'
 r <- tcrossprod(fsvd$U, fsvd$V)
 rmse(train, r)
 
-### fold in new users for matrix completion
+# fold in new users for matrix completion
 test <- as(Jester5k[101:105], "matrix")
 p <- predict(fsvd, test, verbose = TRUE)
 rmse(test, p)

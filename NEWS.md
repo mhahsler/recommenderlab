@@ -1,3 +1,9 @@
+# Changes in version 1.0.3-1 (xx/xx/2023)
+
+## Bugfixes
+* added missing rmse function for funkSVD man page.
+
+
 # Changes in version 1.0.3 (01/20/2023)
 
 ## New Features
