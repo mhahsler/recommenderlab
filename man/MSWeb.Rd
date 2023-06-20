@@ -25,7 +25,7 @@ This dataset contains 32710 valid users and 285 Vroots.
 \source{
 Asuncion, A., Newman, D.J. (2007). UCI Machine Learning Repository, Irvine, CA:
 University of California, School of Information and Computer Science.
-\url{http://www.ics.uci.edu/~mlearn/MLRepository.html}
+\url{https://archive.ics.uci.edu/}
 }
 \references{
 J. Breese, D. Heckerman., C. Kadie (1998). Empirical Analysis of Predictive
