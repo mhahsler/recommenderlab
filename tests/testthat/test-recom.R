@@ -16,7 +16,7 @@ if (interactive())
     paste(methods, collapse = ", "))
 
 MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100,]
-MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100,]
+MovieLense100 <- MovieLense[, colCounts(MovieLense100) > 100]
 train <- MovieLense100[1:20]
 test1 <- MovieLense100[101]
 test3 <- MovieLense100[101:103]

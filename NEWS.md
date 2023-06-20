@@ -2,7 +2,7 @@
 
 ## Bugfixes
 * added missing rmse function for funkSVD man page.
-
+* test-recom.R: removed extra comma.
 
 # Changes in version 1.0.3 (01/20/2023)
 
