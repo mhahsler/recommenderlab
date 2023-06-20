@@ -4,7 +4,7 @@
 [![CRAN
 version](http://www.r-pkg.org/badges/version/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 [![stream r-universe
-status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler.r-universe.dev/ui#package:recommenderlab)
+status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler.r-universe.dev/recommenderlab)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 
@@ -14,29 +14,29 @@ for user-item matrices, many popular algorithms, top-N recommendations,
 and cross-validation. The package supports rating (e.g., 1-5 stars) and
 unary (0-1) data sets. Supported algorithms are:
 
--   User-based collaborative filtering (**UBCF**)
--   Item-based collaborative filtering (**IBCF**)
--   SVD with column-mean imputation (**SVD**)
--   Funk SVD (**SVDF**)
--   Alternating Least Squares (**ALS**)
--   Matrix factorization with LIBMF (**LIBMF**)
--   Association rule-based recommender (**AR**)
--   Popular items (**POPULAR**)
--   Randomly chosen items for comparison (**RANDOM**)
--   Re-recommend liked items (**RERECOMMEND**)
--   Hybrid recommendations (**HybridRecommender**)
+- User-based collaborative filtering (**UBCF**)
+- Item-based collaborative filtering (**IBCF**)
+- SVD with column-mean imputation (**SVD**)
+- Funk SVD (**SVDF**)
+- Alternating Least Squares (**ALS**)
+- Matrix factorization with LIBMF (**LIBMF**)
+- Association rule-based recommender (**AR**)
+- Popular items (**POPULAR**)
+- Randomly chosen items for comparison (**RANDOM**)
+- Re-recommend liked items (**RERECOMMEND**)
+- Hybrid recommendations (**HybridRecommender**)
 
 For evaluation, the framework supports given-n and all-but-x protocols
 with
 
--   Train/test split
--   Cross-validation
--   Repeated bootstrap sampling
+- Train/test split
+- Cross-validation
+- Repeated bootstrap sampling
 
-Evaluation measures are:
+Evaluation measures are/:
 
--   Rating errors: MSE, RMSE, MAE
--   Top-N recommendations: TPR/FPR (ROC), precision and recall
+- Rating errors: MSE, RMSE, MAE
+- Top-N recommendations: TPR/FPR (ROC), precision and recall
 
 ## Installation
 
@@ -47,7 +47,7 @@ install.packages("recommenderlab")
 ```
 
 **Current development version:** Install from
-[r-universe.](https://mhahsler.r-universe.dev/ui#package:recommenderlab)
+[r-universe.](https://mhahsler.r-universe.dev/recommenderlab)
 
 ``` r
 install.packages("recommenderlab", repos = "https://mhahsler.r-universe.dev")
@@ -142,13 +142,13 @@ code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
 
 ## References
 
--   Michael Hahsler (2022) recommenderlab: An R framework for developing
-    and testing recommendation algorithms. arXiv:2205.12371 \[cs.IR\].
-    DOI:
-    [10.48550/arXiv.2205.12371](https://doi.org/10.48550/arXiv.2205.12371).
--   recommenderlab [reference
-    manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
--   Suresh K. Gorakala and Michele Usuelli (2015) [Building a
-    Recommendation System with
-    R](https://www.amazon.com/Building-Recommendation-System-Suresh-Gorakala/dp/1783554495)
-    (Packt Publishing) features the package recommenderlab.
+- Michael Hahsler (2022) recommenderlab: An R framework for developing
+  and testing recommendation algorithms. arXiv:2205.12371 \[cs.IR\].
+  DOI:
+  [10.48550/arXiv.2205.12371](https://doi.org/10.48550/arXiv.2205.12371).
+- recommenderlab [reference
+  manual](https://CRAN.R-project.org/package=recommenderlab/recommenderlab.pdf)
+- Suresh K. Gorakala and Michele Usuelli (2015) [Building a
+  Recommendation System with
+  R](https://www.amazon.com/Building-Recommendation-System-Suresh-Gorakala/dp/1783554495)
+  (Packt Publishing) features the package recommenderlab.
