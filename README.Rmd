@@ -9,9 +9,19 @@ source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.
 pkg_title(pkg)
 ```
 
+## Introduction
+
 Provides a research infrastructure to develop and evaluate collaborative filtering recommender algorithms. This includes a sparse representation for user-item matrices, many popular algorithms, top-N recommendations, and cross-validation. 
-The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets. Supported algorithms are:
-    
+The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets. 
+
+```{r echo=FALSE, results = 'asis'}
+pkg_usage(pkg)
+pkg_citation(pkg, 2)
+```
+
+## Supported algorithms
+
+### Recommender algorithm     
 * User-based collaborative filtering (**UBCF**)
 * Item-based collaborative filtering (**IBCF**)
 * SVD with column-mean imputation (**SVD**)
@@ -24,13 +34,16 @@ The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets. Support
 * Re-recommend liked items (**RERECOMMEND**)
 * Hybrid recommendations (**HybridRecommender**)
 
-For evaluation, the framework supports given-n and all-but-x protocols with
+
+### Recommender Evaluation
+
+The framework supports given-n and all-but-x protocols with
 
 * Train/test split
 * Cross-validation
 * Repeated bootstrap sampling
 
-Evaluation measures are:
+Available evaluation measures are
 
 * Rating errors: MSE, RMSE, MAE
 * Top-N recommendations: TPR/FPR (ROC), precision and recall

@@ -8,11 +8,41 @@ status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 
+## Introduction
+
 Provides a research infrastructure to develop and evaluate collaborative
 filtering recommender algorithms. This includes a sparse representation
 for user-item matrices, many popular algorithms, top-N recommendations,
 and cross-validation. The package supports rating (e.g., 1-5 stars) and
-unary (0-1) data sets. Supported algorithms are:
+unary (0-1) data sets.
+
+The following R packages use `recommenderlab`:
+[cmfrec](https://CRAN.R-project.org/package=cmfrec),
+[crassmat](https://CRAN.R-project.org/package=crassmat),
+[recometrics](https://CRAN.R-project.org/package=recometrics),
+[recommenderlabBX](https://CRAN.R-project.org/package=recommenderlabBX),
+[recommenderlabJester](https://CRAN.R-project.org/package=recommenderlabJester),
+[RMOA](https://CRAN.R-project.org/package=RMOA)
+
+Please cite the use of this package as:
+
+> Hahsler M (2022). “recommenderlab: An R Framework for Developing and
+> Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
+> <doi:10.48550/ARXIV.2205.12371>
+> <https://doi.org/10.48550/ARXIV.2205.12371>.
+
+    @Misc{,
+      title = {recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms},
+      author = {Michael Hahsler},
+      year = {2022},
+      doi = {10.48550/ARXIV.2205.12371},
+      howpublished = {arXiv:2205.12371 [cs.IR]},
+      month = {May},
+    }
+
+## Supported algorithms
+
+### Recommender algorithm
 
 - User-based collaborative filtering (**UBCF**)
 - Item-based collaborative filtering (**IBCF**)
@@ -26,14 +56,15 @@ unary (0-1) data sets. Supported algorithms are:
 - Re-recommend liked items (**RERECOMMEND**)
 - Hybrid recommendations (**HybridRecommender**)
 
-For evaluation, the framework supports given-n and all-but-x protocols
-with
+### Recommender Evaluation
+
+The framework supports given-n and all-but-x protocols with
 
 - Train/test split
 - Cross-validation
 - Repeated bootstrap sampling
 
-Evaluation measures are/:
+Available evaluation measures are
 
 - Rating errors: MSE, RMSE, MAE
 - Top-N recommendations: TPR/FPR (ROC), precision and recall
