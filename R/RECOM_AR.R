@@ -33,7 +33,7 @@ BIN_AR <- function(data, parameter = NULL) {
     cxs = quality(rule_base)$confidence * quality(rule_base)$support)
 
   if(!p$sort_measure %in% names(quality(rule_base))) quality(rule_base) <-
-    cbind(quality(rule_base), interestMeasure(rule_base, method = p$sort_measure,
+    cbind(quality(rule_base), interestMeasure(rule_base, measure = p$sort_measure,
       transactions = data))
 
   ## sort rule_base
