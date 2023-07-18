@@ -2,6 +2,7 @@
 
 ## Bugfixes
 * changed parameter name in interestMeasure().
+* fixed issue with adding a single interest measure.
 
 # Changes in version 1.0.4 (06/20/2023)
 
