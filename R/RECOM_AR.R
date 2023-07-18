@@ -32,9 +32,12 @@ BIN_AR <- function(data, parameter = NULL) {
   if(p$sort_measure == "cxs") quality(rule_base) <- cbind(quality(rule_base),
     cxs = quality(rule_base)$confidence * quality(rule_base)$support)
 
-  if(!p$sort_measure %in% names(quality(rule_base))) quality(rule_base) <-
-    cbind(quality(rule_base), interestMeasure(rule_base, measure = p$sort_measure,
-      transactions = data))
+  if(!p$sort_measure %in% names(quality(rule_base))) {
+      quality(rule_base) <- cbind(
+        quality(rule_base), 
+        setNames(as.data.frame(interestMeasure(rule_base, measure = c(p$sort_measure), transactions = data)), p$sort_measure)
+    )
+  }
 
   ## sort rule_base
   rule_base <- sort(rule_base, by = p$sort_measure, decreasing=p$sort_decreasing)
