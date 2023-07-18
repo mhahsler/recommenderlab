@@ -1,3 +1,8 @@
+# Changes in version 1.0.4.1 (xx/xx/2023)
+
+## Bugfixes
+* changed parameter name in interestMeasure().
+
 # Changes in version 1.0.4 (06/20/2023)
 
 ## Bugfixes
