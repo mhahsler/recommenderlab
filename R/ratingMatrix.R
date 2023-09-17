@@ -65,20 +65,20 @@ setMethod("rowCounts", signature(x = "ratingMatrix"),
 
 setMethod("colSums", signature(x = "ratingMatrix"),
   function(x, na.rm = FALSE, dims = 1, ...)
-    colSums(as(x, "dgCMatrix"), na.rm, dims, ...))
+    colSums(as(x, "dgCMatrix"), na.rm = na.rm, dims = dims, ...))
 
 setMethod("rowSums", signature(x = "ratingMatrix"),
   function(x, na.rm = FALSE, dims = 1, ...)
-    rowSums(as(x, "dgCMatrix"), na.rm, dims, ...))
+    rowSums(as(x, "dgCMatrix"), na.rm = na.rm, dims = dims, ...))
 
 ## we need to ignore 0s
 setMethod("colMeans", signature(x = "ratingMatrix"),
   function(x, na.rm = FALSE, dims = 1, ...)
-    colSums(x, dims, na.rm, ...) / colCounts(x, dims, na.rm, ...))
+    colSums(x, dims, na.rm, ...) / colCounts(x, na.rm = na.rm, dims = dims, ...))
 
 setMethod("rowMeans", signature(x = "ratingMatrix"),
   function(x, na.rm = FALSE, dims = 1, ...)
-    rowSums(x, dims, na.rm, ...) / rowCounts(x, dims, na.rm, ...))
+    rowSums(x, dims, na.rm, ...) / rowCounts(x, na.rm = na.rm, dims = dims, ...))
 
 ### Note: use x and not x@data here since binaryRatingMatrix uses itemsets
 ### (pkg arules) which are stored in transposed form (see binaryRatingMatrix.R)!
