@@ -175,7 +175,7 @@ setMethod(".splitKnownUnknown", signature(data = "realRatingMatrix"),
         paste(which(given > nitems), collapse = ", "))
 
     ## start the split
-    trip <- as(t(data@data), "dgTMatrix")
+    trip <- t(as(data, "dgTMatrix"))
     data_list <- split(trip@i + 1L, trip@j)
 
     take <- unlist(lapply(seq_along(data_list), function(i) {
