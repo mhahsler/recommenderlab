@@ -1,3 +1,7 @@
+# Changes in version 1.0.6-1 (xx/xx/2024)
+
+* fixed crossref for package Matrix (reported by Mikael Jagan).
+
 # Changes in version 1.0.6 (09/19/2023)
 
 * fixed bug in row/colSums call for Matrix 1.6-2 (reported by Mikael Jagan).

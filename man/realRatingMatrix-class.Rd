@@ -96,9 +96,10 @@ Class \code{"\linkS4class{ratingMatrix}"}, directly.
 	\code{\linkS4class{binaryRatingMatrix}},
 	\code{\linkS4class{topNList}},
 	\code{\link{getList}} and \code{\link{getData.frame}}.
-	Also see \code{\link[Matrix:dgCMatrix-class]{dgCMatrix}},
-	\code{\link[Matrix:dgTMatrix-class]{dgTMatrix}} and
-	\code{\link[Matrix:nsparseMatrix-classes]{ngCMatrix}}
+	Also see \code{\linkS4class{dgCMatrix}},
+	\code{\linkS4class{dgTMatrix}} and
+	\code{\linkS4class{ngCMatrix}}
+	\code{\linkS4class{ngCMatrix}}
 	in \pkg{Matrix}.
 }
 \examples{
