@@ -1,12 +1,12 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package recommenderlab - Lab for Developing and Testing Recommender Algorithms
 
-[![CRAN
-version](http://www.r-pkg.org/badges/version/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
-[![stream r-universe
+[![r-universe
 status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler.r-universe.dev/recommenderlab)
+[![Package on
+CRAN](https://www.r-pkg.org/badges/version/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
+downloads](https://cranlogs.r-pkg.org/badges/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 
 ## Introduction
 
@@ -24,7 +24,7 @@ The following R packages use `recommenderlab`:
 [recommenderlabJester](https://CRAN.R-project.org/package=recommenderlabJester),
 [RMOA](https://CRAN.R-project.org/package=RMOA)
 
-Please cite the use of this package as:
+To cite package ‘recommenderlab’ in publications use:
 
 > Hahsler M (2022). “recommenderlab: An R Framework for Developing and
 > Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
@@ -81,7 +81,9 @@ install.packages("recommenderlab")
 [r-universe.](https://mhahsler.r-universe.dev/recommenderlab)
 
 ``` r
-install.packages("recommenderlab", repos = "https://mhahsler.r-universe.dev")
+install.packages("recommenderlab",
+    repos = c("https://mhahsler.r-universe.dev",
+              "https://cloud.r-project.org/"))
 ```
 
 ## Usage
