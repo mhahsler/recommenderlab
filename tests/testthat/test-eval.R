@@ -173,7 +173,7 @@ calcPredictionAccuracy(p,
   goodRating = 5)
 
 
-## test cross-validation (train should be unkown + known)
+## test cross-validation (train should be unknown + known)
 e <- evaluationScheme(
   Jester5k[1:10, ],
   method = "cross",

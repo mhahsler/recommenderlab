@@ -40,7 +40,7 @@ expect_identical(sum(sapply(as(r, "list"), length)), nrow(as(r, "data.frame")))
 expect_identical(nratings(r), sum(sapply(as(r, "list"), length)))
 
 ## check ratings
-expect_identical(as(r, "dgTMatrix")@x, getRatings(r))
+expect_identical(zapsmall(as(r, "dgTMatrix")@x), getRatings(r))
 
 ## check subset assignment (preserves 0s)
 r[2, 1:5] <- 1:5

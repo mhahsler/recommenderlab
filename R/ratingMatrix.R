@@ -54,7 +54,7 @@ setAs("ratingMatrix", "data.frame", function(from)
   getData.frame(from))
 
 ## row/col counts, sums, etc.
-## na.rm is ignorred since NAs are missing ratings
+## na.rm is ignored since NAs are missing ratings
 setMethod("colCounts", signature(x = "ratingMatrix"),
   function(x, ...)
     colSums(hasRating(x)))
@@ -100,7 +100,7 @@ setMethod("getRatingMatrix", signature(x = "ratingMatrix"),
 
 setMethod("getRatings", signature(x = "ratingMatrix"),
   function(x, ...)
-    as(x, "dgCMatrix")@x)
+    zapzero(as(x, "dgCMatrix")@x))
 
 ## subset
 setMethod("[", signature(x = "ratingMatrix"),

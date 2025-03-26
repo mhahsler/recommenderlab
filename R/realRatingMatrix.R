@@ -1,6 +1,6 @@
 ## realRatingMatrix stores a dgCMatrix where 0s are a very small number.
 
-## coercions
+## coerce
 setAs("matrix", "realRatingMatrix",
   function(from)
     new("realRatingMatrix",

@@ -64,6 +64,11 @@
 ## convert to and from dgCMatrix to preserve 0s and do not store NAs
 ## we add .Machine$double.xmin to real zeros to keep them.
 
+## replace small values with 0 again
+zapzero <- function(x, digits = 100) {
+  zapsmall(x, digits = digits)
+}
+
 ## sparse -> matrix
 dropNA2matrix <- function(x) {
   if(!is(x, "dgCMatrix")) stop("x needs to be a dgCMatrix!")
@@ -71,7 +76,7 @@ dropNA2matrix <- function(x) {
   x <- as(x, "matrix")
   x[x == 0] <- NA
   # remove the small values representing real 0s
-  zapsmall(x)
+  zapzero(x)
 }
 
 ## matrix -> sparse

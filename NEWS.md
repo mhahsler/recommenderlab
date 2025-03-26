@@ -1,6 +1,7 @@
 # Changes in version 1.0.6-1 (xx/xx/2024)
 
 * fixed crossref for package Matrix (reported by Mikael Jagan).
+* slightly better handling of 0 vs. NA in sparse matrices.
 
 # Changes in version 1.0.6 (09/19/2023)
 
