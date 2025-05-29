@@ -48,7 +48,7 @@ setMethod("dissimilarity", signature(x = "binaryRatingMatrix"),
       y <- y@data
 
     ## dissimilarity in arules sets the method attribute
-    d <- arules::dissimilarity(x, y, method, args, which)
+    d <- arules::dissimilarity(x, y, method, args, which == "items")
 
     ## cross dissimilarity?
     if (!is.null(y))

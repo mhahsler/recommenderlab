@@ -34,10 +34,11 @@ setAs("realRatingMatrix", "ngCMatrix",
 ## from a data.frame with columns user, item, rating
 ## this preserves 0s
 setAs("data.frame", "realRatingMatrix", function(from) {
-  user	<- from[, 1]
-  item	<- from[, 2]
+  ### Note: drop = TRUE is for tidyverse tibble
+  user	<- from[, 1, drop = TRUE]
+  item	<- from[, 2, drop = TRUE]
   if (ncol(from) >= 3)
-    rating <- as.numeric(from[, 3])
+    rating <- as.numeric(from[, 3, drop = TRUE])
   else
     rating <- rep(1, length(item))
 

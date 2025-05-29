@@ -1,6 +1,6 @@
 Package: recommenderlab
-Version: 1.0.6
-Date: 2023-09-19
+Version: 1.0.7
+Date: 2025-xx-xx
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	    email = "mhahsler@lyle.smu.edu",
@@ -11,7 +11,7 @@ Description: Provides a research infrastructure to develop and evaluate
     representation for user-item matrices, many popular algorithms, top-N recommendations,
     and cross-validation. Hahsler (2022) <doi:10.48550/arXiv.2205.12371>.
 Classification/ACM: G.4, H.2.8
-Depends: R (>= 3.5.0), Matrix, arules, proxy (>= 0.4-26)
+Depends: R (>= 4.5.0), Matrix, arules (>= 1.7-11), proxy (>= 0.4-26)
 Imports: registry, methods, utils, stats, irlba, recosystem, matrixStats
 Suggests: testthat
 BugReports: https://github.com/mhahsler/recommenderlab/issues
