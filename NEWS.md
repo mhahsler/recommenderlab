@@ -1,4 +1,4 @@
-# Changes in version 1.0.7 (xx/xx/2025)
+# Changes in version 1.0.7 (05/29/2025)
 
 * slightly better handling of 0 vs. NA in sparse matrices.
 * coercion data.frame -> realRatingMatrix: added drop = TRUE so it works
