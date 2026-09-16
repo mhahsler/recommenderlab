@@ -1,3 +1,8 @@
+# Changes in version 1.0.7-1 (xx/xx/2025)
+
+* Fixed mailto in vignette.
+
+
 # Changes in version 1.0.7 (05/29/2025)
 
 * slightly better handling of 0 vs. NA in sparse matrices.

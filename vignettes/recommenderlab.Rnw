@@ -64,7 +64,7 @@ The package can be directly installed in R or downloaded from
 	P.O. Box 750122 \\
 	Dallas, TX 75275-0122\\
 	E-mail: \email{mhahsler@lyle.smu.edu}\\
-	URL: \url{michael@hahsler.net}
+	URL: \url{michael.hahsler.net}
 }
 
 
