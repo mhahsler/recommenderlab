@@ -58,10 +58,10 @@ setMethod("evaluate", signature(x = "evaluationScheme", method = "list"),
       FUN = function(a)
         try(evaluate(
           x,
-          a$n,
+          a$name,
           n = n ,
           type = type,
-          parameter = a$p,
+          parameter = a$param,
           progress = progress,
           keepModel = keepModel
         ))

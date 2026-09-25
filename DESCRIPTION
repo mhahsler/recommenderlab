@@ -15,6 +15,6 @@ Depends: R (>= 4.5.0), Matrix, arules (>= 1.7-11), proxy (>= 0.4-26)
 Imports: registry, methods, utils, stats, irlba, recosystem, matrixStats
 Suggests: testthat
 BugReports: https://github.com/mhahsler/recommenderlab/issues
-URL: https://github.com/mhahsler/recommenderlab
+URL: https://github.com/mhahsler/recommenderlab, http://michael.hahsler.net/recommenderlab/
 License: GPL-2
 Copyright: (C) Michael Hahsler

@@ -1,12 +1,14 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package recommenderlab - Lab for Developing and Testing Recommender Algorithms
 
-[![r-universe
-status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler.r-universe.dev/recommenderlab)
 [![Package on
 CRAN](https://www.r-pkg.org/badges/version/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/recommenderlab)](https://CRAN.R-project.org/package=recommenderlab)
+![License](https://img.shields.io/cran/l/recommenderlab) [![r-universe
+status](https://mhahsler.r-universe.dev/badges/recommenderlab)](https://mhahsler.r-universe.dev/recommenderlab)
+
+**Maintainer:** [Michael Hahsler](https://michael.hahsler.net)
 
 ## Introduction
 
@@ -165,7 +167,7 @@ results <- evaluate(scheme, algorithms, type = "topNList", n = c(1, 3, 5, 10), p
 plot(results, annotate = 2, legend = "topleft")
 ```
 
-![](inst/README_files/TNR_vs_TPR-1.png)<!-- -->
+![](man/figures/README-TNR_vs_TPR-1.png)<!-- -->
 
 ## Shiny App
 
