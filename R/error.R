@@ -1,5 +1,44 @@
 
 
+#' @title
+#' Error Calculation
+#'
+#' @description Calculate the mean absolute error (MAE), mean square error (MSE),
+#' root mean square error (RMSE) and for matrices also the Frobenius norm (identical to RMSE).
+#' @aliases Error
+#' @aliases RMSE
+#' @aliases frobenius
+#' @aliases MSE
+#' @aliases MAE
+#'
+#' @usage MSE(true, predicted, na.rm = TRUE)
+#' RMSE(true, predicted, na.rm = TRUE)
+#' MAE(true, predicted, na.rm = TRUE)
+#' frobenius(true, predicted, na.rm = TRUE)
+#'
+#' @param true  true values.
+#'
+#' @param predicted  predicted values
+#'
+#' @param na.rm  ignore missing values.
+#'
+#' @details Frobenius norm requires matrices.
+#'
+#' @return The error value.
+#'
+#' @examples true <- rnorm(10)
+#' predicted <- rnorm(10)
+#'
+#' MAE(true, predicted)
+#' MSE(true, predicted)
+#' RMSE(true, predicted)
+#'
+#' true <- matrix(rnorm(9), nrow = 3)
+#' predicted <- matrix(rnorm(9), nrow = 3)
+#'
+#' frobenius(true, predicted)
+#' @family evaluation
+#' @name error
 MAE <- function(true, predicted, na.rm = TRUE) {
   if (length(true) != length(predicted))
     stop("length does not match!")

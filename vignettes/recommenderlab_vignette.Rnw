@@ -391,7 +391,7 @@ For item $i_l$ this is
 \begin{figure}
 \centerline{\includegraphics[width=13cm]{user-based}}
 \caption{User-based collaborative filtering example with (a) rating matrix $R$
-and estimated ratings for the active user, (b), similarites between the active user and the other users $s_a$ (Euclidean distance converted to similarities),
+and estimated ratings for the active user, (b) similarities between the active user and other users, $s_a$ (Euclidean distances converted to similarities),
     and
 (b) the user neighborhood formation.
 }
@@ -629,7 +629,7 @@ Two strategies to deal with one-class data is to assume all missing ratings
 %said that
 In addition,
 \cite{recommender:Pan:2008} propose strategies which represent a
-trade-off between the two extreme strategies based on wighted low rank
+trade-off between the two extreme strategies based on weighted low-rank
 approximations of the rating matrix and on negative example sampling which
 might improve results across all recommender algorithms.
 %This is however outside
@@ -727,7 +727,7 @@ item-based CF with conditional probability-based
 similarity~\citep{recommender:Deshpande:2004}. It can be fully precomputed
 and rules with more than one items in the left-hand-side ($\set{X}$),
 it incorporates higher order effects between more than two items.
-%Mbasher et al [Mobasher et al. 2000] presented an algorithm for recommending
+%Mobasher et al. [2000] presented an algorithm for recommending
 %additional webpages to be visited by a user based on association rules. In this
 %approach, the historical information about users and their web-access patterns
 %were mined using a frequent itemset discovery algorithm and were used to
@@ -1072,9 +1072,9 @@ The creator function
 
 creates the evaluation scheme from a data set using a method
 (e.g., simple split, bootstrap sampling, $k$-fold cross validation).
-Testing is perfomed by withholding items (parameter \code{given}).
+Testing is performed by withholding items (parameter \code{given}).
 \cite{recommender:Breese:1998} introduced the
-four experimental witholding protocols called \emph{Given 2, Given 5, Given 10} and \emph{All-but-1.}
+four experimental withholding protocols called \emph{Given 2, Given 5, Given 10}, and \emph{All-but-1}.
 During testing, the \emph{Given $x$} protocol presents the algorithm with
 only $x$ randomly chosen items for the test user, and the algorithm
 is evaluated by how well it is able to predict the withheld items.
@@ -1187,10 +1187,10 @@ print(image(r_m, main = "Normalized Ratings"))
 
 \begin{figure}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-image1}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-image1}}
 \end{minipage}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-image2}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-image2}}
 \end{minipage}
 \caption{Image plot
 the artificial rating data before and after normalization.}
@@ -1262,7 +1262,7 @@ ratings from a rating matrix.
 hist(getRatings(r), breaks=100)
 @
 \begin{figure}
-\centerline{\includegraphics[width=.5\linewidth]{recommenderlab-hist1}}
+\centerline{\includegraphics[width=.5\linewidth]{recommenderlab_vignette-hist1}}
 \caption{Raw rating distribution for as sample of Jester.}
 \label{fig:hist1}
 \end{figure}
@@ -1283,10 +1283,10 @@ hist(getRatings(normalize(r, method="Z-score")), breaks=100)
 
 \begin{figure}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-hist2}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-hist2}}
 \end{minipage}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-hist3}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-hist3}}
 \end{minipage}
 \caption{Histogram of normalized ratings using row centering (left) and
 Z-score normalization (right).}
@@ -1312,10 +1312,10 @@ hist(colMeans(r), breaks=20)
 
 \begin{figure}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-hist4}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-hist4}}
 \end{minipage}
 \begin{minipage}[b]{.48\linewidth}
-\centerline{\includegraphics[width=\linewidth]{recommenderlab-hist5}}
+\centerline{\includegraphics[width=\linewidth]{recommenderlab_vignette-hist5}}
 \end{minipage}
 \caption{Distribution of the number of rated items per user (left) and
 of the average ratings per joke (right).}
@@ -1522,7 +1522,7 @@ false positive rate (FPR).
 plot(results, annotate=TRUE)
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-roc1}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-roc1}}
 \caption{ROC curve for recommender method POPULAR.}
 \label{fig:roc1}
 \end{figure}
@@ -1536,7 +1536,7 @@ is produced (see Figure~\ref{fig:precrec1}).
 plot(results, "prec/rec", annotate=TRUE)
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-precrec1}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-precrec1}}
 \caption{Precision-recall plot for method POPULAR.}
 \label{fig:precrec1}
 \end{figure}
@@ -1603,7 +1603,7 @@ list length.
 plot(results, annotate=c(1,3), legend="bottomright")
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-roc2}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-roc2}}
 \caption{Comparison of ROC curves for several recommender methods for the
 given-3 evaluation scheme.}
 \label{fig:roc2}
@@ -1613,7 +1613,7 @@ given-3 evaluation scheme.}
 plot(results, "prec/rec", annotate=3, legend="topleft")
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-precrec2}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-precrec2}}
 \caption{Comparison of precision-recall curves
 for several recommender methods for the
     given-3 evaluation scheme.}
@@ -1647,7 +1647,7 @@ results
 plot(results, ylim = c(0,100))
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-real}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-real}}
 \caption{Comparison of RMSE, MSE, and MAE for recommender methods for the
 given-3 evaluation scheme.}
 \label{fig:real}
@@ -1681,7 +1681,7 @@ Note that SVD does not implement a method for binary data and is thus skipped.
 plot(results_binary, annotate=c(1,3), legend="topright")
 @
 \begin{figure}
-\centerline{\includegraphics[scale=1]{recommenderlab-roc3}}
+\centerline{\includegraphics[scale=1]{recommenderlab_vignette-roc3}}
 \caption{Comparison of ROC curves for several recommender methods for the
 given-3 evaluation scheme.}
 \label{fig:roc3}
@@ -1830,4 +1830,3 @@ This research was funded in part by the NSF Industry/University Cooperative Rese
 \bibliography{recommender,recom_talk,data,stuff,association_rules,recommenderlab_usage}
 
 \end{document}
-

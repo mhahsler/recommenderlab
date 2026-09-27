@@ -65,7 +65,7 @@ BIN_AR <- function(data, parameter = NULL) {
     ## newdata are userid
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
-        stop("If newdata is a user id then data needes to be the training dataset.")
+        stop("If newdata is a user ID, data must be the training data set.")
       newdata <- data[newdata,, drop=FALSE]
     }
 

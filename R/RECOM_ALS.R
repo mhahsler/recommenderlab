@@ -10,7 +10,7 @@
 # http://link.springer.com/chapter/10.1007/978-3-540-68880-8_32
 
 ### NOTES:
-# - The implementation is a basic implementation of the algorithm, for a fixed (chosen) number of iterations and without parallellization.
+# - This is a basic implementation of the algorithm, with a fixed (chosen) number of iterations and no parallelization.
 # - Speed is slower than your other algorithms, but it seems workable.
 # - The actual model construction actually only happens when you call "predict".  This is a disadvantage of the ALS algorithm, where you actually can only train the model once you have data about the test users.
 # - When you set verbose = TRUE, you will see the converge of the error function printed.
@@ -329,7 +329,7 @@ REAL_ALS_implicit <- function(data, parameter = NULL) {
         nrow = p$n_factors,
         ncol = n_m)
     colnames(M) <- colnames(data)
-    # But the first row is initialiazed as the average rating of that movie
+    # The first row is initialized to the average rating for that movie.
     M[1, ] <-
       colSums(R * (W + 1), na.rm = TRUE) / colSums(W + 1) # colMeans() would consider empty spaces in a dgCMatrix as zeroes
     mean_rating <- mean(M[1, ], na.rm = TRUE)

@@ -1,3 +1,46 @@
+#' @title
+#' Plot Evaluation Results
+#'
+#' @description Creates precision-recall or ROC plots for recommender evaluation results.
+#' @aliases plot,evaluationResults-method
+#' @aliases plot,evaluationResultList-method
+#'
+#' @usage \S4method{plot}{evaluationResults}(x, y,
+#'         avg = TRUE, add=FALSE, type= "b", annotate = FALSE, ...)
+#' \S4method{plot}{evaluationResultList}(x, y,
+#'         xlim=NULL, ylim=NULL, col = NULL, pch = NULL, lty = 1,
+#'         avg = TRUE, type = "b", annotate= 0, legend="bottomright", ...)
+#'
+#' @param x  the object to be plotted.
+#'
+#' @param y a character string indicating the type of plot (e.g., "ROC" or "prec/rec").
+#'
+#' @param avg  plot average of runs?
+#'
+#' @param add  add to a plot?
+#'
+#' @param type  line type (see \code{plot}).
+#'
+#' @param annotate  annotate N (recommendation list size) to plot.
+#'
+#' @param xlim,ylim plot limits (see \code{plot}).
+#'
+#' @param col  colors (see \code{plot}).
+#'
+#' @param pch  point symbol to use (see \code{plot}).
+#'
+#' @param lty  line type (see \code{plot})
+#'
+#' @param legend  where to place legend (see \code{legend}).
+#'
+#' @param ...  further arguments passed on to \code{plot}.
+#'
+#' @seealso \code{\linkS4class{evaluationResults}},
+#' \code{\linkS4class{evaluationResultList}}.
+#' See
+#' \code{\link{evaluate}} for examples.
+#' @family evaluation
+#' @name plot
 setMethod("plot", signature(x = "evaluationResults"),
 	function(x, y,
 		avg = TRUE, add=FALSE, type= "b", annotate = FALSE, ...) {
@@ -21,7 +64,7 @@ setMethod("plot", signature(x = "evaluationResults"),
 			if(add) lines(x, type=type,...)
 			else graphics::plot(x, type=type, ...)
 
-			## add annodations (xpd: don't clip)
+			## Add annotations (xpd: don't clip).
 			if(annotate) text(x[,1], x[,2], pos=3,
                             n, xpd=TRUE)
 		}else{
@@ -32,7 +75,7 @@ setMethod("plot", signature(x = "evaluationResults"),
 			if(add) lines(x, type=type,...)
 			else graphics::plot(x, type=type, ...)
 
-			## add annodations
+			## Add annotations.
 			if(annotate) text(x[,1], x[,2], pos=3,
                             rownames(x), xpd=TRUE)
 
@@ -86,4 +129,3 @@ setMethod("plot", signature(x = "evaluationResultList"),
         add=TRUE, col=col[i], type=type, annotate = i %in% annotate,
         pch = pch[i], lty=lty[i], avg = avg, ...)
 })
-

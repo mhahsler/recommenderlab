@@ -2,3 +2,53 @@ url: http://michael.hahsler.net/recommenderlab/
 template:
   bootstrap: 5
 
+reference:
+- title: Rating Data
+  desc: Defines a common class for rating data and calculates dissimilarities and similarities between ratings by users and items.
+- contents:
+  - ratingMatrix-class
+  - realRatingMatrix-class
+  - binaryRatingMatrix-class
+  - dissimilarity
+  - has_concept("rating data")
+- title: Data Preparation
+  desc: Normalizes ratings in real rating matrices and creates list, data frame, and sparse matrix representations.
+- contents:
+  - normalize
+  - getList
+  - sparseNAMatrix
+  - has_concept("data preparation")
+- title: Recommender Models
+  desc: Learns a recommender model from given data and creates and combines recommendations using recommender algorithms.
+- contents:
+  - Recommender
+  - HybridRecommender
+  - Recommender-class
+  - has_concept("recommender models")
+- title: Recommendations
+  desc: Creates recommendations using a recommender model and data about new users; recommendations can be represented as a Top-N list.
+- contents:
+  - predict
+  - topNList-class
+  - has_concept("recommendations")
+- title: Evaluation
+  desc: Creates evaluation schemes from data sets, evaluates recommender models, and calculates prediction accuracy and evaluation metrics.
+- contents:
+  - evaluationScheme
+  - evaluate
+  - calcPredictionAccuracy
+  - error
+  - plot
+  - evaluationScheme-class
+  - evaluationResults-class
+  - evaluationResultList-class
+  - has_concept("evaluation")
+- title: Datasets
+  desc: Rating data collected by the Jester Online Joke Recommender System, MovieLens, and the Microsoft web site.
+- contents:
+  - has_concept("datasets")
+- title: Internal Utilities
+  desc: Utility functions used internally by recommender algorithms.
+- contents:
+  - has_concept("internal")
+

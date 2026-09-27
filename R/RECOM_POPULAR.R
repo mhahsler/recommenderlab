@@ -25,7 +25,7 @@ BIN_POPULAR <- function(data, parameter = NULL) {
 
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
-        stop("If newdata is a user id then data needes to be the training dataset.")
+        stop("If newdata is a user ID, data must be the training data set.")
       newdata <- data[newdata,]
     }
 
@@ -84,7 +84,7 @@ REAL_POPULAR <- function(data, parameter = NULL) {
 
     if(is.numeric(newdata)) {
       if(is.null(data) || !is(data, "ratingMatrix"))
-        stop("If newdata is a user id then data needes to be the training dataset.")
+        stop("If newdata is a user ID, data must be the training data set.")
       newdata <- data[newdata,]
     }
 
@@ -98,7 +98,7 @@ REAL_POPULAR <- function(data, parameter = NULL) {
 
     rownames(ratings) <- rownames(newdata)
 
-    ### this is because we use populary and not average rating here!
+    ### This is because we use popularity rather than average ratings here.
     if(type=="topNList") {
       topN <- model$topN
       topN@items <- structure(

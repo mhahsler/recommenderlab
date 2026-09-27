@@ -80,6 +80,74 @@ dropNA2matrix <- function(x) {
 }
 
 ## matrix -> sparse
+#' @title
+#' %  Class ``sparseNAMatrix'' --- Sparse Matrix Representation With NAs Not Explicitly Stored
+#' Sparse Matrix Representation With NAs Not Explicitly Stored
+#'
+#' @description %Class to represent matrices with dropped NAs.
+#' Coerce from and to a
+#' sparse matrix representation where \code{NA}s are not explicitly stored.
+#' @aliases sparseNAMatrix-class
+#' @aliases dropNA
+#' @aliases dropNA2matrix
+#' @aliases dropNAis.na
+#'
+#' @usage dropNA(x)
+#' dropNA2matrix(x)
+#' dropNAis.na(x)
+#'
+#' @param x  a matrix for \code{dropNA()}, or a sparse matrix with dropped NA values
+#'     for \code{dropNA2matrix()} or \code{dropNAis.na()}.
+#'
+#' @details The representation is based on
+#' the sparse \code{dgCMatrix} in \pkg{Matrix} but instead of zeros, \code{NA}s are dropped.
+#' This is achieved by the following:
+#'
+#' \itemize{
+#' \item Zeros are represented with a very small value (\code{.Machine$double.xmin})
+#' so they do not get dropped in the sparse representation.
+#' \item NAs are converted to 0 before coercion to \code{dgCMatrix} so they are not explicitly stored.
+#' }
+#'
+#' \bold{Caution:} Be careful when working with the sparse matrix and sparse matrix operations
+#' (multiplication, addition, etc.) directly.
+#' \itemize{
+#' \item Sparse matrix operations will see 0 where NAs should be.
+#' \item Actual zero ratings have a small, but non-zero value (\code{.Machine$double.xmin}).
+#' \item Sparse matrix operations that can result in a true 0
+#'    need to be followed by replacing the 0 with \code{.Machine$double.xmin} or other operations
+#'    (like subsetting) may drop the 0.
+#' }
+#'
+#' \code{dropNAis.na()} correctly finds NA values in a sparse matrix with dropped NA values, while
+#' \code{is.na()} does not work.
+#'
+#' \code{dropNA2matrix()} converts the sparse representation into a dense matrix. NAs represented by
+#' dropped values are converted to true NAs. Zeros are recovered by using \code{zapsmall()} which replaces
+#' small values by 0.
+#'
+#' @return %Returns a sparseNAMatrix (subclass of dgCMatrix) or a matrix.
+#' Returns a dgCMatrix or a matrix, respectively.
+#'
+#' @seealso     \code{\link[Matrix:dgCMatrix-class]{dgCMatrix}} in \pkg{Matrix}.
+#'
+#' @examples m <- matrix(sample(c(NA,0:5),50, replace=TRUE, prob=c(.5,rep(.5/6,6))),
+#'     nrow=5, ncol=10, dimnames = list(users=paste('u', 1:5, sep=''),
+#'     items=paste('i', 1:10, sep='')))
+#' m
+#'
+#' ## drop all NAs in the representation. Zeros are represented by very small values.
+#' sparse <- dropNA(m)
+#' sparse
+#'
+#' ## convert back to matrix
+#' dropNA2matrix(sparse)
+#'
+#' ## Note: be careful with the sparse representation!
+#' ## Do not use is.na, but use
+#' dropNAis.na(sparse)
+#' @family data preparation
+#' @name sparseNAMatrix
 dropNA <- function(x) {
     if(!is(x, "matrix")) stop("x needs to be a matrix!")
 

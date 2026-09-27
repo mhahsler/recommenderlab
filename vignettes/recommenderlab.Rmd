@@ -1,0 +1,149 @@
+---
+title: "Getting started with recommenderlab"
+author: "Michael Hahsler"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Getting started with recommenderlab}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(recommenderlab)
+set.seed(1234)
+```
+
+`recommenderlab` provides tools for representing user–item data, fitting
+recommendation algorithms, producing recommendations, and evaluating their
+quality. This vignette walks through that workflow using the package's bundled
+MovieLense ratings data.
+
+## Installation
+
+Install the released package from CRAN, then load it in your R session:
+
+```{r install, eval=FALSE}
+install.packages("recommenderlab")
+```
+
+```{r load-package}
+library(recommenderlab)
+```
+
+## Load and prepare ratings
+
+The `MovieLense` data contains ratings on a one-to-five-star scale. It is stored
+as a sparse `realRatingMatrix`: users are rows, movies are columns, and missing
+ratings are not stored as zeros. We select users who rated more than 100 movies
+to give the recommendation algorithms enough information to work with.
+
+```{r data}
+data("MovieLense")
+MovieLense
+
+MovieLense100 <- MovieLense[rowCounts(MovieLense) > 100, ]
+MovieLense100
+```
+
+Basic summaries help describe the data before modeling. For example,
+`rowCounts()` counts ratings per user, and `getRatings()` extracts the observed
+rating values.
+
+```{r inspect-data}
+summary(rowCounts(MovieLense100))
+summary(getRatings(MovieLense100))
+```
+
+## Fit a recommender and make recommendations
+
+`Recommender()` learns a model from a training rating matrix. Here we fit
+user-based collaborative filtering (UBCF) on the first 300 selected users.
+`predict()` then produces a top-five list for two other users. The default
+output is a `topNList`; coerce it to a list to see the recommended movie
+titles.
+
+```{r recommendations}
+train <- MovieLense100[1:300, ]
+rec <- Recommender(train, method = "UBCF")
+rec
+
+recommendations <- predict(rec, MovieLense100[301:302, ], n = 5)
+recommendations
+as(recommendations, "list")
+```
+
+The package also supports predicted ratings. Request `type = "ratings"` when
+the numeric estimates are more useful than a ranked list.
+
+```{r predicted-ratings}
+predicted_ratings <- predict(
+  rec,
+  MovieLense100[301:302, ],
+  type = "ratings"
+)
+as(predicted_ratings, "matrix")[, 1:6]
+```
+
+## Evaluate recommendations
+
+Evaluation should simulate the information available when recommendations are
+made. An all-but-five scheme withholds five ratings per user and uses the
+remaining ratings as known input. Here, ratings of four stars or higher count
+as positive feedback. `evaluationScheme()` supports train/test splits,
+cross-validation, and bootstrap evaluation.
+
+```{r evaluation-scheme}
+evaluation_data <- MovieLense100[1:200, ]
+scheme <- evaluationScheme(
+  evaluation_data,
+  method = "cross-validation",
+  k = 5,
+  given = -5,
+  goodRating = 4
+)
+scheme
+```
+
+Compare a popularity-based recommender with a random baseline. `evaluate()`
+fits each method on every training fold, creates top-N recommendations, and
+calculates measures from the withheld ratings. The resulting true-positive and
+false-positive rates can be plotted to compare recommendation list lengths.
+
+```{r evaluate}
+algorithms <- list(
+  `popular items` = list(name = "POPULAR", param = NULL),
+  `random items` = list(name = "RANDOM", param = NULL)
+)
+
+results <- evaluate(
+  scheme,
+  algorithms,
+  type = "topNList",
+  n = c(1, 3, 5, 10),
+  progress = FALSE
+)
+getResults(results[[1]])
+```
+
+Plot the average true-positive rate against the false-positive rate for each
+recommendation list length:
+
+```{r plot-results, fig.width=7, fig.height=5}
+plot(results, annotate = TRUE, legend = "topleft")
+```
+
+For predicted ratings, `evaluate()` can instead report rating error measures
+such as RMSE, MSE, and MAE by using `type = "ratings"`. See
+`?calcPredictionAccuracy` for the measures available for direct predictions
+and `?evaluate` for details on evaluation results.
+
+## Where to go next
+
+The package includes additional algorithms such as item-based collaborative
+filtering (IBCF), matrix factorization, association-rule recommenders, and
+hybrid recommenders. Use `recommenderRegistry$get_entry_names()` to see the
+methods available in your installation. The reference manual documents each
+algorithm, data class, and evaluation helper.

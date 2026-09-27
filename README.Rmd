@@ -16,7 +16,6 @@ The package supports rating (e.g., 1-5 stars) and unary (0-1) data sets.
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
-pkg_citation(pkg, 2)
 ```
 
 ## Supported algorithms
@@ -110,6 +109,11 @@ plot(results, annotate = 2, legend = "topleft")
 A simple Shiny App running recommenderlab can be found at  [https://mhahsler-apps.shinyapps.io/Jester/](https://mhahsler-apps.shinyapps.io/Jester/) 
 ([source code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)). 
 
+## Citation request
+
+```{r echo=FALSE, results = 'asis'}
+pkg_citation(pkg, 2)
+```
 
 ## References
 

@@ -18,3 +18,5 @@ BugReports: https://github.com/mhahsler/recommenderlab/issues
 URL: https://github.com/mhahsler/recommenderlab, http://michael.hahsler.net/recommenderlab/
 License: GPL-2
 Copyright: (C) Michael Hahsler
+Encoding: UTF-8
+Config/roxygen2/version: 8.1.0

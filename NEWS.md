@@ -1,4 +1,4 @@
-# Changes in version 1.0.7-1 (xx/xx/2025)
+# Changes in version 1.0.7-1 (unreleased)
 
 * Fixed mailto in vignette.
 
@@ -63,7 +63,7 @@
 
 ## Changes
 * Ratings of zero are now fully supported. We use .Machine$double.xmin to represent 0 in 
-  sparse matices. zapsmall() can be used to change them back to 0.
+  sparse matrices. zapsmall() can be used to change them back to 0.
 * topNList has now a method c() to combine multiple lists.
 * RECOM_AR: Ratings are now equal to quality measure used for ranking.
 * HYBRIDRECOMMENDER: add "max" and "min" aggregation.
@@ -78,8 +78,8 @@
 ## Changes
 * getConfusionMatrix() is deprecated. Use getResults() instead.
 * added an example for how to evaluate hybrid recommenders.
-* calcPredicition now also reports N.
-* calcPredicition now stores the list length for multiple top-N lists as a column called n in the result (instead of using rownames). 
+* calcPredictionAccuracy now also reports N.
+* calcPredictionAccuracy now stores the list length for multiple top-N lists in a column called `n` (instead of using row names).
 
 ## Bugfixes
 * UBCF for binary data: Fixed normalization for option weighted (reported by bhawwash).

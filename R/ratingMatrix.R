@@ -8,7 +8,7 @@ setMethod("dim", signature(x = "ratingMatrix"),
   function(x)
     dim(x@data))
 
-## dimnames (labes expands missing names to a sequence)
+## dimnames (labels expand missing names to a sequence)
 setMethod("dimnames", signature(x = "ratingMatrix"),
   function(x)
     labels(x@data))
@@ -23,7 +23,7 @@ setReplaceMethod("dimnames", signature(x = "ratingMatrix",
 setAs("ratingMatrix", "list", function(from)
   getList(from))
 
-## this expects all ratingMatrices to be coercable to dgTMatrix
+## This expects all rating matrices to be coercible to dgTMatrix.
 setMethod("getData.frame", signature(from = "ratingMatrix"),
   function(from,
     decode = TRUE,

@@ -24,7 +24,7 @@ r <- as(db, "realRatingMatrix")
 ## do we get the original matrix back?
 expect_identical(as(r, "matrix"), db)
 
-## Coersions:
+## Coercions:
 expect_identical(r, as(as(r, "matrix"), "realRatingMatrix"))
 expect_identical(r, as(as(r, "dgCMatrix"), "realRatingMatrix"))
 expect_identical(r, as(as(r, "dgTMatrix"), "realRatingMatrix"))
