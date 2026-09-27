@@ -2,6 +2,28 @@
 
 A matrix containing ratings (typically 1-5 stars, etc.).
 
+## See also
+
+See
+[`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
+inherited methods,
+[`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
+[`topNList`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md),
+[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
+and
+[`getData.frame`](http://michael.hahsler.net/recommenderlab/reference/getList.md).
+Also see
+[`dgCMatrix-class`](https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html),
+[`dgTMatrix-class`](https://rdrr.io/pkg/Matrix/man/dgTMatrix-class.html)
+and
+[`ngCMatrix-class`](https://rdrr.io/pkg/Matrix/man/nsparseMatrix-class.html)
+in Matrix.
+
+Other rating data:
+[`binaryRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
+[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md),
+[`ratingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
+
 ## Objects from the Class
 
 Objects can be created by calls of the form
@@ -20,7 +42,7 @@ matrix in triplet form (`dgTMatrix` in package Matrix).
 
 - `normalize`::
 
-  `NULL` or a list with normalizaton factors.
+  `NULL` or a list with normalization factors.
 
 ## Extends
 
@@ -106,23 +128,6 @@ directly.
   `signature(x = "realRatingMatrix")`: calculate the standard deviation
   of ratings for columns (items).
 
-## See also
-
-See
-[`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
-inherited methods,
-[`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
-[`topNList`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md),
-[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
-and
-[`getData.frame`](http://michael.hahsler.net/recommenderlab/reference/getList.md).
-Also see
-[`dgCMatrix-class`](https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html),
-[`dgTMatrix-class`](https://rdrr.io/pkg/Matrix/man/dgTMatrix-class.html)
-and
-[`ngCMatrix-class`](https://rdrr.io/pkg/Matrix/man/nsparseMatrix-class.html)
-in Matrix.
-
 ## Examples
 
 ``` r
@@ -146,7 +151,7 @@ m
 #>   u9   0 NA NA  1 NA NA  2 NA NA  NA
 #>   u10 NA NA NA NA  3 NA NA NA NA  NA
 
-## coerce into a realRatingMAtrix
+## Coerce into a realRatingMatrix
 r <- as(m, "realRatingMatrix")
 r
 #> 10 x 10 rating matrix of class ‘realRatingMatrix’ with 32 ratings.

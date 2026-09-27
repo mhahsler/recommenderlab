@@ -25,6 +25,10 @@ HybridRecommender(..., weights = NULL, aggregation_type = "sum")
   How are the recommendations aggregated. Options are "sum", "min", and
   "max".
 
+## Value
+
+An object of class 'Recommender'.
+
 ## Details
 
 The hybrid recommender is initialized with a set of pretrained
@@ -35,24 +39,24 @@ the training sets need to have the same items in the same order.
 Alternatively, hybrid recommenders can be created using the regular
 [`Recommender()`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
 interface. Here `method` is set to `HYBRID` and `parameter` contains a
-list with recommenders and weights. recommenders are a list of
-recommender alorithms, where each algorithms is represented as a list
-with elements name (method of the recommender) and parameters (the
-algorithms parameters). This method can be used in
-[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md)
+list with recommenders and weights. The recommenders are a list of
+recommender algorithms, each represented by a list with the elements
+`name` (the recommender method) and `parameters` (the algorithm
+parameters). This interface can be used with
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md).
 
 For creating recommendations (`predict`), each recommender algorithm is
 used to create ratings. The individual ratings are combined using a
 weighted sum where missing ratings are ignored. Weights can be specified
 in `weights`.
 
-## Value
-
-An object of class 'Recommender'.
-
 ## See also
 
 [`Recommender`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
+
+Other recommender models:
+[`Recommender()`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md),
+[`Recommender-class`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
 
 ## Examples
 

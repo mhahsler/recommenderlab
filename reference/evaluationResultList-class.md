@@ -1,8 +1,22 @@
-# Class "evaluationResultList": Results of the Evaluation of a Multiple Recommender Methods
+# Class "evaluationResultList": Results from Evaluating Multiple Recommender Methods
 
-Contains the evaluation results for several runs using multiple
-recommender methods in form of confusion matrices. For each run the used
-models might be avialable.
+Contains evaluation results for several runs of multiple recommender
+methods, represented as confusion matrices. The models used for each run
+may also be available.
+
+## See also
+
+[`evaluate`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md).
+
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
 
 ## Objects from the Class
 
@@ -36,8 +50,3 @@ Class `"list"`, from data part.
 - show:
 
   `signature(object = "evaluationResultList")`
-
-## See also
-
-[`evaluate`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
-[`evaluationResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md).

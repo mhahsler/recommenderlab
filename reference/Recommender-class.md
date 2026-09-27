@@ -3,6 +3,16 @@
 Represents a recommender model learned for a given data set (a rating
 matrix).
 
+## See also
+
+See
+[`Recommender`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
+for the constructor function and a description of available methods.
+
+Other recommender models:
+[`HybridRecommender()`](http://michael.hahsler.net/recommenderlab/reference/HybridRecommender.md),
+[`Recommender()`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
+
 ## Objects from the Class
 
 Objects are created by the creator function
@@ -45,9 +55,3 @@ Objects are created by the creator function
 - show:
 
   `signature(object = "Recommender")`
-
-## See also
-
-See
-[`Recommender`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
-for the constructor function and a description of availble methods.

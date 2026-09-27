@@ -34,6 +34,12 @@ Framework for Performing Collaborative Filtering. Proceedings of the
 1999 Conference on Research and Development in Information Retrieval.
 Aug. 1999.
 
+## See also
+
+Other datasets:
+[`Jester5k`](http://michael.hahsler.net/recommenderlab/reference/Jester5k.md),
+[`MSWeb`](http://michael.hahsler.net/recommenderlab/reference/MSWeb.md)
+
 ## Examples
 
 ``` r

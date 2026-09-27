@@ -1,8 +1,19 @@
 # Class "binaryRatingMatrix": A Binary Rating Matrix
 
-A matrix to represent binary rating data. 1 codes for a positive rating
-and 0 codes for either no or a negative rating. This coding is common
-for market basked data where products are either bought or not.
+A matrix for binary rating data. A value of 1 indicates a positive
+rating; 0 indicates no rating or a negative rating. This coding is
+common for market-basket data, where products are either bought or not.
+
+## See also
+
+[`itemMatrix`](https://rdrr.io/pkg/arules/man/itemMatrix-class.html) in
+arules,
+[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md).
+
+Other rating data:
+[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md),
+[`ratingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md),
+[`realRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
 
 ## Objects from the Class
 
@@ -63,12 +74,6 @@ directly.
 - coerce:
 
   `signature(from = "binaryRatingMatrix", to = "list")`
-
-## See also
-
-[`itemMatrix`](https://rdrr.io/pkg/arules/man/itemMatrix-class.html) in
-arules,
-[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md).
 
 ## Examples
 

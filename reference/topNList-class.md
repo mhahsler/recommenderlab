@@ -1,6 +1,15 @@
 # Class "topNList": Top-N List
 
-Recommendations a Top-N list.
+Represents recommendations as a Top-N list.
+
+## See also
+
+[`evaluate`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
+[`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
+
+Other recommendations:
+[`predict`](http://michael.hahsler.net/recommenderlab/reference/predict.md)
 
 ## Objects from the Class
 
@@ -96,9 +105,3 @@ using
 - show:
 
   `signature(object = "topNList")`
-
-## See also
-
-[`evaluate`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
-[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
-[`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)

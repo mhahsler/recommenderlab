@@ -1,7 +1,7 @@
 # Evaluate a Recommender Models
 
-Evaluates a single or a list of recommender model given an evaluation
-scheme and return evaluation metrics.
+Evaluates one or more recommender models using an evaluation scheme and
+returns evaluation metrics.
 
 ## Usage
 
@@ -59,6 +59,13 @@ evaluate(x, method, type="topNList",
 
   further arguments.
 
+## Value
+
+If a single recommender method is specified in `method`, then an object
+of class `"evaluationResults"` is returned. If `method` is a list of
+recommendation models, then an object of class `"evaluationResultList"`
+is returned.
+
 ## Details
 
 The evaluation uses the specification in the evaluation scheme to train
@@ -70,15 +77,9 @@ for details on the accuracy measures and the averaging. Note: Also the
 confusion matrix counts are averaged over users and therefore not whole
 numbers.
 
-See `vignette("recommenderlab")` for more details on the evaluaiton
-process and the used metrics.
-
-## Value
-
-If a single recommender method is specified in `method`, then an object
-of class `"evaluationResults"` is returned. If `method` is a list of
-recommendation models, then an object of class `"evaluationResultList"`
-is returned.
+See
+[`vignette("recommenderlab")`](http://michael.hahsler.net/recommenderlab/articles/recommenderlab.md)
+for more details on the evaluation process and the metrics used.
 
 ## See also
 
@@ -86,6 +87,15 @@ is returned.
 [`evaluationScheme`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
 [`evaluationResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md).
 [`evaluationResultList`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md).
+
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
 
 ## Examples
 
@@ -102,16 +112,16 @@ es <- evaluationScheme(MSWeb10, method="cross-validation",
 ## run evaluation
 ev <- evaluate(es, "POPULAR", n=c(1,3,5,10))
 #> POPULAR run fold/sample [model time/prediction time]
-#>   1  [0.001sec/0.003sec] 
-#>   2  [0.001sec/0.003sec] 
-#>   3  [0.001sec/0.003sec] 
-#>   4  [0.001sec/0.003sec] 
-#>   5  [0.001sec/0.003sec] 
-#>   6  [0.001sec/0.003sec] 
-#>   7  [0.001sec/0.002sec] 
-#>   8  [0.001sec/0.002sec] 
-#>   9  [0.001sec/0.003sec] 
-#>   10  [0.001sec/0.003sec] 
+#>   1  [0.001sec/0.004sec] 
+#>   2  [0.001sec/0.004sec] 
+#>   3  [0.001sec/0.01sec] 
+#>   4  [0.001sec/0.004sec] 
+#>   5  [0.001sec/0.004sec] 
+#>   6  [0.001sec/0.004sec] 
+#>   7  [0.001sec/0.004sec] 
+#>   8  [0.002sec/0.004sec] 
+#>   9  [0.002sec/0.004sec] 
+#>   10  [0.001sec/0.004sec] 
 ev
 #> Evaluation results for 10 folds/samples using method ‘POPULAR’.
 
@@ -213,38 +223,38 @@ algorithms <- list(
 
 evlist <- evaluate(es, algorithms, n=c(1,3,5,10))
 #> RANDOM run fold/sample [model time/prediction time]
-#>   1  [0.001sec/0.001sec] 
-#>   2  [0sec/0.002sec] 
-#>   3  [0sec/0.002sec] 
-#>   4  [0.001sec/0.002sec] 
-#>   5  [0sec/0.002sec] 
-#>   6  [0sec/0.002sec] 
-#>   7  [0sec/0.002sec] 
-#>   8  [0.001sec/0.002sec] 
-#>   9  [0sec/0.002sec] 
-#>   10  [0sec/0.002sec] 
-#> POPULAR run fold/sample [model time/prediction time]
 #>   1  [0.001sec/0.002sec] 
-#>   2  [0.001sec/0.006sec] 
-#>   3  [0.002sec/0.002sec] 
+#>   2  [0.001sec/0.002sec] 
+#>   3  [0sec/0.003sec] 
 #>   4  [0.001sec/0.002sec] 
-#>   5  [0.001sec/0.003sec] 
-#>   6  [0.001sec/0.003sec] 
-#>   7  [0.001sec/0.002sec] 
-#>   8  [0.001sec/0.003sec] 
-#>   9  [0.001sec/0.003sec] 
-#>   10  [0.001sec/0.006sec] 
+#>   5  [0.001sec/0.002sec] 
+#>   6  [0sec/0.003sec] 
+#>   7  [0sec/0.003sec] 
+#>   8  [0sec/0.003sec] 
+#>   9  [0.001sec/0.002sec] 
+#>   10  [0sec/0.003sec] 
+#> POPULAR run fold/sample [model time/prediction time]
+#>   1  [0.001sec/0.004sec] 
+#>   2  [0.001sec/0.004sec] 
+#>   3  [0.001sec/0.004sec] 
+#>   4  [0.001sec/0.004sec] 
+#>   5  [0.001sec/0.004sec] 
+#>   6  [0.001sec/0.004sec] 
+#>   7  [0.001sec/0.004sec] 
+#>   8  [0.002sec/0.003sec] 
+#>   9  [0.001sec/0.004sec] 
+#>   10  [0.001sec/0.004sec] 
 #> HYBRID run fold/sample [model time/prediction time]
-#>   1  [0.001sec/0.01sec] 
-#>   2  [0.002sec/0.01sec] 
-#>   3  [0.001sec/0.011sec] 
-#>   4  [0.002sec/0.011sec] 
-#>   5  [0.002sec/0.01sec] 
-#>   6  [0.001sec/0.011sec] 
-#>   7  [0.002sec/0.011sec] 
-#>   8  [0.001sec/0.011sec] 
-#>   9  [0.002sec/0.01sec] 
-#>   10  [0.001sec/0.011sec] 
+#>   1  [0.002sec/0.015sec] 
+#>   2  [0.003sec/0.022sec] 
+#>   3  [0.002sec/0.015sec] 
+#>   4  [0.002sec/0.015sec] 
+#>   5  [0.003sec/0.015sec] 
+#>   6  [0.002sec/0.015sec] 
+#>   7  [0.002sec/0.021sec] 
+#>   8  [0.002sec/0.015sec] 
+#>   9  [0.003sec/0.014sec] 
+#>   10  [0.002sec/0.016sec] 
 evlist
 #> List of evaluation results for 3 recommenders:
 #> 

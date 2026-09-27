@@ -56,3 +56,8 @@ algorithms to return different types of recommendations.
 `getParameters` is a helper function which checks parameters for
 consistency and provides default values. Used in the Recommender
 constructor.
+
+## See also
+
+Other internal:
+[`funkSVD()`](http://michael.hahsler.net/recommenderlab/reference/funkSVD.md)

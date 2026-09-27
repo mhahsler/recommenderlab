@@ -29,21 +29,25 @@ Recommender(data, method, parameter=NULL)
 
   further arguments.
 
-## Details
-
-Recommender uses the registry mechanism from package registry to manage
-methods. This let's the user easily specify and add new methods. The
-registry is called `recommenderRegistry`. See examples section.
-
 ## Value
 
 An object of class 'Recommender'.
+
+## Details
+
+Recommender uses the registry mechanism from package registry to manage
+methods. This lets users easily specify and add new methods. The
+registry is called `recommenderRegistry`. See examples section.
 
 ## See also
 
 [`Recommender`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md),
 [`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md),
 [`predict`](http://michael.hahsler.net/recommenderlab/reference/predict.md).
+
+Other recommender models:
+[`HybridRecommender()`](http://michael.hahsler.net/recommenderlab/reference/HybridRecommender.md),
+[`Recommender-class`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
 
 ## Examples
 

@@ -42,7 +42,11 @@ plot(x, y,
 
   annotate N (recommendation list size) to plot.
 
-- xlim,ylim:
+- ...:
+
+  further arguments passed on to `plot`.
+
+- xlim, ylim:
 
   plot limits (see `plot`).
 
@@ -62,10 +66,6 @@ plot(x, y,
 
   where to place legend (see `legend`).
 
-- ...:
-
-  further arguments passed on to `plot`.
-
 ## See also
 
 [`evaluationResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
@@ -73,3 +73,12 @@ plot(x, y,
 See
 [`evaluate`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md)
 for examples.
+
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)

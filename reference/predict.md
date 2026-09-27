@@ -56,6 +56,9 @@ Returns an object of class `"topNList"` or of other appropriate classes.
 [`Recommender`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md),
 [`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md).
 
+Other recommendations:
+[`topNList-class`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md)
+
 ## Examples
 
 ``` r

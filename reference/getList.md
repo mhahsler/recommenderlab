@@ -26,6 +26,10 @@ getData.frame(from, decode = TRUE, ratings = TRUE, ...)
 
   object to be represented as a list.
 
+- ...:
+
+  further arguments (currently unused).
+
 - decode:
 
   use item names or item IDs (column numbers) for items?
@@ -34,9 +38,9 @@ getData.frame(from, decode = TRUE, ratings = TRUE, ...)
 
   include ratings in the list or data.frame?
 
-- ...:
+## Value
 
-  further arguments (currently unused).
+Returns a list or a data.frame.
 
 ## Details
 
@@ -44,15 +48,15 @@ Lists have one vector with items (and ratings) per user. The data.frame
 has one row per rating with the user in the first column, the item as
 the second and the rating as the third.
 
-## Value
-
-Returns a list or a data.frame.
-
 ## See also
 
 [`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
 [`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md),
 [`topNList`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md).
+
+Other data preparation:
+[`normalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md),
+[`sparseNAMatrix`](http://michael.hahsler.net/recommenderlab/reference/sparseNAMatrix.md)
 
 ## Examples
 

@@ -4,6 +4,21 @@ An evaluation scheme created from a data set. The scheme can be a simple
 split into training and test data, k-fold cross-evaluation or using k
 bootstrap samples.
 
+## See also
+
+[`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
+and the creator function
+[`evaluationScheme`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md).
+
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
+
 ## Objects from the Class
 
 Objects can be created by
@@ -44,8 +59,8 @@ Objects can be created by
 
 - `runsTrain`::
 
-  Object of class `"list"`; internal repesentation for the split in
-  training and test data for the evaluation runs.
+  Object of class `"list"`; internal representation of the training and
+  test data splits for the evaluation runs.
 
 - `train`::
 
@@ -73,9 +88,3 @@ Objects can be created by
 - show:
 
   `signature(object = "evaluationScheme")`
-
-## See also
-
-[`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
-and the creator function
-[`evaluationScheme`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md).

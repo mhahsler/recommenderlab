@@ -18,6 +18,10 @@ dropNAis.na(x)
   a matrix for `dropNA()`, or a sparse matrix with dropped NA values for
   `dropNA2matrix()` or `dropNAis.na()`.
 
+## Value
+
+Returns a dgCMatrix or a matrix, respectively.
+
 ## Details
 
 The representation is based on the sparse `dgCMatrix` in Matrix but
@@ -26,7 +30,7 @@ instead of zeros, `NA`s are dropped. This is achieved by the following:
 - Zeros are represented with a very small value (`.Machine$double.xmin`)
   so they do not get dropped in the sparse representation.
 
-- NAs are converted to 0 before cercions to `dgCMatrix` to make them not
+- NAs are converted to 0 before coercion to `dgCMatrix` so they are not
   explicitly stored.
 
 **Caution:** Be careful when working with the sparse matrix and sparse
@@ -51,14 +55,14 @@ Zeros are recovered by using
 [`zapsmall()`](https://rdrr.io/r/base/zapsmall.html) which replaces
 small values by 0.
 
-## Value
-
-Returns a dgCMatrix or a matrix, respectively.
-
 ## See also
 
 [`dgCMatrix`](https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html) in
 Matrix.
+
+Other data preparation:
+[`getList()`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
+[`normalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md)
 
 ## Examples
 

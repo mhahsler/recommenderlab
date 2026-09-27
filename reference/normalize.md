@@ -12,7 +12,7 @@ normalize(x, method="center", row=TRUE)
 
 denormalize(x, ...)
 # S4 method for class 'realRatingMatrix'
-denormalize(x, method=NULL, row=NULL, 
+denormalize(x, method=NULL, row=NULL,
     factors=NULL)
 ```
 
@@ -40,6 +40,10 @@ denormalize(x, method=NULL, row=NULL,
 
   further arguments (currently unused).
 
+## Value
+
+A normalized realRatingMatrix.
+
 ## Details
 
 Normalization tries to reduce the individual rating bias by row
@@ -52,21 +56,23 @@ Denormalization reverses normalization. It uses the normalization
 information stored in x unless the user specifies method, row and
 factors.
 
-## Value
+## See also
 
-A normalized realRatingMatrix.
+Other data preparation:
+[`getList()`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
+[`sparseNAMatrix`](http://michael.hahsler.net/recommenderlab/reference/sparseNAMatrix.md)
 
 ## Examples
 
 ``` r
 ## create a matrix with ratings
-m <- matrix(sample(c(NA,0:5),50, replace=TRUE, prob=c(.5,rep(.5/6,6))), 
+m <- matrix(sample(c(NA,0:5),50, replace=TRUE, prob=c(.5,rep(.5/6,6))),
 nrow=5, ncol=10, dimnames = list(users=paste('u', 1:5, sep=''),
 items=paste('i', 1:10, sep='')))
 
 ## do normalization
 r <- as(m, "realRatingMatrix")
-r_n1 <- normalize(r) 
+r_n1 <- normalize(r)
 r_n2 <- normalize(r, method="Z-score")
 
 r

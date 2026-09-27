@@ -1,9 +1,9 @@
 # Calculate the Prediction Error for a Recommendation
 
-Calculate prediction accuracy. For predicted ratings MAE (mean average
-error), MSE (means squared error) and RMSE (root means squared error)
-are calculated. For topNLists various binary classification metrics are
-returned (e.g., precision, recall, TPR, FPR).
+Calculate prediction accuracy. For predicted ratings, MAE (mean absolute
+error), MSE (mean squared error), and RMSE (root mean squared error) are
+calculated. For top-N lists, binary classification metrics such as
+precision, recall, TPR, and FPR are returned.
 
 ## Usage
 
@@ -39,13 +39,17 @@ calcPredictionAccuracy(x, data, byUser = FALSE,
   logical; Should the accuracy measures be reported for each user
   individually instead of being averaged over all users?
 
+- ...:
+
+  further arguments.
+
 - given:
 
-  how many items were given to create the predictions. If the data comes
-  from an evaluation scheme that usses all-but-x (i.e., a negative value
-  for `give`), then a vector with the number of items actually given for
-  each prediction needs to be supplied. This can be optained from the
-  evaluation scheme `es` via `getData(es, "given")`.
+  How many items were given to create the predictions. If the data comes
+  from an all-but-x evaluation scheme (i.e., a negative value for
+  `given`), supply a vector containing the number of items given for
+  each prediction. This can be obtained from the evaluation scheme `es`
+  using `getData(es, "given")`.
 
 - goodRating:
 
@@ -53,9 +57,10 @@ calcPredictionAccuracy(x, data, byUser = FALSE,
   `goodRating` is used as the threshold for determining what rating in
   `data` is considered a good rating.
 
-- ...:
+## Value
 
-  further arguments.
+Returns a vector with the appropriate measures averaged over all users.
+For `byUser=TRUE`, a matrix with a row for each user is returned.
 
 ## Details
 
@@ -63,34 +68,33 @@ The function calculates the accuracy of predictions compared to the
 observed true ratings (`data`) averaged over the users. Use
 `byUser = TRUE` to get the results for each user.
 
-If both, the predictions are numeric ratings (i.e. a
-"realRatingMatrix"), then the error measures RMSE, MSE and MAE are
-calculated.
+If the predictions are numeric ratings (i.e., a "realRatingMatrix"), the
+error measures RMSE, MSE, and MAE are calculated.
 
-If the predictions are a "topNList", then the entries of the confusion
-matrix (true positives TP, false positives FP, false negatives FN and
-true negatives TN) and binary classification measures like precision,
-recall, TPR and FPR are calculated. If data is a "realRatingMatrix",
-then `goodRating` has to be specified to identify items that should be
-recommended (i.e., have a rating of goodRating or more). Note that you
-need to specify the number of items given to the recommender to create
-predictions. The number of predictions by user (N) is the total number
-of items in the data minus the number of given items. The number of TP
-is limited by the size of the top-N list. Also, since the counts for TP,
-FP, FN and TN are averaged over the users (unless `byUser = TRUE` is
-used), they will not be whole numbers.
+If the predictions are a "topNList", the confusion matrix entries (true
+positives TP, false positives FP, false negatives FN, and true negatives
+TN) and binary classification measures such as precision, recall, TPR,
+and FPR are calculated. If the data is a "realRatingMatrix", then
+`goodRating` must be specified to identify items that should be
+recommended (i.e., those with ratings at or above this threshold). Note
+that you need to specify the number of items given to the recommender to
+create predictions. The number of predictions by user (N) is the total
+number of items in the data minus the number of given items. The number
+of TP is limited by the size of the top-N list. Also, since the counts
+for TP, FP, FN and TN are averaged over the users (unless
+`byUser = TRUE` is used), they will not be whole numbers.
 
-If the ratings are a "topNList" and the observed data is a
-"realRatingMatrix" then `goodRating` is used to determine what rating in
-`data` is considered a good rating for calculating binary classification
-measures. This means that an item in the topNList is considered a true
-positive if it has a rating of `goodRating` or better in the observed
-data.
+If the predictions are a "topNList" and the observed data is a
+"realRatingMatrix", `goodRating` determines which ratings in `data`
+count as good for the binary classification measures. An item in the
+top-N list counts as a true positive if its observed rating is at least
+`goodRating`.
 
-## Value
+## References
 
-Returns a vector with the appropriate measures averaged over all users.
-For `byUser=TRUE`, a matrix with a row for each user is returned.
+Asela Gunawardana and Guy Shani (2009). A Survey of Accuracy Evaluation
+Metrics of Recommendation Tasks, Journal of Machine Learning Research
+10, 2935-2962.
 
 ## See also
 
@@ -98,11 +102,14 @@ For `byUser=TRUE`, a matrix with a row for each user is returned.
 [`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
 [`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md).
 
-## References
-
-Asela Gunawardana and Guy Shani (2009). A Survey of Accuracy Evaluation
-Metrics of Recommendation Tasks, Journal of Machine Learning Research
-10, 2935-2962.
+Other evaluation:
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
 
 ## Examples
 

@@ -48,16 +48,6 @@ funkSVD(x, k = 10, gamma = 0.015, lambda = 0.001,
 
   show progress.
 
-## Details
-
-Funk SVD decomposes a matrix (with missing values) into two components
-\\U\\ and \\V\\. The singular values are folded into these matrices. The
-approximation for the original matrix can be obtained by \\R = UV'\\.
-
-This function `predict` in this implementation folds in new data rows by
-estimating the \\u\\ vectors using gradient descend and then calculating
-the reconstructed complete matrix r for these users via \\r = uV'\\.
-
 ## Value
 
 An object of class `"funkSVD"` with components
@@ -74,15 +64,31 @@ An object of class `"funkSVD"` with components
 
   a list with parameter values.
 
+## Details
+
+Funk SVD decomposes a matrix (with missing values) into two components
+\\U\\ and \\V\\. The singular values are folded into these matrices. The
+approximation for the original matrix can be obtained by \\R = UV'\\.
+
+The `predict` method in this implementation folds in new data rows by
+estimating the \\u\\ vectors using gradient descent and then calculating
+the reconstructed complete rating matrix for these users via \\r =
+uV'\\.
+
+## Note
+
+The code is based on the implementation in package rrecsys by Ludovik
+Coba and Markus Zanker.
+
 ## References
 
 Y. Koren, R. Bell, and C. Volinsky. Matrix Factorization Techniques for
 Recommender Systems, IEEE Computer, pp. 42-49, August 2009.
 
-## Note
+## See also
 
-The code is based on the implmentation in package rrecsys by Ludovik
-Coba and Markus Zanker.
+Other internal:
+[`internal`](http://michael.hahsler.net/recommenderlab/reference/internal.md)
 
 ## Examples
 

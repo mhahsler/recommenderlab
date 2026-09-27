@@ -25,24 +25,6 @@ The following R packages use `recommenderlab`:
 [recommenderlabJester](https://CRAN.R-project.org/package=recommenderlabJester),
 [RMOA](https://CRAN.R-project.org/package=RMOA)
 
-To cite package ‘recommenderlab’ in publications use:
-
-> Hahsler M (2022). “recommenderlab: An R Framework for Developing and
-> Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
-> <doi:10.48550/ARXIV.2205.12371>
-> <https://doi.org/10.48550/ARXIV.2205.12371>.
-
-``` R
-@Misc{,
-  title = {recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms},
-  author = {Michael Hahsler},
-  year = {2022},
-  doi = {10.48550/ARXIV.2205.12371},
-  howpublished = {arXiv:2205.12371 [cs.IR]},
-  month = {May},
-}
-```
-
 ## Supported algorithms
 
 ### Recommender algorithm
@@ -194,6 +176,26 @@ A simple Shiny App running recommenderlab can be found at
 <https://mhahsler-apps.shinyapps.io/Jester/> ([source
 code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
 
+## Citation request
+
+To cite package ‘recommenderlab’ in publications use:
+
+> Hahsler M (2022). “recommenderlab: An R Framework for Developing and
+> Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
+> <doi:10.48550/ARXIV.2205.12371>
+> <https://doi.org/10.48550/ARXIV.2205.12371>.
+
+``` R
+@Misc{,
+  title = {recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms},
+  author = {Michael Hahsler},
+  year = {2022},
+  doi = {10.48550/ARXIV.2205.12371},
+  howpublished = {arXiv:2205.12371 [cs.IR]},
+  month = {May},
+}
+```
+
 ## References
 
 - Michael Hahsler (2022) recommenderlab: An R framework for developing
@@ -209,91 +211,11 @@ code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
 
 # Package index
 
-## All functions
+## Rating Data
 
-- [`HybridRecommender()`](http://michael.hahsler.net/recommenderlab/reference/HybridRecommender.md)
-  : Create a Hybrid Recommender
-- [`Jester5k`](http://michael.hahsler.net/recommenderlab/reference/Jester5k.md)
-  : Jester dataset (5k sample)
-- [`MSWeb`](http://michael.hahsler.net/recommenderlab/reference/MSWeb.md)
-  : Anonymous web data from www.microsoft.com
-- [`MovieLense`](http://michael.hahsler.net/recommenderlab/reference/MovieLense.md)
-  : MovieLense Dataset (100k)
-- [`Recommender-class`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
-  [`show,Recommender-method`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
-  : Class "Recommender": A Recommender Model
-- [`Recommender()`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
-  : Create a Recommender Model
-- [`binaryRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,matrix,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,itemMatrix,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,data.frame,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,matrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,dgTMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,ngCMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,dgCMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,itemMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  [`coerce,binaryRatingMatrix,list-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
-  : Class "binaryRatingMatrix": A Binary Rating Matrix
-- [`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md)
-  : Calculate the Prediction Error for a Recommendation
-- [`dissimilarity(`*`<binaryRatingMatrix>`*`)`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
-  [`dissimilarity(`*`<realRatingMatrix>`*`)`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
-  [`similarity()`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
-  : Dissimilarity and Similarity Calculation Between Rating Data
-- [`MSE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
-  [`RMSE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
-  [`MAE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
-  [`frobenius()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
-  : Error Calculation
-- [`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md)
-  : Evaluate a Recommender Models
-- [`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
-  [`coerce,list,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
-  [`avg,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
-  [`[,evaluationResultList,ANY,missing,missing-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
-  [`show,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
-  : Class "evaluationResultList": Results of the Evaluation of a
-  Multiple Recommender Methods
-- [`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`confusionMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`avg`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`avg,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getConfusionMatrix`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getConfusionMatrix,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getResults,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getModel`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getModel,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getRuns`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`getRuns,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  [`show,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
-  : Class "evaluationResults": Results of the Evaluation of a Single
-  Recommender Method
-- [`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
-  [`getData`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
-  [`getData,evaluationScheme-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
-  [`show,evaluationScheme-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
-  : Class "evaluationScheme": Evaluation Scheme
-- [`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md)
-  : Creator Function for evaluationScheme
-- [`funkSVD()`](http://michael.hahsler.net/recommenderlab/reference/funkSVD.md)
-  : Funk SVD for Matrices with Missing Data
-- [`getList()`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
-  [`getData.frame()`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
-  : List and Data.frame Representation for Recommender Matrix Objects
-- [`returnRatings()`](http://michael.hahsler.net/recommenderlab/reference/internal.md)
-  [`getParameters()`](http://michael.hahsler.net/recommenderlab/reference/internal.md)
-  : Internal Utility Functions
-- [`normalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md)
-  [`denormalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md)
-  : Normalize the ratings
-- [`plot(`*`<evaluationResults>`*`)`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
-  [`plot(`*`<evaluationResultList>`*`)`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
-  : Plot Evaluation Results
-- [`predict(`*`<Recommender>`*`)`](http://michael.hahsler.net/recommenderlab/reference/predict.md)
-  : Predict Recommendations
+Defines a common class for rating data and calculates dissimilarities
+and similarities between ratings by users and items.
+
 - [`ratingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
   [`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
   [`coerce,ratingMatrix,list-method`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md)
@@ -345,10 +267,59 @@ code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
   [`getTopNLists`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
   [`getTopNLists,realRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
   : Class "realRatingMatrix": Real-valued Rating Matrix
+- [`binaryRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,matrix,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,itemMatrix,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,data.frame,binaryRatingMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,matrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,dgTMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,ngCMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,dgCMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,itemMatrix-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  [`coerce,binaryRatingMatrix,list-method`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md)
+  : Class "binaryRatingMatrix": A Binary Rating Matrix
+- [`dissimilarity(`*`<binaryRatingMatrix>`*`)`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
+  [`dissimilarity(`*`<realRatingMatrix>`*`)`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
+  [`similarity()`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
+  : Dissimilarity and Similarity Calculation Between Rating Data
+
+## Data Preparation
+
+Normalizes ratings in real rating matrices and creates list, data frame,
+and sparse matrix representations.
+
+- [`normalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md)
+  [`denormalize()`](http://michael.hahsler.net/recommenderlab/reference/normalize.md)
+  : Normalize the ratings
+- [`getList()`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
+  [`getData.frame()`](http://michael.hahsler.net/recommenderlab/reference/getList.md)
+  : List and Data.frame Representation for Recommender Matrix Objects
 - [`dropNA()`](http://michael.hahsler.net/recommenderlab/reference/sparseNAMatrix.md)
   [`dropNA2matrix()`](http://michael.hahsler.net/recommenderlab/reference/sparseNAMatrix.md)
   [`dropNAis.na()`](http://michael.hahsler.net/recommenderlab/reference/sparseNAMatrix.md)
   : Sparse Matrix Representation With NAs Not Explicitly Stored
+
+## Recommender Models
+
+Learns a recommender model from given data and creates and combines
+recommendations using recommender algorithms.
+
+- [`Recommender()`](http://michael.hahsler.net/recommenderlab/reference/Recommender.md)
+  : Create a Recommender Model
+- [`HybridRecommender()`](http://michael.hahsler.net/recommenderlab/reference/HybridRecommender.md)
+  : Create a Hybrid Recommender
+- [`Recommender-class`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
+  [`show,Recommender-method`](http://michael.hahsler.net/recommenderlab/reference/Recommender-class.md)
+  : Class "Recommender": A Recommender Model
+
+## Recommendations
+
+Creates recommendations using a recommender model and data about new
+users; recommendations can be represented as a Top-N list.
+
+- [`predict(`*`<Recommender>`*`)`](http://michael.hahsler.net/recommenderlab/reference/predict.md)
+  : Predict Recommendations
 - [`topNList-class`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md)
   [`topNList`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md)
   [`bestN`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md)
@@ -368,3 +339,78 @@ code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
   [`c,topNList-method`](http://michael.hahsler.net/recommenderlab/reference/topNList-class.md)
   : Class "topNList": Top-N List
 
+## Evaluation
+
+Creates evaluation schemes from data sets, evaluates recommender models,
+and calculates prediction accuracy and evaluation metrics.
+
+- [`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md)
+  : Creator Function for evaluationScheme
+- [`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md)
+  : Evaluate a Recommender Models
+- [`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md)
+  : Calculate the Prediction Error for a Recommendation
+- [`MSE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
+  [`RMSE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
+  [`MAE()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
+  [`frobenius()`](http://michael.hahsler.net/recommenderlab/reference/error.md)
+  : Error Calculation
+- [`plot(`*`<evaluationResults>`*`)`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
+  [`plot(`*`<evaluationResultList>`*`)`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
+  : Plot Evaluation Results
+- [`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
+  [`getData`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
+  [`getData,evaluationScheme-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
+  [`show,evaluationScheme-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md)
+  : Class "evaluationScheme": Evaluation Scheme
+- [`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`confusionMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`avg`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`avg,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getConfusionMatrix`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getConfusionMatrix,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getResults`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getResults,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getModel`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getModel,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getRuns`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`getRuns,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  [`show,evaluationResults-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md)
+  : Class "evaluationResults": Results of the Evaluation of a Single
+  Recommender Method
+- [`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
+  [`coerce,list,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
+  [`avg,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
+  [`[,evaluationResultList,ANY,missing,missing-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
+  [`show,evaluationResultList-method`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md)
+  : Class "evaluationResultList": Results from Evaluating Multiple
+  Recommender Methods
+
+## Datasets
+
+Rating data collected by the Jester Online Joke Recommender System,
+MovieLens, and the Microsoft web site.
+
+- [`Jester5k`](http://michael.hahsler.net/recommenderlab/reference/Jester5k.md)
+  : Jester dataset (5k sample)
+- [`MSWeb`](http://michael.hahsler.net/recommenderlab/reference/MSWeb.md)
+  : Anonymous web data from www.microsoft.com
+- [`MovieLense`](http://michael.hahsler.net/recommenderlab/reference/MovieLense.md)
+  : MovieLense Dataset (100k)
+
+## Internal Utilities
+
+Utility functions used internally by recommender algorithms.
+
+- [`funkSVD()`](http://michael.hahsler.net/recommenderlab/reference/funkSVD.md)
+  : Funk SVD for Matrices with Missing Data
+- [`returnRatings()`](http://michael.hahsler.net/recommenderlab/reference/internal.md)
+  [`getParameters()`](http://michael.hahsler.net/recommenderlab/reference/internal.md)
+  : Internal Utility Functions
+
+# Articles
+
+### All vignettes
+
+- [Getting started with
+  recommenderlab](http://michael.hahsler.net/recommenderlab/articles/recommenderlab.md):

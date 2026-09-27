@@ -55,9 +55,15 @@ similarity(x, y = NULL, method = NULL, args = NULL, which = "users",
 
   further arguments.
 
+## Value
+
+returns an object of class `"dist"`, `"simil"` or an appropriate object
+(e.g., a matrix with class `"crossdist"` o `"crosssimil"`) to represent
+a cross-(dis)similarity.
+
 ## Details
 
-Most dissimlarites and similarities are calculated using the proxy
+Most dissimilarities and similarities are calculated using the proxy
 package. Similarities are typically converted into dissimilarities using
 \\s = 1 / (1 + d)\\ or \\s = 1 - d\\ (used for Jaccard, Cosine and
 Pearson correlation) depending on the measure.
@@ -76,17 +82,16 @@ predict ratings, there need to be additional ratings in argument `y`.
 calculate similarities. If `min_matching` or `min_predictive` fails,
 then `NA` is reported instead of the calculated similarity.
 
-## Value
-
-returns an object of class `"dist"`, `"simil"` or an appropriate object
-(e.g., a matrix with class `"crossdist"` o `"crosssimil"`) to represent
-a cross-(dis)similarity.
-
 ## See also
 
 [`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md),
 [`dissimilarity`](https://rdrr.io/pkg/arules/man/dissimilarity.html) in
 arules, and `dist` in proxy.
+
+Other rating data:
+[`binaryRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
+[`ratingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md),
+[`realRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
 
 ## Examples
 

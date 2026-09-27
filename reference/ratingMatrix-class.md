@@ -2,6 +2,25 @@
 
 Defines a common class for rating data.
 
+## See also
+
+See implementing classes
+[`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
+and
+[`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md).
+See
+[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
+[`getData.frame`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
+[`similarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md),
+[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
+and
+[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md).
+
+Other rating data:
+[`binaryRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md),
+[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md),
+[`realRatingMatrix-class`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
+
 ## Objects from the Class
 
 A virtual Class: No objects may be created from it.
@@ -11,7 +30,7 @@ A virtual Class: No objects may be created from it.
 - \[:
 
   `signature(x = "ratingMatrix", i = "ANY", j = "ANY", drop = "ANY")`:
-  subset the rating matrix (`drop` is ignorred).
+  subset the rating matrix (`drop` is ignored).
 
 - coerce:
 
@@ -64,7 +83,7 @@ A virtual Class: No objects may be created from it.
 - getRatingMatrix:
 
   `signature(x = "ratingMatrix")`: returns the ratings as a sparse
-  matrix. The format is different for binary and real rating matices.
+  matrix. The format differs between binary and real rating matrices.
 
 - hasRating:
 
@@ -86,17 +105,3 @@ A virtual Class: No objects may be created from it.
 - show:
 
   `signature(object = "ratingMatrix")`
-
-## See also
-
-See implementing classes
-[`realRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/realRatingMatrix-class.md)
-and
-[`binaryRatingMatrix`](http://michael.hahsler.net/recommenderlab/reference/binaryRatingMatrix-class.md).
-See
-[`getList`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
-[`getData.frame`](http://michael.hahsler.net/recommenderlab/reference/getList.md),
-[`similarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md),
-[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md)
-and
-[`dissimilarity`](http://michael.hahsler.net/recommenderlab/reference/dissimilarity.md).

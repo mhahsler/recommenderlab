@@ -27,13 +27,24 @@ frobenius(true, predicted, na.rm = TRUE)
 
   ignore missing values.
 
+## Value
+
+The error value.
+
 ## Details
 
 Frobenius norm requires matrices.
 
-## Value
+## See also
 
-The error value.
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme()`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
 
 ## Examples
 

@@ -46,12 +46,16 @@ evaluationScheme(data, method="split",
   numeric; threshold at which ratings are considered good for
   evaluation. E.g., with `goodRating=3` all items with actual user
   rating of greater or equal 3 are considered positives in the
-  evaluation process. Note that this argument is only used if the
-  ratingMatrix is a of subclass realRatingMatrix!
+  evaluation process. Note that this argument is only used when the
+  rating matrix is a subclass of realRatingMatrix.
 
 - ...:
 
   further arguments.
+
+## Value
+
+Returns an object of class `"evaluationScheme"`.
 
 ## Details
 
@@ -82,10 +86,6 @@ Given x protocol, while negative values produce a All-but-x protocol.
 If a user does not have enough ratings to satisfy `given`, then the user
 is dropped from the evaluation with a warning.
 
-## Value
-
-Returns an object of class `"evaluationScheme"`.
-
 ## References
 
 Kohavi, Ron (1995). "A study of cross-validation and bootstrap for
@@ -103,6 +103,15 @@ Artificial Intelligence. Proceedings of the Fourteenth Conference, pp.
 [`getData`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
 [`evaluationScheme`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
 [`ratingMatrix`](http://michael.hahsler.net/recommenderlab/reference/ratingMatrix-class.md).
+
+Other evaluation:
+[`calcPredictionAccuracy()`](http://michael.hahsler.net/recommenderlab/reference/calcPredictionAccuracy.md),
+[`error`](http://michael.hahsler.net/recommenderlab/reference/error.md),
+[`evaluate()`](http://michael.hahsler.net/recommenderlab/reference/evaluate.md),
+[`evaluationResultList-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResultList-class.md),
+[`evaluationResults-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationResults-class.md),
+[`evaluationScheme-class`](http://michael.hahsler.net/recommenderlab/reference/evaluationScheme-class.md),
+[`plot()`](http://michael.hahsler.net/recommenderlab/reference/plot.md)
 
 ## Examples
 

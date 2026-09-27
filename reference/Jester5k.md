@@ -31,6 +31,12 @@ Ken Goldberg, Theresa Roeder, Dhruv Gupta, and Chris Perkins.
 "Eigentaste: A Constant Time Collaborative Filtering Algorithm."
 Information Retrieval, 4(2), 133-151. July 2001.
 
+## See also
+
+Other datasets:
+[`MSWeb`](http://michael.hahsler.net/recommenderlab/reference/MSWeb.md),
+[`MovieLense`](http://michael.hahsler.net/recommenderlab/reference/MovieLense.md)
+
 ## Examples
 
 ``` r

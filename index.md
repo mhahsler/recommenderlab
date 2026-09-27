@@ -25,24 +25,6 @@ The following R packages use `recommenderlab`:
 [recommenderlabJester](https://CRAN.R-project.org/package=recommenderlabJester),
 [RMOA](https://CRAN.R-project.org/package=RMOA)
 
-To cite package ‘recommenderlab’ in publications use:
-
-> Hahsler M (2022). “recommenderlab: An R Framework for Developing and
-> Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
-> <doi:10.48550/ARXIV.2205.12371>
-> <https://doi.org/10.48550/ARXIV.2205.12371>.
-
-``` R
-@Misc{,
-  title = {recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms},
-  author = {Michael Hahsler},
-  year = {2022},
-  doi = {10.48550/ARXIV.2205.12371},
-  howpublished = {arXiv:2205.12371 [cs.IR]},
-  month = {May},
-}
-```
-
 ## Supported algorithms
 
 ### Recommender algorithm
@@ -193,6 +175,26 @@ plot(results, annotate = 2, legend = "topleft")
 A simple Shiny App running recommenderlab can be found at
 <https://mhahsler-apps.shinyapps.io/Jester/> ([source
 code](https://github.com/mhahsler/recommenderlab/tree/master/Work/apps)).
+
+## Citation request
+
+To cite package ‘recommenderlab’ in publications use:
+
+> Hahsler M (2022). “recommenderlab: An R Framework for Developing and
+> Testing Recommendation Algorithms.” arXiv:2205.12371 \[cs.IR\].
+> <doi:10.48550/ARXIV.2205.12371>
+> <https://doi.org/10.48550/ARXIV.2205.12371>.
+
+``` R
+@Misc{,
+  title = {recommenderlab: An R Framework for Developing and Testing Recommendation Algorithms},
+  author = {Michael Hahsler},
+  year = {2022},
+  doi = {10.48550/ARXIV.2205.12371},
+  howpublished = {arXiv:2205.12371 [cs.IR]},
+  month = {May},
+}
+```
 
 ## References
 
