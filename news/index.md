@@ -3,6 +3,10 @@
 ## Changes in version 1.0.7-1 (unreleased)
 
 - Fixed mailto in vignette.
+- Added getting-started guide.
+- Fixed spelling and grammar in package.
+- Switched to testthat edition 3 and added tests for rating matrices,
+  recommendations, prediction accuracy, and evaluation.
 
 ## Changes in version 1.0.7 (05/29/2025)
 

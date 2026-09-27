@@ -137,16 +137,16 @@ Note: Also the confusion matrix counts are averaged over users and therefore not
 <span class="r-in"><span><span class="co">## run evaluation</span></span></span>
 <span class="r-in"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu">evaluate</span><span class="op">(</span><span class="va">es</span>, <span class="st">"POPULAR"</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> POPULAR run fold/sample [model time/prediction time]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0.001sec/0.01sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.002sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.002sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0.001sec/0.004sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0sec/0.003sec] </span>
 <span class="r-in"><span><span class="va">ev</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Evaluation results for 10 folds/samples using method ‘POPULAR’.</span>
 <span class="r-in"><span></span></span>
@@ -248,38 +248,38 @@ Note: Also the confusion matrix counts are averaged over users and therefore not
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">evlist</span> <span class="op">&lt;-</span> <span class="fu">evaluate</span><span class="op">(</span><span class="va">es</span>, <span class="va">algorithms</span>, n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RANDOM run fold/sample [model time/prediction time]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.002sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.001sec/0.002sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0sec/0.003sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.002sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.001sec/0.002sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0sec/0.003sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0sec/0.003sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0sec/0.003sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.002sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.001sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.001sec/0.001sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.001sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0sec/0.002sec] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> POPULAR run fold/sample [model time/prediction time]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.002sec/0.003sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.004sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0.001sec/0.004sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.001sec/0.003sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.002sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0.001sec/0.002sec] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HYBRID run fold/sample [model time/prediction time]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.002sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.003sec/0.022sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.002sec/0.01sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 2  [0.001sec/0.01sec] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 3  [0.002sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.002sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.003sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.002sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.002sec/0.021sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.002sec/0.015sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.003sec/0.014sec] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0.002sec/0.016sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 4  [0.002sec/0.01sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 5  [0.002sec/0.009sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 6  [0.002sec/0.009sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 7  [0.002sec/0.01sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 8  [0.001sec/0.016sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 9  [0.001sec/0.01sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 10  [0.001sec/0.01sec] </span>
 <span class="r-in"><span><span class="va">evlist</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of evaluation results for 3 recommenders:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -335,7 +335,7 @@ Note: Also the confusion matrix counts are averaged over users and therefore not
 <span class="r-in"><span><span class="co">## (results in RMSE, MSE and MAE)</span></span></span>
 <span class="r-in"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu">evaluate</span><span class="op">(</span><span class="va">es</span>, <span class="st">"RANDOM"</span>, type<span class="op">=</span><span class="st">"ratings"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RANDOM run fold/sample [model time/prediction time]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.001sec/0.001sec] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 1  [0.005sec/0.001sec] </span>
 <span class="r-in"><span><span class="fu"><a href="evaluationResults-class.html">getResults</a></span><span class="op">(</span><span class="va">ev</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          RMSE      MSE      MAE</span>
