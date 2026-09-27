@@ -7,6 +7,10 @@
 - Fixed spelling and grammar in package.
 - Switched to testthat edition 3 and added tests for rating matrices,
   recommendations, prediction accuracy, and evaluation.
+- Fixed real rating matrix evaluation splits so each user has the
+  requested number of known and withheld ratings.
+- Fixed cross-validation fold assignment when the number of users is not
+  divisible by the number of folds.
 
 ## Changes in version 1.0.7 (05/29/2025)
 

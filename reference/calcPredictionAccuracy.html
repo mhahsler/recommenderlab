@@ -149,21 +149,21 @@ Recommendation Tasks, Journal of Machine Learning Research 10, 2935-2962.</p>
 <span class="r-in"><span><span class="co">## create predictions for the test data using known ratings (see given above)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="predict.html">predict</a></span><span class="op">(</span><span class="va">r</span>, <span class="fu"><a href="evaluationScheme-class.html">getData</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">"known"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"ratings"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 x 100 rating matrix of class ‘realRatingMatrix’ with 4192 ratings.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 x 100 rating matrix of class ‘realRatingMatrix’ with 4241 ratings.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## compute error metrics averaged per user and then averaged over all</span></span></span>
 <span class="r-in"><span><span class="co">## recommendations</span></span></span>
 <span class="r-in"><span><span class="fu">calcPredictionAccuracy</span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="evaluationScheme-class.html">getData</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">"unknown"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      RMSE       MSE       MAE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4.589385 21.062454  3.626658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4.591210 21.079212  3.620889 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">calcPredictionAccuracy</span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="evaluationScheme-class.html">getData</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">"unknown"</span><span class="op">)</span>, byUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            RMSE      MSE      MAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u15241 3.292553 10.84091 2.472732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u3000  5.716413 32.67738 4.880794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u16962 4.957826 24.58004 4.013013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u9595  6.359003 40.43692 5.542118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u21612 4.917760 24.18436 4.186380</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u15987 4.194666 17.59522 3.429465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u15241 3.640926 13.25634 2.958757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u3000  6.326054 40.01896 5.433711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u16962 4.855735 23.57816 3.891754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u9595  5.994908 35.93892 5.175324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u21612 5.384556 28.99344 4.671609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u15987 4.889720 23.90936 3.849831</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## evaluate topNLists instead (you need to specify given and goodRating!)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="predict.html">predict</a></span><span class="op">(</span><span class="va">r</span>, <span class="fu"><a href="evaluationScheme-class.html">getData</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">"known"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"topNList"</span><span class="op">)</span></span></span>
@@ -171,9 +171,9 @@ Recommendation Tasks, Journal of Machine Learning Research 10, 2935-2962.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Recommendations as ‘topNList’ with n = 10 for 50 users. </span>
 <span class="r-in"><span><span class="fu">calcPredictionAccuracy</span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="evaluationScheme-class.html">getData</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">"unknown"</span><span class="op">)</span>, given <span class="op">=</span> <span class="fl">15</span>, goodRating <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         TP         FP         FN         TN          N  precision     recall </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2.9000000  7.1000000 11.1400000 63.8600000 85.0000000  0.2900000  0.2383243 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.4800000  7.5200000 11.7400000 63.2600000 85.0000000  0.2480000  0.2132663 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        TPR        FPR </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2383243  0.0982760 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2132663  0.1035416 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## evaluate a binary recommender</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">MSWeb</span><span class="op">)</span></span></span>

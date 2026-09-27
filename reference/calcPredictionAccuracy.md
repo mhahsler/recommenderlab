@@ -133,21 +133,21 @@ r <- Recommender(getData(e, "train"), "UBCF")
 ## create predictions for the test data using known ratings (see given above)
 p <- predict(r, getData(e, "known"), type = "ratings")
 p
-#> 50 x 100 rating matrix of class ‘realRatingMatrix’ with 4192 ratings.
+#> 50 x 100 rating matrix of class ‘realRatingMatrix’ with 4241 ratings.
 
 ## compute error metrics averaged per user and then averaged over all
 ## recommendations
 calcPredictionAccuracy(p, getData(e, "unknown"))
 #>      RMSE       MSE       MAE 
-#>  4.589385 21.062454  3.626658 
+#>  4.591210 21.079212  3.620889 
 head(calcPredictionAccuracy(p, getData(e, "unknown"), byUser = TRUE))
 #>            RMSE      MSE      MAE
-#> u15241 3.292553 10.84091 2.472732
-#> u3000  5.716413 32.67738 4.880794
-#> u16962 4.957826 24.58004 4.013013
-#> u9595  6.359003 40.43692 5.542118
-#> u21612 4.917760 24.18436 4.186380
-#> u15987 4.194666 17.59522 3.429465
+#> u15241 3.640926 13.25634 2.958757
+#> u3000  6.326054 40.01896 5.433711
+#> u16962 4.855735 23.57816 3.891754
+#> u9595  5.994908 35.93892 5.175324
+#> u21612 5.384556 28.99344 4.671609
+#> u15987 4.889720 23.90936 3.849831
 
 ## evaluate topNLists instead (you need to specify given and goodRating!)
 p <- predict(r, getData(e, "known"), type = "topNList")
@@ -155,9 +155,9 @@ p
 #> Recommendations as ‘topNList’ with n = 10 for 50 users. 
 calcPredictionAccuracy(p, getData(e, "unknown"), given = 15, goodRating = 5)
 #>         TP         FP         FN         TN          N  precision     recall 
-#>  2.9000000  7.1000000 11.1400000 63.8600000 85.0000000  0.2900000  0.2383243 
+#>  2.4800000  7.5200000 11.7400000 63.2600000 85.0000000  0.2480000  0.2132663 
 #>        TPR        FPR 
-#>  0.2383243  0.0982760 
+#>  0.2132663  0.1035416 
 
 ## evaluate a binary recommender
 data(MSWeb)

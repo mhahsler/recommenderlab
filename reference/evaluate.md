@@ -112,16 +112,16 @@ es <- evaluationScheme(MSWeb10, method="cross-validation",
 ## run evaluation
 ev <- evaluate(es, "POPULAR", n=c(1,3,5,10))
 #> POPULAR run fold/sample [model time/prediction time]
-#>   1  [0.001sec/0.003sec] 
-#>   2  [0sec/0.003sec] 
+#>   1  [0.001sec/0.002sec] 
+#>   2  [0.001sec/0.003sec] 
 #>   3  [0.001sec/0.002sec] 
-#>   4  [0.001sec/0.003sec] 
+#>   4  [0.001sec/0.002sec] 
 #>   5  [0.001sec/0.003sec] 
 #>   6  [0.001sec/0.002sec] 
-#>   7  [0.001sec/0.002sec] 
+#>   7  [0.001sec/0.003sec] 
 #>   8  [0.001sec/0.002sec] 
-#>   9  [0.001sec/0.003sec] 
-#>   10  [0sec/0.003sec] 
+#>   9  [0.001sec/0.002sec] 
+#>   10  [0.001sec/0.002sec] 
 ev
 #> Evaluation results for 10 folds/samples using method ‘POPULAR’.
 
@@ -223,38 +223,38 @@ algorithms <- list(
 
 evlist <- evaluate(es, algorithms, n=c(1,3,5,10))
 #> RANDOM run fold/sample [model time/prediction time]
-#>   1  [0sec/0.002sec] 
-#>   2  [0sec/0.002sec] 
-#>   3  [0sec/0.002sec] 
+#>   1  [0.001sec/0.001sec] 
+#>   2  [0.001sec/0.001sec] 
+#>   3  [0.001sec/0.002sec] 
 #>   4  [0.001sec/0.001sec] 
 #>   5  [0sec/0.002sec] 
 #>   6  [0sec/0.002sec] 
-#>   7  [0.001sec/0.002sec] 
+#>   7  [0.001sec/0.001sec] 
 #>   8  [0.001sec/0.001sec] 
 #>   9  [0.001sec/0.001sec] 
-#>   10  [0sec/0.002sec] 
+#>   10  [0.001sec/0.001sec] 
 #> POPULAR run fold/sample [model time/prediction time]
 #>   1  [0.001sec/0.003sec] 
-#>   2  [0.001sec/0.003sec] 
-#>   3  [0.001sec/0.003sec] 
-#>   4  [0.001sec/0.003sec] 
+#>   2  [0.001sec/0.002sec] 
+#>   3  [0.001sec/0.002sec] 
+#>   4  [0.001sec/0.002sec] 
 #>   5  [0.001sec/0.002sec] 
-#>   6  [0.001sec/0.002sec] 
+#>   6  [0sec/0.003sec] 
 #>   7  [0.001sec/0.003sec] 
-#>   8  [0.001sec/0.003sec] 
-#>   9  [0.001sec/0.002sec] 
-#>   10  [0.001sec/0.002sec] 
+#>   8  [0sec/0.003sec] 
+#>   9  [0sec/0.003sec] 
+#>   10  [0sec/0.003sec] 
 #> HYBRID run fold/sample [model time/prediction time]
-#>   1  [0.002sec/0.01sec] 
-#>   2  [0.001sec/0.01sec] 
-#>   3  [0.002sec/0.015sec] 
-#>   4  [0.002sec/0.01sec] 
+#>   1  [0.001sec/0.009sec] 
+#>   2  [0.001sec/0.009sec] 
+#>   3  [0.002sec/0.008sec] 
+#>   4  [0.002sec/0.009sec] 
 #>   5  [0.002sec/0.009sec] 
-#>   6  [0.002sec/0.009sec] 
-#>   7  [0.002sec/0.01sec] 
-#>   8  [0.001sec/0.016sec] 
-#>   9  [0.001sec/0.01sec] 
-#>   10  [0.001sec/0.01sec] 
+#>   6  [0.002sec/0.014sec] 
+#>   7  [0.002sec/0.008sec] 
+#>   8  [0.001sec/0.009sec] 
+#>   9  [0.001sec/0.009sec] 
+#>   10  [0.001sec/0.009sec] 
 evlist
 #> List of evaluation results for 3 recommenders:
 #> 
@@ -299,21 +299,21 @@ es <- evaluationScheme(Jester5k[1:100], method="split",
 ## (results in TPR/FPR and precision/recall)
 ev <- evaluate(es, "RANDOM", type="topNList", n=10)
 #> RANDOM run fold/sample [model time/prediction time]
-#>   1  [0.001sec/0.002sec] 
+#>   1  [0sec/0.002sec] 
 getResults(ev)
 #> [[1]]
-#>       TP  FP   FN   TN    N precision   recall      TPR       FPR  n
-#> [1,] 2.2 7.8 17.1 62.8 89.9      0.22 0.101615 0.101615 0.1113285 10
+#>       TP  FP   FN   TN  N precision    recall       TPR       FPR  n
+#> [1,] 2.4 7.6 17.5 62.5 90      0.24 0.1090136 0.1090136 0.1080789 10
 #> 
 
 ## predict missing ratings
 ## (results in RMSE, MSE and MAE)
 ev <- evaluate(es, "RANDOM", type="ratings")
 #> RANDOM run fold/sample [model time/prediction time]
-#>   1  [0.005sec/0.001sec] 
+#>   1  [0sec/0.001sec] 
 getResults(ev)
 #> [[1]]
-#>          RMSE      MSE      MAE
-#> [1,] 7.281647 53.02238 5.967083
+#>         RMSE      MSE      MAE
+#> [1,] 7.25472 52.63096 5.903252
 #> 
 ```
