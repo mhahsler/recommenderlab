@@ -3,8 +3,6 @@ library("recommenderlab")
 
 set.seed(1234)
 
-context("dissimilarity")
-
 # check structure
 db <- matrix(
   as.numeric(sample(
@@ -22,26 +20,26 @@ db <- matrix(
 x <- as(db, "realRatingMatrix")
 
 s <- similarity(x)
-expect_is(s, "dist")
+expect_s3_class(s, "dist")
 expect_equal(attr(s, "Size"), nrow(x))
 
 s <- similarity(x, x)
-expect_is(s, "crossdist")
+expect_s3_class(s, "crossdist")
 expect_equal(dim(s), c(nrow(x), nrow(x)))
 
 # which = "items"
 s <- similarity(x, which = "items")
-expect_is(s, "dist")
+expect_s3_class(s, "dist")
 expect_equal(attr(s, "Size"), ncol(x))
 
 s <- similarity(x, x, which = "items")
-expect_is(s, "crossdist")
+expect_s3_class(s, "crossdist")
 expect_equal(dim(s), c(ncol(x), ncol(x)))
 
 ## min_matching, min_predictive
 s_cd <- similarity(x, x, min_matching = 2, min_predictive = 1)
 s_d <- similarity(x, min_matching = 2, min_predictive = 1)
-expect_equivalent(as.vector(s_cd[lower.tri(s_cd)]), as.vector(s_d))
+expect_equal(as.vector(s_cd[lower.tri(s_cd)]), as.vector(s_d), ignore_attr = TRUE)
 
 # TODO: write a test
 similarity(
@@ -166,4 +164,3 @@ expect_equal(compn(dissimilarity(
 expect_equal(compn(dissimilarity(
   rating, method = "conditional", which = "items"
 )), 0.667)
-

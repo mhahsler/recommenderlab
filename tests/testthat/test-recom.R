@@ -4,7 +4,6 @@ library("recommenderlab")
 data("MovieLense")
 
 ### test all real rating recommenders
-context("Test real rating algorithms")
 methods <- unique(sapply(
   recommenderRegistry$get_entries(dataType = "realRatingMatrix"),
   "[[",
@@ -99,7 +98,6 @@ predict(recom, test1, type = "ratings")
 predict(recom, test3, type = "ratings")
 
 ### test all binary recommenders
-context("Test binary algorithms")
 
 methods <- unique(sapply(
   recommenderRegistry$get_entries(dataType = "binaryRatingMatrix"),

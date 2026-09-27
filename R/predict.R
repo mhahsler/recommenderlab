@@ -1,5 +1,5 @@
 #' @title
-#' Predict Recommendations
+#' Calculate Recommendations
 #'
 #' @description Creates recommendations using a recommender model and data about new users.
 #' @aliases predict,Recommender-method

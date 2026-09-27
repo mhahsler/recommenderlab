@@ -3,8 +3,6 @@ library("recommenderlab")
 
 ## Evaluate top-N list for binary recommender
 
-context("Evaluate top-N list for binary recommender")
-
 data(MSWeb)
 MSWeb10 <- sample(MSWeb[rowCounts(MSWeb) > 10,], 50)
 
@@ -137,7 +135,6 @@ check_predictions(e, p, given)
 
 
 # Evaluate recommender for real-valued ratings
-context("Evaluate real valued recommenders")
 data(Jester5k)
 
 ## create 90/10 split (known/unknown) for the first 500 users in Jester5k
@@ -184,5 +181,4 @@ e <- evaluationScheme(
 m <- as(e@knownData@data + e@unknownData@data, "matrix")
 m[m == 0] <- NA
 expect_equal(as(e@data, "matrix"), m)
-
 

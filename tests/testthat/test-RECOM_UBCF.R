@@ -1,8 +1,6 @@
 library("testthat")
 library("recommenderlab")
 
-context("Test UBCF")
-
 ### Example from vignette
 db <- rbind(
   c(NA,  4,  4,  2,  1,  2, NA, NA),
@@ -25,23 +23,23 @@ r_a <- as(u_a, "realRatingMatrix")
 sim <- similarity(r_db, r_a, method = "Euclidean")
 sim_man <- 1 / (1 + dist(db, u_a))
 class(sim_man) <- c("crosssimil", "crossdist")
-expect_equivalent(sim, sim_man)
+expect_equal(sim, sim_man, ignore_attr = TRUE)
 
 ### users 1,2 and 4 are the 3 nearest neighbors!
 sim
 
 rec <- Recommender(r_db, method = "UBCF",
-  param = list(nn = 3, weighted = FALSE, normalize = NULL, method = "Euclidean"))
+  parameter = list(nn = 3, weighted = FALSE, normalize = NULL, method = "Euclidean"))
 pred <- predict(rec, r_a, type = "ratings")
 
 as(pred, "matrix")
 
-expect_equivalent(as(pred, "matrix"), c(7/2, 4, NA, NA, 7/3, NA, 2, NA))
+expect_equal(as.vector(as(pred, "matrix")), c(7/2, 4, NA, NA, 7/3, NA, 2, NA))
 
 ### use normalization
 # center
 rec <- Recommender(r_db, method = "UBCF",
-  param = list(nn = 3, weighted = FALSE, normalize = "center", method = "Euclidean"))
+  parameter = list(nn = 3, weighted = FALSE, normalize = "center", method = "Euclidean"))
 
 # neighborhood is now u1, u2, u4
 similarity(getModel(rec)$data,
@@ -54,7 +52,7 @@ as(pred, "matrix")
 
 # z-score
 rec <- Recommender(r_db, method = "UBCF",
-  param = list(nn = 3, weighted = FALSE, normalize = "z-score", method = "Euclidean"))
+  parameter = list(nn = 3, weighted = FALSE, normalize = "z-score", method = "Euclidean"))
 
 # neighborhood is now u2, u3, u4
 similarity(getModel(rec)$data,
@@ -77,7 +75,7 @@ as(pred3, "matrix")
 
 ### use default settings (weighted, normalization, and Cosine)
 rec <- Recommender(r_db, method = "UBCF",
-  param = list(nn = 3))
+  parameter = list(nn = 3))
 
 # neighborhood is now u2, u3, u4
 similarity(getModel(rec)$data,
@@ -90,7 +88,7 @@ as(pred, "matrix")
 
 ### use userID for prediction
 rec <- Recommender(r_db, method = "UBCF",
-  param = list(nn = 1, normalize = NULL, weighted = FALSE))
+  parameter = list(nn = 1, normalize = NULL, weighted = FALSE))
 
 # User 5 is the most similar
 similarity(getModel(rec)$data,
@@ -98,6 +96,5 @@ similarity(getModel(rec)$data,
 
 pred <- predict(rec, 1, type = "ratings")
 as(pred, "matrix")
-expect_equivalent(as(pred, "matrix")[is.na(as(r_db[1,], "matrix"))],
+expect_equal(as(pred, "matrix")[is.na(as(r_db[1,], "matrix"))],
   as(r_db[5,], "matrix")[is.na(as(r_db[1,], "matrix"))])
-
