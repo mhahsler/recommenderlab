@@ -164,10 +164,9 @@ setMethod("evaluationScheme", signature(data = "ratingMatrix"),
     else if (method_ind == 2) {
       train <- NA_real_
 
-      times <- as.integer(n / k)
-      fold_ids <- sample(rep(1:k, times), times * k)
+      fold_ids <- sample(rep(seq_len(k), length.out = n))
       runsTrain <- lapply(
-        1:k,
+        seq_len(k),
         FUN = function(i)
           which(fold_ids != i)
       )

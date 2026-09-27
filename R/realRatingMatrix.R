@@ -175,15 +175,18 @@ setMethod(".splitKnownUnknown", signature(data = "realRatingMatrix"),
       stop("Not enough ratings for user" ,
         paste(which(given > nitems), collapse = ", "))
 
-    ## start the split
-    trip <- t(as(data, "dgTMatrix"))
-    data_list <- split(trip@i + 1L, trip@j)
-
-    take <- unlist(lapply(seq_along(data_list), function(i) {
-      tk <- rep(FALSE, times = length(data_list[[i]]))
-      tk[sample(seq_along(tk), given[i])] <- TRUE
-      tk
-      }))
+    ## Select positions in the original triplet order. Grouping the entries
+    ## first would reorder them and assign ratings to the wrong users.
+    trip <- as(data, "dgTMatrix")
+    user_entries <- split(seq_along(trip@x),
+      factor(trip@i, levels = seq_len(nrow(data)) - 1L))
+    take <- rep(FALSE, length(trip@x))
+    for (i in seq_along(user_entries)) {
+      if (given[i] > 0L) {
+        positions <- user_entries[[i]]
+        take[positions[sample.int(length(positions), given[i])]] <- TRUE
+      }
+    }
 
     tripKnown <- trip
     tripKnown@x <- tripKnown@x[take]
@@ -197,9 +200,9 @@ setMethod(".splitKnownUnknown", signature(data = "realRatingMatrix"),
     tripUnknown@j <- tripUnknown@j[ntake]
 
     known <- new("realRatingMatrix",
-      data = as(t(tripKnown), "CsparseMatrix"))
+      data = as(tripKnown, "CsparseMatrix"))
     unknown <- new("realRatingMatrix",
-      data = as(t(tripUnknown), "CsparseMatrix"))
+      data = as(tripUnknown, "CsparseMatrix"))
 
     list(known = known,
       unknown = unknown)

@@ -81,7 +81,7 @@ test_that("evaluation schemes run a cross-validated recommendation workflow", {
   expect_s4_class(scheme, "evaluationScheme")
   given <- getData(scheme, "given", run = 1)
   expect_length(given, nrow(x) / 3)
-  expect_true(all(given > 0L))
+  expect_identical(unname(given), rep(2L, nrow(x) / 3))
   expect_identical(unname(given), unname(rowCounts(getData(scheme, "known", run = 1))))
 
   results <- evaluate(
