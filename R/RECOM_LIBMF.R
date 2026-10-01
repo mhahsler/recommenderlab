@@ -11,6 +11,8 @@
 
 
 REAL_LIBMF <- function(data, parameter = NULL) {
+  .require_recommender_package("recosystem", "LIBMF")
+
   p <- getParameters(.REAL_LIBMF_params, parameter)
 
   model <- c(list(data = data), p)
@@ -21,12 +23,14 @@ REAL_LIBMF <- function(data, parameter = NULL) {
     data = NULL,
     type = c("topNList", "ratings", "ratingMatrix"),
     ...) {
+    .require_recommender_package("recosystem", "LIBMF")
+
     dat <-
       as(rbind(as(model$data, "dgCMatrix"), as(newdata, "dgCMatrix")), "TsparseMatrix")
 
-    r <- Reco()
+    r <- recosystem::Reco()
     r$train(
-      data_memory(dat@i, dat@j, dat@x),
+      recosystem::data_memory(dat@i, dat@j, dat@x),
       opts = list(
         dim = p$dim,
         costp_l2 = p$costp_l2,
@@ -40,7 +44,7 @@ REAL_LIBMF <- function(data, parameter = NULL) {
     cols <- 1:ncol(model$data) - 1L
     i <-  rep(rows, each = length(cols))
     j <- rep(cols, times = length(rows))
-    x <- r$predict(data_memory(i, j), out_memory())
+    x <- r$predict(recosystem::data_memory(i, j), recosystem::out_memory())
 
     ratings <-
       new("realRatingMatrix", data = as(

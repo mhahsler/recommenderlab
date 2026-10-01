@@ -30,6 +30,9 @@ Learns a recommender model from given data.
 Recommender uses the registry mechanism from package \pkg{registry}
 to manage methods. This lets users easily specify and add new methods.
 The registry is called \code{recommenderRegistry}. See examples section.
+Methods \code{SVD} and \code{LIBMF} require the suggested packages
+\pkg{irlba} and \pkg{recosystem}, respectively. Install the corresponding
+package before using either method.
 }
 \examples{
 data("MSWeb")

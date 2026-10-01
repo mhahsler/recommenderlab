@@ -24,12 +24,6 @@ importFrom("arules", "predict", "nitems", "sample", "LIST",
 importMethodsFrom("arules", "sort", "summary",
   "lhs", "rhs", "quality", "quality<-", "is.subset", "interestMeasure")
 
-### truncated SVD
-importFrom("irlba", "irlba")
-
-### LIBMF
-importFrom("recosystem", "Reco", "data_memory", "out_memory")
-
 ## export functions
 export(
   "dropNA",

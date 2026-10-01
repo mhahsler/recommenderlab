@@ -25,6 +25,11 @@ for (m in methods) {
   if (m == "HYBRID")
     next
 
+  if (m == "SVD" && !requireNamespace("irlba", quietly = TRUE))
+    next
+  if (m == "LIBMF" && !requireNamespace("recosystem", quietly = TRUE))
+    next
+
   if (interactive())
     cat("Algorithm:", m)
 

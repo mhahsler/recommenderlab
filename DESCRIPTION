@@ -1,5 +1,5 @@
 Package: recommenderlab
-Version: 1.0.7-1
+Version: 1.1.0
 Date: 2025-xx-xx
 Title: Lab for Developing and Testing Recommender Algorithms
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
@@ -12,8 +12,8 @@ Description: Provides a research infrastructure to develop and evaluate
     and cross-validation. Hahsler (2022) <doi:10.48550/arXiv.2205.12371>.
 Classification/ACM: G.4, H.2.8
 Depends: R (>= 4.5.0), Matrix, arules (>= 1.7-11), proxy (>= 0.4-26)
-Imports: registry, methods, utils, stats, irlba, recosystem, matrixStats
-Suggests: testthat (>= 3.0.0), knitr, rmarkdown
+Imports: registry, methods, utils, stats, matrixStats
+Suggests: irlba, recosystem, testthat (>= 3.0.0), knitr, rmarkdown
 VignetteBuilder: knitr
 BugReports: https://github.com/mhahsler/recommenderlab/issues
 URL: https://github.com/mhahsler/recommenderlab, http://michael.hahsler.net/recommenderlab/

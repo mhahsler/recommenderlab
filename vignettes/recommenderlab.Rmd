@@ -29,6 +29,13 @@ Install the released package from CRAN, then load it in your R session:
 install.packages("recommenderlab")
 ```
 
+The SVD and LIBMF recommenders require the optional packages `irlba` and
+`recosystem`, respectively. Install them if you plan to use those methods:
+
+```{r optional-packages, eval=FALSE}
+install.packages(c("irlba", "recosystem"))
+```
+
 ```{r load-package}
 library(recommenderlab)
 ```

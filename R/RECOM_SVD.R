@@ -9,6 +9,8 @@
 
 REAL_SVD <- function(data, parameter= NULL) {
 
+  .require_recommender_package("irlba", "SVD")
+
   p <- getParameters(.REAL_SVD_param, parameter)
 
   ### row normalization?
@@ -86,5 +88,4 @@ recommenderRegistry$set_entry(
   method="SVD", dataType = "realRatingMatrix", fun=REAL_SVD,
   description="Recommender based on SVD approximation with column-mean imputation.",
   parameters = .REAL_SVD_param)
-
 

@@ -1,10 +1,15 @@
-# Changes in version 1.0.7-1 (unreleased)
+# Changes in version 1.1.0 (unreleased)
 
+* Made `irlba` and `recosystem` optional dependencies. SVD and LIBMF now give
+  an installation hint when their required package is missing.
 * Fixed mailto in vignette.
 * Added getting-started guide.
 * Fixed spelling and grammar in package.
 * Switched to testthat edition 3 and added tests for rating matrices,
   recommendations, prediction accuracy, and evaluation.
+
+## Bugfixes
+
 * Fixed real rating matrix evaluation splits so each user has the requested
   number of known and withheld ratings.
 * Fixed cross-validation fold assignment when the number of users is not
