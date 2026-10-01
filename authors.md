@@ -12,13 +12,14 @@
 Source:
 [`inst/CITATION`](https://github.com/mhahsler/recommenderlab/blob/master/inst/CITATION)
 
-Hahsler M (????). *recommenderlab: Lab for Developing and Testing
+Hahsler M (2026). *recommenderlab: Lab for Developing and Testing
 Recommender Algorithms*. R package version 1.1.0,
 <https://github.com/mhahsler/recommenderlab>.
 
     @Manual{,
       title = {recommenderlab: Lab for Developing and Testing Recommender Algorithms},
       author = {Michael Hahsler},
+      year = {2026},
       note = {R package version 1.1.0},
       url = {https://github.com/mhahsler/recommenderlab},
     }
