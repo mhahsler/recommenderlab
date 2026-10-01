@@ -1,4 +1,4 @@
-# Changes in version 1.1.0 (unreleased)
+# Changes in version 1.1.0 (2026-10-30)
 
 * Made `irlba` and `recosystem` optional dependencies. SVD and LIBMF now give
   an installation hint when their required package is missing.

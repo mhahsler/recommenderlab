@@ -148,11 +148,11 @@ usage of the available software packages vary greatly and many projects have bee
 \hline
 {\bf Software} & {\bf Description} & {\bf Language} & {\bf URL} \\
 \hline
-Apache Mahout & Machine learning library includes collaborative filtering &Java& \small\url{http://mahout.apache.org/}\\
+Apache Mahout & Machine learning library includes collaborative filtering &Java& \small\url{https://mahout.apache.org/}\\
 \hline
 Crab & Components to create recommender systems & Python & \small\url{https://github.com/muricoca/crab}\\
 \hline
-LensKit & Collaborative filtering algorithms from GroupLens Research & Python & \small\url{http://lenskit.grouplens.org/}\\
+LensKit & Collaborative filtering algorithms from GroupLens Research & Python & \small\url{https://lenskit.org/}\\
 \hline
 MyMediaLite & Recommender system algorithms. & C\#/Mono & \small\url{http://www.mymedialite.net/}\\
 \hline
@@ -160,7 +160,7 @@ MyMediaLite & Recommender system algorithms. & C\#/Mono & \small\url{http://www.
 %\hrule
 SVDFeature & Toolkit for feature-based matrix factorization& C++ & \small\url{https://www.jmlr.org/papers/v13/chen12a.html}\\
 \hline
-Vogoo PHP LIB & Collaborative filtering engine for personalizing web sites & PHP & \small\url{http://sourceforge.net/projects/vogoo/} \\
+Vogoo PHP LIB & Collaborative filtering engine for personalizing web sites & PHP & \small\url{https://sourceforge.net/projects/vogoo/} \\
 
 \hline
 \end{tabular}
