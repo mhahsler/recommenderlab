@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">recommenderlab</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.7-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,10 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Recommender uses the registry mechanism from package <span class="pkg">registry</span>
 to manage methods. This lets users easily specify and add new methods.
-The registry is called <code>recommenderRegistry</code>. See examples section.</p>
+The registry is called <code>recommenderRegistry</code>. See examples section.
+Methods <code>SVD</code> and <code>LIBMF</code> require the suggested packages
+<span class="pkg">irlba</span> and <span class="pkg">recosystem</span>, respectively. Install the corresponding
+package before using either method.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

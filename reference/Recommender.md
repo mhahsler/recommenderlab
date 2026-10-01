@@ -37,7 +37,10 @@ An object of class 'Recommender'.
 
 Recommender uses the registry mechanism from package registry to manage
 methods. This lets users easily specify and add new methods. The
-registry is called `recommenderRegistry`. See examples section.
+registry is called `recommenderRegistry`. See examples section. Methods
+`SVD` and `LIBMF` require the suggested packages irlba and recosystem,
+respectively. Install the corresponding package before using either
+method.
 
 ## See also
 

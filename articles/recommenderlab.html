@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">recommenderlab</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.7-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,12 @@ using the package’s bundled MovieLense ratings data.</p>
 session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"recommenderlab"</span><span class="op">)</span></span></code></pre></div>
+<p>The SVD and LIBMF recommenders require the optional packages
+<code>irlba</code> and <code>recosystem</code>, respectively. Install
+them if you plan to use those methods:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"irlba"</span>, <span class="st">"recosystem"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/recommenderlab" class="external-link">recommenderlab</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -89,7 +94,7 @@ one-to-five-star scale. It is stored as a sparse
 missing ratings are not stored as zeros. We select users who rated more
 than 100 movies to give the recommendation algorithms enough information
 to work with.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"MovieLense"</span><span class="op">)</span></span>
 <span><span class="va">MovieLense</span></span>
 <span><span class="co">#&gt; 943 x 1664 rating matrix of class 'realRatingMatrix' with 99392 ratings.</span></span>
@@ -100,7 +105,7 @@ to work with.</p>
 <p>Basic summaries help describe the data before modeling. For example,
 <code><a href="../reference/ratingMatrix-class.html">rowCounts()</a></code> counts ratings per user, and
 <code><a href="../reference/ratingMatrix-class.html">getRatings()</a></code> extracts the observed rating values.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="../reference/ratingMatrix-class.html">rowCounts</a></span><span class="op">(</span><span class="va">MovieLense100</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">#&gt;   101.0   134.0   180.5   205.6   251.0   735.0</span></span>
@@ -117,7 +122,7 @@ first 300 selected users. <code><a href="../reference/predict.html">predict()</a
 top-five list for two other users. The default output is a
 <code>topNList</code>; coerce it to a list to see the recommended movie
 titles.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">train</span> <span class="op">&lt;-</span> <span class="va">MovieLense100</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">300</span>, <span class="op">]</span></span>
 <span><span class="va">rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Recommender.html">Recommender</a></span><span class="op">(</span><span class="va">train</span>, method <span class="op">=</span> <span class="st">"UBCF"</span><span class="op">)</span></span>
 <span><span class="va">rec</span></span>
@@ -140,7 +145,7 @@ titles.</p>
 <p>The package also supports predicted ratings. Request
 <code>type = "ratings"</code> when the numeric estimates are more useful
 than a ranked list.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">predicted_ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span></span>
 <span>  <span class="va">rec</span>,</span>
 <span>  <span class="va">MovieLense100</span><span class="op">[</span><span class="fl">301</span><span class="op">:</span><span class="fl">302</span>, <span class="op">]</span>,</span>
@@ -163,7 +168,7 @@ per user and uses the remaining ratings as known input. Here, ratings of
 four stars or higher count as positive feedback.
 <code><a href="../reference/evaluationScheme.html">evaluationScheme()</a></code> supports train/test splits,
 cross-validation, and bootstrap evaluation.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">evaluation_data</span> <span class="op">&lt;-</span> <span class="va">MovieLense100</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, <span class="op">]</span></span>
 <span><span class="va">scheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluationScheme.html">evaluationScheme</a></span><span class="op">(</span></span>
 <span>  <span class="va">evaluation_data</span>,</span>
@@ -182,7 +187,7 @@ cross-validation, and bootstrap evaluation.</p>
 top-N recommendations, and calculates measures from the withheld
 ratings. The resulting true-positive and false-positive rates can be
 plotted to compare recommendation list lengths.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">algorithms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  `popular items` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"POPULAR"</span>, param <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
 <span>  `random items` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"RANDOM"</span>, param <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -257,7 +262,7 @@ plotted to compare recommendation list lengths.</p>
 <span><span class="co">#&gt; [4,] 0.0065763470 10</span></span></code></pre></div>
 <p>Plot the average true-positive rate against the false-positive rate
 for each recommendation list length:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">results</span>, annotate <span class="op">=</span> <span class="cn">TRUE</span>, legend <span class="op">=</span> <span class="st">"topleft"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="recommenderlab_files/figure-html/plot-results-1.png" class="r-plt" alt="" width="672"></p>
 <p>For predicted ratings, <code><a href="../reference/evaluate.html">evaluate()</a></code> can instead report

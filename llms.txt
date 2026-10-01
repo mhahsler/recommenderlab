@@ -41,6 +41,14 @@ The following R packages use `recommenderlab`:
 - Re-recommend liked items (**RERECOMMEND**)
 - Hybrid recommendations (**HybridRecommender**)
 
+The **SVD** and **LIBMF** methods use the optional packages `irlba` and
+`recosystem`, respectively. Install them before using those methods:
+
+``` r
+
+install.packages(c("irlba", "recosystem"))
+```
+
 ### Recommender Evaluation
 
 The framework supports given-n and all-but-x protocols with
