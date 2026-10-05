@@ -2,6 +2,8 @@
 
 ## Changes in version 1.1.0 (2026-10-30)
 
+CRAN release: 2026-10-05
+
 - Made `irlba` and `recosystem` optional dependencies. SVD and LIBMF now
   give an installation hint when their required package is missing.
 - Fixed mailto in vignette.

@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/mhahsler/recommenderlab/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/mhahsler/recommenderlab/blob/recommenderlab_1.1.0/inst/CITATION)
 
 Hahsler M (2026). *recommenderlab: Lab for Developing and Testing
 Recommender Algorithms*. R package version 1.1.0,
