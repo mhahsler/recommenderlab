@@ -50,7 +50,7 @@ significant commercial value for online retailers and many other industries.
 Recommender systems has a significant research
 community and studying such systems is part of most modern data science
 curricula. While there is an abundance of software that implements recommendation algorithms, there is little in terms of supporting recommender system research and education. This paper describes the open-source software~\pkg{recommenderlab} which was created with supporting research and education in mind.
-The package can be directly installed in R or downloaded from
+The package can be directly installed in R and is also available at
 \url{https://github.com/mhahsler/recommenderlab}.}
 
 \Keywords{recommender systems, collaborative filtering, evaluation}
@@ -64,7 +64,7 @@ The package can be directly installed in R or downloaded from
 	P.O. Box 750122 \\
 	Dallas, TX 75275-0122\\
 	E-mail: \email{mhahsler@lyle.smu.edu}\\
-	URL: \url{michael.hahsler.net}
+	URL: \url{https://michael.hahsler.net}
 }
 
 
